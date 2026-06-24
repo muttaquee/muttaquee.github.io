@@ -483,11 +483,13 @@ body::before {
 /* nav links raise into soft pills on hover */
 .nav-links a { padding: 8px 16px; border-radius: 999px; transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s; }
 .nav-links a:hover {
-  color: var(--text);
+  color: var(--lav);
   transform: translateY(-1px);
-  background: linear-gradient(180deg, #ffffff 0%, #eef0f4 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #e9ecf1 100%);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.95),
-    inset 0 -2px 3px rgba(24, 34, 46, 0.05),
-    0 2px 6px rgba(24, 34, 46, 0.14);
+    inset 0 1.5px 1px rgba(255, 255, 255, 1),
+    inset 0 -2px 3px rgba(24, 34, 46, 0.06),
+    inset 0 0 0 1px rgba(40, 70, 85, 0.08),
+    0 4px 10px rgba(24, 34, 46, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.9);
 }
