@@ -34,25 +34,28 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   position: fixed;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.42;
+  opacity: 0.5;
   z-index: -1;
   pointer-events: none;
   will-change: transform;
+  /* CSS transition = the water-like trailing lag as the cursor moves */
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 /* each blob drifts toward the cursor at a different depth/direction = liquid wave */
 .blob-1 { width: 420px; height: 420px; background: var(--lav); top: -120px; right: -80px;
-  transform: translate(calc(var(--bx, 0) * 0.9px), calc(var(--by, 0) * 0.9px)); }
+  transform: translate(calc(var(--bx, 0) * 2.4px), calc(var(--by, 0) * 2.4px)); }
 .blob-2 { width: 380px; height: 380px; background: var(--peach); top: 40%; left: -140px;
-  transform: translate(calc(var(--bx, 0) * -1.2px), calc(var(--by, 0) * 0.7px)); }
+  transform: translate(calc(var(--bx, 0) * -3px), calc(var(--by, 0) * 1.8px)); }
 .blob-3 { width: 340px; height: 340px; background: var(--mint); bottom: -120px; right: 10%;
-  transform: translate(calc(var(--bx, 0) * 0.6px), calc(var(--by, 0) * -1px)); }
+  transform: translate(calc(var(--bx, 0) * 1.6px), calc(var(--by, 0) * -2.6px)); }
 
-/* soft light that trails the cursor across the whole page (liquid sheen) */
+/* soft light that follows the cursor across the whole page (liquid sheen) */
 body::after {
   content: "";
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(460px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
-    rgba(21, 113, 107, 0.18), rgba(176, 106, 53, 0.10) 38%, transparent 68%);
+  background: radial-gradient(520px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(21, 113, 107, 0.28), rgba(176, 106, 53, 0.16) 36%, transparent 66%);
+  transition: background 0.25s ease-out;
 }
 
 /* NAV */

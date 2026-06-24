@@ -33,25 +33,18 @@ glareEls.forEach((el) => {
   });
 });
 
-// ---- Liquid background: light + blobs trail the cursor with easing ----
+// ---- Liquid background: light + blobs follow the cursor ----
+// (updated directly on pointermove; CSS transitions create the water-like lag)
 (function liquidBg() {
   const root = document.documentElement.style;
-  let tx = 50, ty = 50;      // target (cursor) in %
-  let cx = 50, cy = 50;      // eased current in %
-  window.addEventListener("pointermove", (e) => {
-    tx = (e.clientX / window.innerWidth) * 100;
-    ty = (e.clientY / window.innerHeight) * 100;
-  });
-  function frame() {
-    // ease toward target → trailing, water-like lag
-    cx += (tx - cx) * 0.06;
-    cy += (ty - cy) * 0.06;
-    root.setProperty("--cursor-x", cx + "%");
-    root.setProperty("--cursor-y", cy + "%");
-    // offset from center drives blob drift (unitless, multiplied in CSS)
-    root.setProperty("--bx", (cx - 50).toFixed(2));
-    root.setProperty("--by", (cy - 50).toFixed(2));
-    requestAnimationFrame(frame);
-  }
-  frame();
+  const update = (x, y) => {
+    const px = x / window.innerWidth;   // 0..1
+    const py = y / window.innerHeight;  // 0..1
+    root.setProperty("--cursor-x", (px * 100).toFixed(1) + "%");
+    root.setProperty("--cursor-y", (py * 100).toFixed(1) + "%");
+    root.setProperty("--bx", ((px - 0.5) * 100).toFixed(1)); // -50..50
+    root.setProperty("--by", ((py - 0.5) * 100).toFixed(1));
+  };
+  window.addEventListener("pointermove", (e) => update(e.clientX, e.clientY));
+  window.addEventListener("mousemove", (e) => update(e.clientX, e.clientY));
 })();
