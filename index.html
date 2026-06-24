@@ -5,17 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Muttaquee — AI-Driven MetaHumans for Immersive Brand Engagement</title>
   <meta name="description" content="PhD researcher in AI, VR and HCI. Building AI-driven MetaHumans to increase immersive brand engagement." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- load fonts async so they don't block first paint (page shows fallback, swaps in) -->
-  <link rel="stylesheet" media="print" onload="this.media='all'"
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" />
-  <noscript>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" />
-  </noscript>
+  <!-- self-hosted fonts: no third-party round-trip, font-display:swap, latin subset only -->
+  <link rel="stylesheet" href="fonts.css?v=9" />
   <link rel="preload" as="image" href="assets/profile.jpg?v=8" />
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -218,6 +211,6 @@
     <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
   </footer>
 
-  <script src="script.js?v=8" defer></script>
+  <script src="script.js?v=9" defer></script>
 </body>
 </html>
