@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Muttaquee</title>
+  <meta name="description" content="Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="fonts.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=10" />
+</head>
+<body>
+  <!-- water ripple background (canvas simulation) -->
+  <canvas class="ripple-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="index.html" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- BLOG LIST -->
+  <section class="section blog-head">
+    <span class="kicker">Blog</span>
+    <h1 class="section-title">Weekly notes</h1>
+    <p class="lead">Short posts — one a week — on building AI-driven MetaHumans, immersive brand engagement, and the research around it.</p>
+  </section>
+
+  <section class="section blog-list-wrap">
+    <ul id="blog-list" class="blog-list">
+      <li class="blog-loading muted">Loading posts…</li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+  <script defer>
+    (async function renderBlogList() {
+      const el = document.getElementById("blog-list");
+      try {
+        const res = await fetch("posts/index.json?cb=" + Date.now());
+        const posts = await res.json();
+        posts.sort((a, b) => (a.date < b.date ? 1 : -1)); // newest first
+        if (!posts.length) { el.innerHTML = '<li class="muted">No posts yet — check back soon.</li>'; return; }
+        el.innerHTML = posts.map((p) => {
+          const d = new Date(p.date + "T00:00:00");
+          const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+          const tags = (p.tags || []).map((t) => `<span class="blog-tag">${t}</span>`).join("");
+          return `
+            <li class="blog-card">
+              <a href="post.html#${encodeURIComponent(p.slug)}">
+                <div class="blog-card-meta"><time>${date}</time>${tags}</div>
+                <h2 class="blog-card-title">${p.title}</h2>
+                <p class="blog-card-excerpt">${p.excerpt || ""}</p>
+                <span class="blog-readmore">Read →</span>
+              </a>
+            </li>`;
+        }).join("");
+      } catch (e) {
+        el.innerHTML = '<li class="muted">Could not load posts.</li>';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Muttaquee</title>
+  <meta name="description" content="A weekly note by Muttaquee on AI-driven MetaHumans and immersive brand engagement." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="fonts.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=10" />
+</head>
+<body>
+  <!-- water ripple background (canvas simulation) -->
+  <canvas class="ripple-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="index.html" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ARTICLE -->
+  <article class="section post">
+    <a href="blog.html" class="post-back">← All posts</a>
+    <div class="post-meta" id="post-meta"></div>
+    <div class="post-body" id="post-body">
+      <p class="muted">Loading…</p>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
+  </footer>
+
+  <script src="assets/marked.min.js"></script>
+  <script src="script.js?v=9" defer></script>
+  <script>
+    (async function renderPost() {
+      const body = document.getElementById("post-body");
+      const metaEl = document.getElementById("post-meta");
+      const slug = decodeURIComponent(location.hash.slice(1));
+      if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
+        body.innerHTML = '<p class="muted">Post not found. <a href="blog.html">Back to blog</a>.</p>';
+        return;
+      }
+      try {
+        // post meta from the index
+        const idx = await (await fetch("posts/index.json?cb=" + Date.now())).json();
+        const meta = idx.find((p) => p.slug === slug);
+        if (meta) {
+          document.title = meta.title + " — Muttaquee";
+          const d = new Date(meta.date + "T00:00:00");
+          const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+          const tags = (meta.tags || []).map((t) => `<span class="blog-tag">${t}</span>`).join("");
+          metaEl.innerHTML = `<time>${date}</time>${tags}`;
+        }
+        // markdown body
+        const md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
+        body.innerHTML = marked.parse(md);
+      } catch (e) {
+        body.innerHTML = '<p class="muted">Could not load this post. <a href="blog.html">Back to blog</a>.</p>';
+      }
+    })();
+  </script>
+</body>
+</html>
