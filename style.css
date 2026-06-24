@@ -504,3 +504,7 @@ body::before {
     inset 0 0 0 2px rgba(40, 70, 85, 0.09),
     0 16px 36px rgba(24, 34, 46, 0.2) !important;
 }
+
+/* primary CTAs (Get in touch / Say hello) = teal-tinted glass, same style */
+.btn-primary { background: rgba(21, 113, 107, 0.22) !important; color: #0d4f4a !important; }
+.btn-primary:hover { background: rgba(21, 113, 107, 0.32) !important; }
