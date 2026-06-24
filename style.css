@@ -317,3 +317,44 @@ body::before {
 
 /* keep card body text above the gloss/streak layers */
 .card-emoji, .card h3, .card p { position: relative; z-index: 3; }
+
+/* =========================================================
+   GLASS BUBBLE EDGE — replaces flat white borders with a
+   beveled rim: bright top edge + soft shaded bottom = dome
+   ========================================================= */
+.card, .tag-list li, .socials a, .btn-ghost, .nav {
+  border-color: transparent !important;
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.9),    /* light catches top edge */
+    inset 0 -3px 5px rgba(60, 95, 105, 0.14),        /* soft shade at bottom */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),       /* faint glass rim */
+    0 7px 22px rgba(24, 34, 46, 0.12);               /* float shadow */
+}
+
+/* bubble hover: rim brightens, lifts higher */
+.card:hover, .tag-list li:hover, .socials a:hover, .btn-ghost:hover {
+  box-shadow:
+    inset 0 2px 2px rgba(255, 255, 255, 1),
+    inset 0 -4px 7px rgba(60, 95, 105, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+    0 22px 46px rgba(24, 34, 46, 0.2) !important;
+}
+
+/* primary button = glossy domed bubble */
+.btn-primary {
+  border: none;
+  box-shadow:
+    inset 0 2px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    0 9px 24px rgba(21, 113, 107, 0.4) !important;
+}
+.btn-primary:hover {
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.75),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    0 18px 42px rgba(21, 113, 107, 0.55) !important;
+}
+
+/* rounder, brighter top gloss cap on buttons for the bubble read */
+.btn::before { opacity: 0.55; }
+.btn:hover::before { opacity: 1; }
