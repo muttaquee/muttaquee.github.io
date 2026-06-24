@@ -105,10 +105,8 @@ glareEls.forEach((el) => {
   let lastSim = 0;
   function step(ts) {
     requestAnimationFrame(step);
-    if (ts - lastSim < SIM_MS) return;     // cap framerate
+    if (ts - lastSim < SIM_MS) return;     // cap framerate (keeps running so waves settle naturally)
     lastSim = ts;
-    // skip the heavy loop when the water has gone calm (no recent movement)
-    if (performance.now() - lt > 2200) return;
     const s = src.data, o = out.data;
     for (let y = 1; y < H - 1; y++) {
       const row = y * W;
