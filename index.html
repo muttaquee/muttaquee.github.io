@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muttaquee — AI-Driven MetaHumans for Immersive Brand Engagement</title>
+  <meta name="description" content="PhD researcher in AI, VR and HCI. Building AI-driven MetaHumans to increase immersive brand engagement." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- watercolor blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="#top" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">PhD Researcher · AI × VR × HCI</p>
+      <h1>Hi, I'm <span class="accent">Muttaquee</span> —<br />I bring virtual humans to life.</h1>
+      <p class="lead">
+        I research <strong>AI-driven MetaHumans for increasing immersive brand engagement</strong> —
+        where photorealistic virtual humans, real-time AI, and immersive technology meet
+        marketing and human–computer interaction.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="assets/cv.pdf">Download CV</a>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE CONSTELLATION HUB (Baldoni-inspired) -->
+    <div class="hub" aria-label="Explore the site">
+      <svg viewBox="0 0 360 360" class="hub-svg" role="img" aria-label="Interactive navigation">
+        <!-- connecting lines -->
+        <g class="hub-lines">
+          <line x1="180" y1="180" x2="180" y2="64" />
+          <line x1="180" y1="180" x2="296" y2="150" />
+          <line x1="180" y1="180" x2="252" y2="288" />
+          <line x1="180" y1="180" x2="84"  y2="270" />
+          <line x1="180" y1="180" x2="64"  y2="120" />
+        </g>
+
+        <!-- center: avatar -->
+        <a href="#about" class="node node-center">
+          <circle cx="180" cy="180" r="64" />
+          <image href="assets/profile.jpg" x="118" y="118" width="124" height="124"
+                 clip-path="circle(62px at 62px 62px)" preserveAspectRatio="xMidYMid slice" />
+        </a>
+
+        <!-- orbit nodes -->
+        <a href="#about" class="node" data-label="About">
+          <circle cx="180" cy="64" r="30" />
+          <text x="180" y="69">About</text>
+        </a>
+        <a href="#research" class="node" data-label="Research">
+          <circle cx="296" cy="150" r="30" />
+          <text x="296" y="155">Research</text>
+        </a>
+        <a href="#publications" class="node" data-label="Papers">
+          <circle cx="252" cy="288" r="30" />
+          <text x="252" y="293">Papers</text>
+        </a>
+        <a href="#contact" class="node" data-label="Contact">
+          <circle cx="84" cy="270" r="30" />
+          <text x="84" y="275">Contact</text>
+        </a>
+        <a href="assets/cv.pdf" class="node" data-label="CV">
+          <circle cx="64" cy="120" r="30" />
+          <text x="64" y="125">CV</text>
+        </a>
+      </svg>
+      <p class="hub-caption">↑ Tap a node to explore</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <span class="kicker">01 — About</span>
+    <h2 class="section-title">My journey</h2>
+    <div class="about-grid">
+      <div class="about-main">
+        <p>
+          I'm a final-year PhD researcher at <strong>Teesside University</strong>, working where
+          artificial intelligence, virtual reality, and human–computer interaction meet. My thesis
+          explores how <strong>AI-driven MetaHumans</strong> — photorealistic, real-time virtual
+          humans built in Unreal Engine — can deepen immersive brand engagement.
+        </p>
+        <p>
+          I combine real-time character technology, conversational and generative AI, and rigorous
+          user studies to understand how virtual humans shape attention, trust, and emotional
+          response in immersive brand experiences.
+        </p>
+      </div>
+      <aside class="about-side">
+        <h3>What I work with</h3>
+        <ul class="tag-list">
+          <li>AI-driven MetaHumans</li>
+          <li>Immersive brand engagement</li>
+          <li>Virtual reality &amp; XR</li>
+          <li>Human–computer interaction</li>
+          <li>Unreal Engine real-time AI</li>
+          <li>User studies &amp; evaluation</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="section">
+    <span class="kicker">02 — Research</span>
+    <h2 class="section-title">What I'm building</h2>
+    <div class="cards">
+      <article class="card card-lav">
+        <div class="card-emoji">🧑‍🎤</div>
+        <h3>AI-Driven MetaHumans</h3>
+        <p>Real-time, photorealistic virtual humans in Unreal Engine driven by conversational and generative AI for natural, responsive interaction.</p>
+      </article>
+      <article class="card card-peach">
+        <div class="card-emoji">✨</div>
+        <h3>Immersive Brand Engagement</h3>
+        <p>Measuring how virtual humans influence attention, trust, presence, and emotional response in immersive brand and marketing experiences.</p>
+      </article>
+      <article class="card card-mint">
+        <div class="card-emoji">🔬</div>
+        <h3>HCI &amp; User Studies</h3>
+        <p>Designing and running empirical studies to evaluate engagement, usability, and the ethics of AI-driven virtual humans in VR/XR.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="section">
+    <span class="kicker">03 — Publications</span>
+    <h2 class="section-title">Selected papers</h2>
+    <ul class="pub-list">
+      <li class="pub">
+        <div class="pub-year">2026</div>
+        <div class="pub-body">
+          <p class="pub-title">AI-Driven MetaHuman for Immersive VR Property Tours: Design and Early Evaluation</p>
+          <p class="pub-meta">Conference Paper · ACM Proceedings · 2026</p>
+          <div class="pub-links"><a href="https://doi.org/10.1145/3788851.3815040" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="pub-year">2025</div>
+        <div class="pub-body">
+          <p class="pub-title">Exploring the Nexus: A Systematic Literature Review on Meta-Influencers in Immersive Brand Engagement</p>
+          <p class="pub-meta">Journal Article · Metaverse · 2025</p>
+          <div class="pub-links"><a href="https://doi.org/10.54517/m8225" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="pub-year">2026</div>
+        <div class="pub-body">
+          <p class="pub-title">Machine Learning-Based Diabetes Risk Prediction via DiaHealth Dataset with Explainable AI and Streamlit Deployment</p>
+          <p class="pub-meta">Journal Article · Future Internet · 2026</p>
+          <div class="pub-links"><a href="https://doi.org/10.3390/fi18060331" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="pub-year">2025</div>
+        <div class="pub-body">
+          <p class="pub-title">Data-Driven Predictive Modelling of Lifestyle Risk Factors for Cardiovascular Health</p>
+          <p class="pub-meta">Journal Article · Electronics · 2025</p>
+          <div class="pub-links"><a href="https://doi.org/10.3390/electronics14142906" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+      <li class="pub">
+        <div class="pub-year">2023</div>
+        <div class="pub-body">
+          <p class="pub-title">Identifying the Role of Digital Marketing in Changing Consumers' Buying Decision</p>
+          <p class="pub-meta">MSc Dissertation · University of South-Eastern Norway · 2023</p>
+          <div class="pub-links"><a href="https://doi.org/10.13140/RG.2.2.32545.47204" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+    </ul>
+    <p class="muted">Full record on <a href="https://orcid.org/0009-0007-3708-7727" target="_blank" rel="noopener">ORCID</a>.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <span class="kicker">04 — Contact</span>
+    <h2 class="section-title">Let's talk</h2>
+    <p class="lead">Open to academic and research roles. Reach out for collaboration or opportunities.</p>
+    <a class="btn btn-primary big" href="#" data-link="email">Say hello 👋</a>
+    <div class="socials">
+      <a href="#" data-link="email" title="Email">✉️</a>
+      <a href="#" data-link="scholar" title="Google Scholar">🎓</a>
+      <a href="#" data-link="linkedin" title="LinkedIn">in</a>
+      <a href="#" data-link="orcid" title="ORCID">iD</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
