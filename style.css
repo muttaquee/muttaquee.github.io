@@ -15,7 +15,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; overflow-x: hidden; }
 
 body {
   font-family: "Inter", system-ui, sans-serif;
@@ -23,7 +23,6 @@ body {
   color: var(--text);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
   position: relative;
   padding-top: 82px;   /* clear the fixed nav */
 }
