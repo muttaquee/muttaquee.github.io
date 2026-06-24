@@ -32,3 +32,26 @@ glareEls.forEach((el) => {
     el.style.setProperty("--my", y + "%");
   });
 });
+
+// ---- Liquid background: light + blobs trail the cursor with easing ----
+(function liquidBg() {
+  const root = document.documentElement.style;
+  let tx = 50, ty = 50;      // target (cursor) in %
+  let cx = 50, cy = 50;      // eased current in %
+  window.addEventListener("pointermove", (e) => {
+    tx = (e.clientX / window.innerWidth) * 100;
+    ty = (e.clientY / window.innerHeight) * 100;
+  });
+  function frame() {
+    // ease toward target → trailing, water-like lag
+    cx += (tx - cx) * 0.06;
+    cy += (ty - cy) * 0.06;
+    root.setProperty("--cursor-x", cx + "%");
+    root.setProperty("--cursor-y", cy + "%");
+    // offset from center drives blob drift (unitless, multiplied in CSS)
+    root.setProperty("--bx", (cx - 50).toFixed(2));
+    root.setProperty("--by", (cy - 50).toFixed(2));
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
