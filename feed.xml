@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Muttaquee — Blog</title>
+    <link>https://muttaquee.github.io/blog.html</link>
+    <atom:link href="https://muttaquee.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 24 Jun 2026 23:17:39 GMT</lastBuildDate>
+    <item>
+      <title>Welcome — why I'm writing weekly</title>
+      <link>https://muttaquee.github.io/post.html#welcome</link>
+      <guid isPermaLink="false">welcome</guid>
+      <pubDate>Thu, 25 Jun 2026 09:00:00 GMT</pubDate>
+      <category>Intro</category><category>Research</category>
+      <description>Kicking off a weekly note on building AI-driven MetaHumans, what I'm reading, and what's working (and breaking) in immersive brand research.</description>
+    </item>
+  </channel>
+</rss>
