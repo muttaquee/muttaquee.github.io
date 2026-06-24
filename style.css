@@ -245,14 +245,21 @@ body::before {
 }
 .nav { overflow: visible; } /* keep nav links clickable, no clip */
 
-/* glossy top sheen on every glass element */
+/* mouse-tracking glare — a soft light follows the cursor (iOS 26 style) */
 .btn::before, .card::before, .socials a::before, .tag-list li::before {
   content: "";
   position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.06) 42%, rgba(255, 255, 255, 0) 60%);
-  opacity: 0.65; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(circle 130px at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  pointer-events: none; z-index: 1;
   mix-blend-mode: screen;
 }
+.btn:hover::before, .card:hover::before,
+.socials a:hover::before, .tag-list li:hover::before { opacity: 1; }
 
 /* specular light streak that sweeps across on hover */
 .btn::after, .card::after, .socials a::after {

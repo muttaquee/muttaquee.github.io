@@ -20,3 +20,15 @@ document.querySelectorAll("[data-link]").forEach((el) => {
 
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// ---- Mouse-tracking glare on glass surfaces (iOS-style) ----
+const glareEls = document.querySelectorAll(".card, .btn, .socials a, .tag-list li");
+glareEls.forEach((el) => {
+  el.addEventListener("pointermove", (e) => {
+    const r = el.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    el.style.setProperty("--mx", x + "%");
+    el.style.setProperty("--my", y + "%");
+  });
+});
