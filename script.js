@@ -47,4 +47,23 @@ glareEls.forEach((el) => {
   };
   window.addEventListener("pointermove", (e) => update(e.clientX, e.clientY));
   window.addEventListener("mousemove", (e) => update(e.clientX, e.clientY));
+
+  // ripple intensity reacts to cursor speed; eases back to a calm baseline
+  const disp = document.getElementById("liquidDisp");
+  const BASE = 26, MAX = 95;
+  let scale = BASE, lx = null, ly = null, lt = 0;
+  window.addEventListener("mousemove", (e) => {
+    const now = performance.now();
+    if (lx !== null) {
+      const dist = Math.hypot(e.clientX - lx, e.clientY - ly);
+      const dt = Math.max(now - lt, 16);
+      const speed = dist / dt;                 // px per ms
+      scale = Math.min(MAX, BASE + speed * 60);
+    }
+    lx = e.clientX; ly = e.clientY; lt = now;
+  });
+  setInterval(() => {
+    scale += (BASE - scale) * 0.12;            // ease back to calm
+    if (disp) disp.setAttribute("scale", scale.toFixed(1));
+  }, 33);
 })();
