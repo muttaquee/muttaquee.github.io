@@ -54,6 +54,7 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   border-radius: 999px;
   box-shadow: 0 8px 30px rgba(24, 34, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
+.brand, .nav-links { position: relative; z-index: 3; }
 .brand { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
 .dot { color: var(--lav); }
 .nav-links { display: flex; gap: 26px; font-size: 0.95rem; font-weight: 500; }
@@ -101,10 +102,21 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
 .hub-svg { width: 100%; max-width: 380px; overflow: visible; }
 .hub-lines line { stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 6; }
 
-.node { cursor: pointer; }
+.node { cursor: pointer; transform-box: fill-box; transform-origin: center; }
+
+/* gentle floating bob (staggered so they drift independently) */
+.node:not(.node-center) { animation: floatY 4.5s ease-in-out infinite; }
+.node:nth-of-type(2) { animation-delay: 0s; }
+.node:nth-of-type(3) { animation-delay: 0.9s; }
+.node:nth-of-type(4) { animation-delay: 1.8s; }
+.node:nth-of-type(5) { animation-delay: 2.7s; }
+.node:nth-of-type(6) { animation-delay: 3.6s; }
+.node:hover { animation-play-state: paused; }
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
 .node circle {
   fill: rgba(255, 255, 255, 0.55); stroke: rgba(255, 255, 255, 0.85); stroke-width: 1.5;
-  transition: transform 0.25s ease, fill 0.25s, stroke 0.25s;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.3s, stroke 0.3s, filter 0.3s;
   transform-box: fill-box; transform-origin: center;
   filter: drop-shadow(0 8px 18px rgba(24, 34, 46, 0.18));
 }
@@ -112,10 +124,15 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   fill: var(--text); font-family: "Inter", sans-serif; font-size: 13px;
   font-weight: 600; text-anchor: middle; pointer-events: none;
 }
-.node:hover circle { transform: scale(1.14); fill: var(--lav-soft); stroke: var(--peach); }
-.node:nth-of-type(3):hover circle { fill: var(--peach-soft); }
-.node:nth-of-type(4):hover circle { fill: var(--mint-soft); }
+/* glassy sphere shine + teal glow on hover */
+.node:hover circle {
+  transform: scale(1.18);
+  fill: url(#nodeShine);
+  stroke: var(--lav);
+  filter: drop-shadow(0 12px 24px rgba(21, 113, 107, 0.38));
+}
 
+.node-center { animation: floatY 6.5s ease-in-out infinite; }
 .node-center circle { stroke: var(--peach); stroke-width: 3; animation: pulse 3s ease-in-out infinite; }
 .node-center .node-initial {
   fill: var(--lav); font-family: "Fraunces", serif; font-size: 38px;
@@ -243,10 +260,8 @@ body::before {
               box-shadow 0.4s ease, background 0.3s ease,
               backdrop-filter 0.4s ease;
 }
-.nav { overflow: visible; } /* keep nav links clickable, no clip */
-
 /* mouse-tracking glare — a soft light follows the cursor (iOS 26 style) */
-.btn::before, .card::before, .socials a::before, .tag-list li::before {
+.btn::before, .card::before, .socials a::before, .tag-list li::before, .nav::before {
   content: "";
   position: absolute; inset: 0; border-radius: inherit;
   background:
@@ -259,10 +274,10 @@ body::before {
   mix-blend-mode: screen;
 }
 .btn:hover::before, .card:hover::before,
-.socials a:hover::before, .tag-list li:hover::before { opacity: 1; }
+.socials a:hover::before, .tag-list li:hover::before, .nav:hover::before { opacity: 1; }
 
 /* specular light streak that sweeps across on hover */
-.btn::after, .card::after, .socials a::after {
+.btn::after, .card::after, .socials a::after, .nav::after {
   content: "";
   position: absolute; top: -20%; left: -75%;
   width: 50%; height: 140%;
@@ -271,7 +286,7 @@ body::before {
   transition: left 0.65s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none; z-index: 2;
 }
-.btn:hover::after, .card:hover::after, .socials a:hover::after { left: 130%; }
+.btn:hover::after, .card:hover::after, .socials a:hover::after, .nav:hover::after { left: 130%; }
 
 /* stronger frost + lift on hover = liquid feel */
 .btn:hover, .socials a:hover, .tag-list li:hover {

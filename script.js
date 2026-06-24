@@ -22,7 +22,7 @@ document.querySelectorAll("[data-link]").forEach((el) => {
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // ---- Mouse-tracking glare on glass surfaces (iOS-style) ----
-const glareEls = document.querySelectorAll(".card, .btn, .socials a, .tag-list li");
+const glareEls = document.querySelectorAll(".card, .btn, .socials a, .tag-list li, .nav");
 glareEls.forEach((el) => {
   el.addEventListener("pointermove", (e) => {
     const r = el.getBoundingClientRect();
