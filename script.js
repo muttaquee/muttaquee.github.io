@@ -38,7 +38,8 @@ glareEls.forEach((el) => {
   const canvas = document.querySelector(".ripple-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  const SCALE = 0.4;            // sim resolution vs viewport (perf)
+  const SCALE = 0.32;          // sim resolution vs viewport (perf)
+  const SIM_MS = 33;           // cap sim at ~30fps to free the main thread
   const DAMP = 0.945;           // wave energy decay
   let W, H, prev, curr, src, out;
 
@@ -101,7 +102,13 @@ glareEls.forEach((el) => {
     lx = e.clientX; ly = e.clientY; lt = now;
   });
 
-  function step() {
+  let lastSim = 0;
+  function step(ts) {
+    requestAnimationFrame(step);
+    if (ts - lastSim < SIM_MS) return;     // cap framerate
+    lastSim = ts;
+    // skip the heavy loop when the water has gone calm (no recent movement)
+    if (performance.now() - lt > 2200) return;
     const s = src.data, o = out.data;
     for (let y = 1; y < H - 1; y++) {
       const row = y * W;
@@ -122,13 +129,12 @@ glareEls.forEach((el) => {
     }
     const tmp = prev; prev = curr; curr = tmp;
     ctx.putImageData(out, 0, 0);
-    requestAnimationFrame(step);
   }
 
   function start() {
     resize();
     window.addEventListener("resize", resize);
-    step();
+    requestAnimationFrame(step);
   }
   // start after first paint / idle so it never blocks initial render
   if ("requestIdleCallback" in window) {
