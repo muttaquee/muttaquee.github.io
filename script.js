@@ -33,37 +33,100 @@ glareEls.forEach((el) => {
   });
 });
 
-// ---- Liquid background: light + blobs follow the cursor ----
-// (updated directly on pointermove; CSS transitions create the water-like lag)
-(function liquidBg() {
-  const root = document.documentElement.style;
-  const update = (x, y) => {
-    const px = x / window.innerWidth;   // 0..1
-    const py = y / window.innerHeight;  // 0..1
-    root.setProperty("--cursor-x", (px * 100).toFixed(1) + "%");
-    root.setProperty("--cursor-y", (py * 100).toFixed(1) + "%");
-    root.setProperty("--bx", ((px - 0.5) * 100).toFixed(1)); // -50..50
-    root.setProperty("--by", ((py - 0.5) * 100).toFixed(1));
-  };
-  window.addEventListener("pointermove", (e) => update(e.clientX, e.clientY));
-  window.addEventListener("mousemove", (e) => update(e.clientX, e.clientY));
+// ---- Water ripple background (classic height-field simulation) ----
+(function waterRipple() {
+  const canvas = document.querySelector(".ripple-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  const SCALE = 0.4;            // sim resolution vs viewport (perf)
+  const DAMP = 0.945;           // wave energy decay
+  let W, H, prev, curr, src, out;
 
-  // ripple intensity reacts to cursor speed; eases back to a calm baseline
-  const disp = document.getElementById("liquidDisp");
-  const BASE = 26, MAX = 95;
-  let scale = BASE, lx = null, ly = null, lt = 0;
+  function buildSource() {
+    // colored "water" image the ripples will distort (site palette)
+    ctx.fillStyle = "#eef1f4";
+    ctx.fillRect(0, 0, W, H);
+    const blobs = [
+      ["rgba(21,113,107,0.60)", 0.18, 0.22],
+      ["rgba(176,106,53,0.52)", 0.84, 0.16],
+      ["rgba(58,98,133,0.55)", 0.72, 0.86],
+      ["rgba(21,113,107,0.42)", 0.20, 0.90],
+    ];
+    for (const [c, gx, gy] of blobs) {
+      const g = ctx.createRadialGradient(gx * W, gy * H, 0, gx * W, gy * H, Math.max(W, H) * 0.55);
+      g.addColorStop(0, c);
+      g.addColorStop(1, "rgba(238,241,244,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
+    src = ctx.getImageData(0, 0, W, H);
+    out = ctx.createImageData(W, H);
+    out.data.set(src.data);     // edges stay = source
+  }
+
+  const vw = () => Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0, 320);
+  const vh = () => Math.max(window.innerHeight || 0, document.documentElement.clientHeight || 0, 480);
+  function resize() {
+    W = Math.max(60, Math.floor(vw() * SCALE));
+    H = Math.max(60, Math.floor(vh() * SCALE));
+    canvas.width = W;
+    canvas.height = H;
+    prev = new Float32Array(W * H);
+    curr = new Float32Array(W * H);
+    buildSource();
+  }
+
+  function drop(clientX, clientY, power) {
+    const ix = Math.floor(clientX * SCALE);
+    const iy = Math.floor(clientY * SCALE);
+    const r = 2;
+    for (let dy = -r; dy <= r; dy++) {
+      for (let dx = -r; dx <= r; dx++) {
+        const px = ix + dx, py = iy + dy;
+        if (px > 0 && px < W - 1 && py > 0 && py < H - 1) prev[py * W + px] += power;
+      }
+    }
+  }
+
+  // cursor leaves a trail of ripples; faster = stronger
+  let lx = null, ly = null, lt = 0;
   window.addEventListener("mousemove", (e) => {
     const now = performance.now();
+    let power = 220;
     if (lx !== null) {
-      const dist = Math.hypot(e.clientX - lx, e.clientY - ly);
-      const dt = Math.max(now - lt, 16);
-      const speed = dist / dt;                 // px per ms
-      scale = Math.min(MAX, BASE + speed * 60);
+      const speed = Math.hypot(e.clientX - lx, e.clientY - ly) / Math.max(now - lt, 16);
+      power = Math.min(520, 160 + speed * 120);
     }
+    drop(e.clientX, e.clientY, power);
     lx = e.clientX; ly = e.clientY; lt = now;
   });
-  setInterval(() => {
-    scale += (BASE - scale) * 0.12;            // ease back to calm
-    if (disp) disp.setAttribute("scale", scale.toFixed(1));
-  }, 33);
+
+  function step() {
+    const s = src.data, o = out.data;
+    for (let y = 1; y < H - 1; y++) {
+      const row = y * W;
+      for (let x = 1; x < W - 1; x++) {
+        const i = row + x;
+        let v = (prev[i - 1] + prev[i + 1] + prev[i - W] + prev[i + W]) * 0.5 - curr[i];
+        v *= DAMP;
+        curr[i] = v;
+        // refraction: displace source sample by local wave gradient
+        const dx = (prev[i - 1] - prev[i + 1]) | 0;
+        const dy = (prev[i - W] - prev[i + W]) | 0;
+        let sx = x + dx, sy = y + dy;
+        if (sx < 0) sx = 0; else if (sx >= W) sx = W - 1;
+        if (sy < 0) sy = 0; else if (sy >= H) sy = H - 1;
+        const si = (sy * W + sx) * 4, di = i * 4;
+        o[di] = s[si]; o[di + 1] = s[si + 1]; o[di + 2] = s[si + 2]; o[di + 3] = 255;
+      }
+    }
+    const tmp = prev; prev = curr; curr = tmp;
+    ctx.putImageData(out, 0, 0);
+    requestAnimationFrame(step);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+  window.addEventListener("load", resize);   // re-measure once layout is final
+  step();
 })();
