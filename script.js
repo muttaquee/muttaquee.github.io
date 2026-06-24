@@ -125,8 +125,15 @@ glareEls.forEach((el) => {
     requestAnimationFrame(step);
   }
 
-  resize();
-  window.addEventListener("resize", resize);
-  window.addEventListener("load", resize);   // re-measure once layout is final
-  step();
+  function start() {
+    resize();
+    window.addEventListener("resize", resize);
+    step();
+  }
+  // start after first paint / idle so it never blocks initial render
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(start, { timeout: 600 });
+  } else {
+    setTimeout(start, 200);
+  }
 })();
