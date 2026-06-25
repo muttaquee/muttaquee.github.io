@@ -617,6 +617,9 @@ body::before {
 /* expand-to-read animation (glass drops open) */
 .blog-expand-inner { overflow: hidden; max-height: 0; transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .blog-card.open .blog-expand-inner { max-height: 12000px; }   /* reveal full post (covers long posts) */
+/* top "Read" hides once open; "Collapse" sits at the bottom after the post */
+.blog-card.open .blog-card-pad > .blog-readmore { display: none; }
+.blog-collapse { margin-top: 22px; }
 .blog-expand-content {
   margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line);
   opacity: 0; transition: opacity 0.4s ease 0.1s;

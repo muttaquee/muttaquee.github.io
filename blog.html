@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=27" />
+  <link rel="stylesheet" href="style.css?v=28" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -79,7 +79,10 @@
                 <h2 class="blog-card-title">${p.title}</h2>
                 <p class="blog-card-excerpt">${p.excerpt || ""}</p>
                 <button class="blog-readmore" type="button" aria-expanded="false">Read →</button>
-                <div class="blog-expand-inner"><div class="blog-expand-content post-body" data-loaded="0"></div></div>
+                <div class="blog-expand-inner">
+                  <div class="blog-expand-content post-body" data-loaded="0"></div>
+                  <button class="blog-readmore blog-collapse" type="button">Collapse ↑</button>
+                </div>
               </div>
             </li>`;
         }).join("");
@@ -89,11 +92,11 @@
     })();
 
     // expand-to-read: clicking "Read" drops the glass card open with the full post
-    document.getElementById("blog-list").addEventListener("click", async (e) => {
+    document.getElementById("blog-list").addEventListener("click", (e) => {
       const btn = e.target.closest(".blog-readmore");
       if (!btn) return;
       const card = btn.closest(".blog-card");
-      const inner = card.querySelector(".blog-expand-inner");
+      const topBtn = card.querySelector(".blog-card-pad > .blog-readmore");
       const content = card.querySelector(".blog-expand-content");
 
       if (!card.classList.contains("open")) {
@@ -105,13 +108,11 @@
             : '<p class="muted">Could not load this post.</p>';
           content.dataset.loaded = "1";
         }
-        card.classList.add("open");   // CSS reveals the full body (max-height handled in stylesheet)
-        btn.textContent = "Close ↑";
-        btn.setAttribute("aria-expanded", "true");
+        card.classList.add("open");   // top "Read" hides; full body + bottom "Collapse" reveal
+        topBtn.setAttribute("aria-expanded", "true");
       } else {
         card.classList.remove("open");
-        btn.textContent = "Read →";
-        btn.setAttribute("aria-expanded", "false");
+        topBtn.setAttribute("aria-expanded", "false");
         card.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });
