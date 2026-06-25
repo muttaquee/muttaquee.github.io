@@ -7,7 +7,7 @@
   <meta name="description" content="A weekly note by Muttaquee on AI-driven MetaHumans and immersive brand engagement." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=26" />
+  <link rel="stylesheet" href="style.css?v=27" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -62,9 +62,8 @@
           metaEl.innerHTML = `<time>${date}</time>${tags}`;
           titleHtml = `<h1>${meta.title}</h1>`;
         }
-        // markdown body (strip frontmatter, render title from meta)
-        let md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
-        md = md.replace(/^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n?/, "");
+        // body comes from the index (embedded; avoids the Jekyll .md 404)
+        const md = (meta && meta.body) || "";
         body.innerHTML = titleHtml + marked.parse(md);
       } catch (e) {
         body.innerHTML = '<p class="muted">Could not load this post. <a href="blog.html">Back to blog</a>.</p>';

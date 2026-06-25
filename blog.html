@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=26" />
+  <link rel="stylesheet" href="style.css?v=27" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -59,12 +59,14 @@
   <script src="assets/marked.min.js"></script>
   <script src="script.js?v=14" defer></script>
   <script>
+    let POSTS = [];
     (async function renderBlogList() {
       const el = document.getElementById("blog-list");
       try {
         const res = await fetch("posts/index.json?cb=" + Date.now());
         const posts = await res.json();
         posts.sort((a, b) => (a.date < b.date ? 1 : -1)); // newest first
+        POSTS = posts;
         if (!posts.length) { el.innerHTML = '<li class="muted">No posts yet — check back soon.</li>'; return; }
         el.innerHTML = posts.map((p) => {
           const d = new Date(p.date + "T00:00:00");
@@ -96,16 +98,12 @@
 
       if (!card.classList.contains("open")) {
         if (content.dataset.loaded === "0") {
-          btn.textContent = "Loading…";
-          try {
-            const slug = decodeURIComponent(card.dataset.slug);
-            let md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
-            md = md.replace(/^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n?/, ""); // strip frontmatter
-            content.innerHTML = marked.parse(md);
-            content.dataset.loaded = "1";
-          } catch (err) {
-            content.innerHTML = '<p class="muted">Could not load this post.</p>';
-          }
+          const slug = decodeURIComponent(card.dataset.slug);
+          const post = POSTS.find((p) => p.slug === slug);
+          content.innerHTML = post && post.body
+            ? marked.parse(post.body)
+            : '<p class="muted">Could not load this post.</p>';
+          content.dataset.loaded = "1";
         }
         card.classList.add("open");   // CSS reveals the full body (max-height handled in stylesheet)
         btn.textContent = "Close ↑";
