@@ -539,6 +539,18 @@ body::before {
 .sub-rss { margin: 18px 0 26px; font-size: 0.95rem; }
 .sub-rss a { color: var(--lav); font-weight: 600; }
 
+/* inline email signup card (on the blog page) */
+.sub-inline {
+  margin-top: 22px; max-width: 520px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-radius: 20px; padding: 22px 24px;
+  box-shadow: inset 0 2px 1px rgba(255,255,255,0.9), inset 0 0 0 1.5px rgba(255,255,255,0.5), 0 8px 24px rgba(24,34,46,0.1);
+}
+.sub-inline-label { font-weight: 600; font-size: 1rem; margin-bottom: 14px; color: var(--text); }
+.sub-inline .sub-rss { margin: 14px 0 0; font-size: 0.88rem; }
+
 /* ---- restyle the embedded MailerLite form to match the glass design ---- */
 .ml-embedded { width: 100%; }
 .ml-form-embedContainer, .ml-form-embedWrapper, .ml-form-embedWrapper.ml-form-embedDefault {
