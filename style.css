@@ -657,8 +657,6 @@ body::before {
    FLAT CREAM THEME — single #fdfbd4 background, solid
    white-cream boxes (overrides the glass/ripple look)
    ========================================================= */
-.ripple-canvas { display: none !important; }   /* flat background, no ripple */
-
 /* solid white-cream boxes everywhere */
 .nav, .card, .blog-card, .sub-card, .sub-inline,
 .btn-ghost, .pub-links a, .socials a, .tag-list li {
