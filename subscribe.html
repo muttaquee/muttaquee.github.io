@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscribe — Muttaquee</title>
+  <meta name="description" content="Subscribe to Muttaquee's weekly blog via RSS." />
+  <link rel="alternate" type="application/rss+xml" title="Muttaquee — Blog" href="feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="fonts.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=12" />
+</head>
+<body>
+  <canvas class="ripple-canvas" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a href="index.html" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="section subscribe">
+    <span class="kicker">Subscribe</span>
+    <h1 class="section-title">Get every weekly post</h1>
+    <p class="lead">This blog has an <strong>RSS feed</strong> — the simplest way to follow along. Add the feed URL below to any reader and new posts arrive automatically. No account, no email, no algorithm.</p>
+
+    <div class="sub-card">
+      <label class="sub-label">Feed URL</label>
+      <div class="sub-url-row">
+        <input id="feedUrl" class="sub-url" readonly value="https://muttaquee.github.io/feed.xml" />
+        <button id="copyBtn" class="btn btn-primary" type="button">Copy</button>
+      </div>
+      <div class="sub-actions">
+        <a class="btn btn-ghost" href="https://feedly.com/i/subscription/feed/https%3A%2F%2Fmuttaquee.github.io%2Ffeed.xml" target="_blank" rel="noopener">Open in Feedly</a>
+        <a class="btn btn-ghost" href="feed.xml">View raw feed</a>
+      </div>
+    </div>
+
+    <div class="sub-help">
+      <h3>New to RSS?</h3>
+      <p>An RSS reader collects posts from sites you follow into one place. Popular free ones: <strong>Feedly</strong>, <strong>Inoreader</strong>, <strong>NetNewsWire</strong> (Mac/iOS). Install one, paste the feed URL above, done.</p>
+    </div>
+
+    <a class="post-back" href="blog.html">← Back to the blog</a>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+  <script>
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("copyBtn");
+      const url = document.getElementById("feedUrl").value;
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch (e) {
+        const i = document.getElementById("feedUrl");
+        i.select(); document.execCommand("copy");
+      }
+      const old = btn.textContent;
+      btn.textContent = "Copied ✓";
+      setTimeout(() => (btn.textContent = old), 1600);
+    });
+  </script>
+</body>
+</html>
