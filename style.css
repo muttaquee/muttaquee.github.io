@@ -1,6 +1,6 @@
 :root {
-  --bg: #f6f8fa;
-  --card: #ffffff;
+  --bg: #fdfbd4;       /* flat cream — the only background color */
+  --card: #fffdf3;     /* white-cream boxes */
   --text: #20242a;
   --muted: #5f6b76;
   --lav: #f1592b;        /* orange (primary accent) */
@@ -652,3 +652,35 @@ body::before {
 .post-body pre code { background: none; padding: 0; color: inherit; }
 .post-body img { max-width: 100%; height: auto; border-radius: 16px; margin: 10px 0 18px; }
 .post-body hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+
+/* =========================================================
+   FLAT CREAM THEME — single #fdfbd4 background, solid
+   white-cream boxes (overrides the glass/ripple look)
+   ========================================================= */
+.ripple-canvas { display: none !important; }   /* flat background, no ripple */
+
+/* solid white-cream boxes everywhere */
+.nav, .card, .blog-card, .sub-card, .sub-inline,
+.btn-ghost, .pub-links a, .socials a, .tag-list li {
+  background: var(--card) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.btn-ghost:hover, .pub-links a:hover, .socials a:hover,
+.tag-list li:hover, .card:hover, .blog-card:hover {
+  background: #fffef0 !important;
+}
+
+/* primary CTA = solid orange (like the reference button) */
+.btn-primary {
+  background: var(--lav) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.btn-primary:hover { background: #e8521f !important; }
+
+/* hub nodes = solid white-cream discs */
+.node circle { fill: #fffdf3 !important; }
+.ml-embedded button.primary { background: var(--lav) !important; }
