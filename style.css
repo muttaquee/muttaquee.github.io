@@ -615,7 +615,8 @@ body::before {
 .blog-loading { padding: 20px 0; }
 
 /* expand-to-read animation (glass drops open) */
-.blog-expand-inner { overflow: hidden; max-height: 0; transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+.blog-expand-inner { overflow: hidden; max-height: 0; transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.blog-card.open .blog-expand-inner { max-height: 12000px; }   /* reveal full post (covers long posts) */
 .blog-expand-content {
   margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line);
   opacity: 0; transition: opacity 0.4s ease 0.1s;

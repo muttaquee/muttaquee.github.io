@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=25" />
+  <link rel="stylesheet" href="style.css?v=26" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -107,22 +107,14 @@
             content.innerHTML = '<p class="muted">Could not load this post.</p>';
           }
         }
-        card.classList.add("open");
+        card.classList.add("open");   // CSS reveals the full body (max-height handled in stylesheet)
         btn.textContent = "Close ↑";
         btn.setAttribute("aria-expanded", "true");
-        // animate to the measured full height, then release to auto so it can reflow
-        inner.style.maxHeight = inner.scrollHeight + "px";
-        inner.addEventListener("transitionend", function done() {
-          if (card.classList.contains("open")) inner.style.maxHeight = "none";
-          inner.removeEventListener("transitionend", done);
-        });
       } else {
-        // set an explicit height first so the collapse can animate from it
-        inner.style.maxHeight = inner.scrollHeight + "px";
-        requestAnimationFrame(() => { inner.style.maxHeight = "0px"; });
         card.classList.remove("open");
         btn.textContent = "Read →";
         btn.setAttribute("aria-expanded", "false");
+        card.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });
   </script>
