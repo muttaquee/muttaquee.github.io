@@ -41,7 +41,20 @@ function parseFrontmatter(raw) {
       } else if (val.startsWith("[") && val.endsWith("]")) {
         data[key] = val.slice(1, -1).split(",").map((s) => s.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
       } else {
+        // gather YAML folded continuation lines (indented, not a new key or list item)
+        let j = i + 1;
+        while (
+          j < lines.length &&
+          /^\s+\S/.test(lines[j]) &&
+          !/^\s*-\s+/.test(lines[j]) &&
+          !/^[A-Za-z0-9_]+:\s/.test(lines[j].trim())
+        ) {
+          val += " " + lines[j].trim();
+          j++;
+        }
         data[key] = val.replace(/^["']|["']$/g, "");
+        i = j;
+        continue;
       }
     }
     i++;
