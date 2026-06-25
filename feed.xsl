@@ -12,11 +12,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><xsl:value-of select="rss/channel/title" /></title>
         <style>
-          :root { --bg:#eef1f4; --card:#fff; --text:#18222e; --muted:#56616f; --teal:#15716b; --line:#dde2e8; }
+          :root { --bg:#eef1f4; --card:#fff; --text:#18222e; --muted:#56616f; --teal:#f1592b; --line:#dde2e8; }
           * { box-sizing:border-box; margin:0; padding:0; }
           body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding:40px 20px; }
           .wrap { max-width:720px; margin:0 auto; }
-          .banner { background:rgba(21,113,107,0.08); border:1px solid rgba(21,113,107,0.2); border-radius:16px; padding:20px 24px; margin-bottom:32px; }
+          .banner { background:rgba(241,89,43,0.08); border:1px solid rgba(241,89,43,0.2); border-radius:16px; padding:20px 24px; margin-bottom:32px; }
           .banner h2 { font-size:1.05rem; margin-bottom:6px; color:var(--teal); }
           .banner p { color:var(--muted); font-size:0.95rem; }
           .banner code { background:#fff; border:1px solid var(--line); padding:3px 8px; border-radius:6px; font-size:0.9em; word-break:break-all; }
