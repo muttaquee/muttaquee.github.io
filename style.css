@@ -580,7 +580,8 @@ body::before {
 .ml-form-successBody .ml-form-successContent h4 { color: var(--text) !important; }
 .blog-list-wrap { padding-top: 16px; }
 
-.blog-list { list-style: none; display: grid; gap: 20px; }
+.blog-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.blog-card { width: 100%; }
 .blog-card {
   background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(22px) saturate(180%);
