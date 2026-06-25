@@ -1,4 +1,11 @@
-# Welcome — why I'm writing weekly
+---
+title: "Welcome — why I'm writing weekly"
+date: 2026-06-25
+tags:
+  - Intro
+  - Research
+excerpt: "Kicking off a weekly note on building AI-driven MetaHumans, what I'm reading, and what's working (and breaking) in immersive brand research."
+---
 
 I've decided to share one short post every week. Partly to think out loud, partly to keep a public trail of the PhD as it happens.
 

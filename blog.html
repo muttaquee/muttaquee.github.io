@@ -99,7 +99,8 @@
           btn.textContent = "Loading…";
           try {
             const slug = decodeURIComponent(card.dataset.slug);
-            const md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
+            let md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
+            md = md.replace(/^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n?/, ""); // strip frontmatter
             content.innerHTML = marked.parse(md);
             content.dataset.loaded = "1";
           } catch (err) {

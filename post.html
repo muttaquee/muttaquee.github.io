@@ -53,16 +53,19 @@
         // post meta from the index
         const idx = await (await fetch("posts/index.json?cb=" + Date.now())).json();
         const meta = idx.find((p) => p.slug === slug);
+        let titleHtml = "";
         if (meta) {
           document.title = meta.title + " — Muttaquee";
           const d = new Date(meta.date + "T00:00:00");
           const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
           const tags = (meta.tags || []).map((t) => `<span class="blog-tag">${t}</span>`).join("");
           metaEl.innerHTML = `<time>${date}</time>${tags}`;
+          titleHtml = `<h1>${meta.title}</h1>`;
         }
-        // markdown body
-        const md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
-        body.innerHTML = marked.parse(md);
+        // markdown body (strip frontmatter, render title from meta)
+        let md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
+        md = md.replace(/^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n?/, "");
+        body.innerHTML = titleHtml + marked.parse(md);
       } catch (e) {
         body.innerHTML = '<p class="muted">Could not load this post. <a href="blog.html">Back to blog</a>.</p>';
       }

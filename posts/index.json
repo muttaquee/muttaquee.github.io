@@ -3,7 +3,10 @@
     "slug": "welcome",
     "title": "Welcome — why I'm writing weekly",
     "date": "2026-06-25",
-    "tags": ["Intro", "Research"],
+    "tags": [
+      "Intro",
+      "Research"
+    ],
     "excerpt": "Kicking off a weekly note on building AI-driven MetaHumans, what I'm reading, and what's working (and breaking) in immersive brand research."
   }
 ]

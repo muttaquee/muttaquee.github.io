@@ -1,0 +1,49 @@
+# Config for Pages CMS (https://pagescms.org) — the web editor for writing posts.
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: posts
+    filename: "{fields.slug}.md"
+    exclude:
+      - index.json
+    view:
+      fields:
+        - title
+        - date
+      primary: title
+      sort:
+        - date
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: slug
+        label: URL slug (lowercase, dashes — e.g. my-first-post)
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: excerpt
+        label: Excerpt (one-line teaser on the blog list)
+        type: text
+      - name: body
+        label: Post
+        type: rich-text

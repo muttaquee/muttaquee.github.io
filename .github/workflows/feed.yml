@@ -1,33 +1,33 @@
-name: Rebuild RSS feed
+name: Rebuild blog index + feed
 
-# Runs when posts change → regenerates feed.xml + sitemap.xml and commits them.
+# Runs when posts change → regenerates posts/index.json, feed.xml, sitemap.xml and commits them.
 on:
   push:
     branches: [main]
     paths:
       - "posts/**"
-      - "build-feed.js"
+      - "build.js"
 
 permissions:
   contents: write
 
 jobs:
-  feed:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: node build-feed.js
-      - name: Commit feed if changed
+      - run: node build.js
+      - name: Commit generated files if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed.xml sitemap.xml
+          git add posts/index.json feed.xml sitemap.xml
           if git diff --staged --quiet; then
-            echo "No feed changes."
+            echo "No changes."
           else
-            git commit -m "chore: rebuild feed [skip ci]"
+            git commit -m "chore: rebuild blog index + feed [skip ci]"
             git push
           fi
