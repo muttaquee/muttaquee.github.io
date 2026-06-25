@@ -536,6 +536,36 @@ body::before {
 .sub-help { color: var(--muted); margin-bottom: 26px; }
 .sub-help h3 { color: var(--text); font-size: 1.05rem; margin-bottom: 8px; }
 .sub-help strong { color: var(--text); }
+.sub-rss { margin: 18px 0 26px; font-size: 0.95rem; }
+.sub-rss a { color: var(--lav); font-weight: 600; }
+
+/* ---- restyle the embedded MailerLite form to match the glass design ---- */
+.ml-embedded { width: 100%; }
+.ml-form-embedContainer, .ml-form-embedWrapper, .ml-form-embedWrapper.ml-form-embedDefault {
+  background: transparent !important; border: none !important; box-shadow: none !important;
+  max-width: none !important; width: 100% !important;
+}
+.ml-form-embedContent { display: none !important; }   /* hide ML's own heading/blurb — our copy is above */
+.ml-form-embedBody { padding: 0 !important; }
+.ml-form-fieldRow { margin-bottom: 12px !important; }
+.ml-form-embedBody input.form-control {
+  width: 100% !important; height: auto !important; border-radius: 999px !important;
+  padding: 13px 18px !important; border: 1px solid var(--line) !important;
+  background: rgba(255, 255, 255, 0.65) !important; box-shadow: none !important;
+  font-family: "Inter", sans-serif !important; font-size: 0.98rem !important; color: var(--text) !important;
+}
+.ml-form-embedSubmit, .ml-button-horizontal { margin: 0 !important; }
+.ml-embedded button.primary {
+  width: 100% !important; cursor: pointer !important; border: none !important;
+  background: linear-gradient(180deg, #1c8a82 0%, #15716b 100%) !important; color: #fff !important;
+  border-radius: 999px !important; padding: 13px 22px !important;
+  font-family: "Inter", sans-serif !important; font-weight: 700 !important; font-size: 1rem !important;
+  box-shadow: 0 8px 20px rgba(21, 113, 107, 0.35) !important; transition: 0.2s !important;
+}
+.ml-embedded button.primary:hover { transform: translateY(-2px) !important; box-shadow: 0 14px 30px rgba(21, 113, 107, 0.45) !important; }
+.ml-embedded button.loading { background: #15716b !important; }
+.ml-form-successBody { text-align: center !important; color: var(--text) !important; }
+.ml-form-successBody .ml-form-successContent h4 { color: var(--text) !important; }
 .blog-list-wrap { padding-top: 16px; }
 
 .blog-list { list-style: none; display: grid; gap: 20px; }

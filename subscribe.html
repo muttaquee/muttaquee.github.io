@@ -4,11 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Subscribe — Muttaquee</title>
-  <meta name="description" content="Subscribe to Muttaquee's weekly blog via RSS." />
+  <meta name="description" content="Get Muttaquee's weekly blog posts by email." />
   <link rel="alternate" type="application/rss+xml" title="Muttaquee — Blog" href="feed.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=12" />
+  <link rel="stylesheet" href="style.css?v=13" />
+  <!-- MailerLite Universal -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2470299');
+  </script>
 </head>
 <body>
   <canvas class="ripple-canvas" aria-hidden="true"></canvas>
@@ -26,25 +34,15 @@
 
   <section class="section subscribe">
     <span class="kicker">Subscribe</span>
-    <h1 class="section-title">Get every weekly post</h1>
-    <p class="lead">This blog has an <strong>RSS feed</strong> — the simplest way to follow along. Add the feed URL below to any reader and new posts arrive automatically. No account, no email, no algorithm.</p>
+    <h1 class="section-title">Get every new post by email</h1>
+    <p class="lead">One short post a week on AI-driven MetaHumans and immersive brand research. Drop your email and I'll send each new one straight to your inbox. No spam, unsubscribe anytime.</p>
 
     <div class="sub-card">
-      <label class="sub-label">Feed URL</label>
-      <div class="sub-url-row">
-        <input id="feedUrl" class="sub-url" readonly value="https://muttaquee.github.io/feed.xml" />
-        <button id="copyBtn" class="btn btn-primary" type="button">Copy</button>
-      </div>
-      <div class="sub-actions">
-        <a class="btn btn-ghost" href="https://feedly.com/i/subscription/feed/https%3A%2F%2Fmuttaquee.github.io%2Ffeed.xml" target="_blank" rel="noopener">Open in Feedly</a>
-        <a class="btn btn-ghost" href="feed.xml">View raw feed</a>
-      </div>
+      <!-- MailerLite embedded form -->
+      <div class="ml-embedded" data-form="4wUqQ5"></div>
     </div>
 
-    <div class="sub-help">
-      <h3>New to RSS?</h3>
-      <p>An RSS reader collects posts from sites you follow into one place. Popular free ones: <strong>Feedly</strong>, <strong>Inoreader</strong>, <strong>NetNewsWire</strong> (Mac/iOS). Install one, paste the feed URL above, done.</p>
-    </div>
+    <p class="sub-rss muted">Prefer a feed reader? <a href="feed.xml">Subscribe via RSS</a> instead.</p>
 
     <a class="post-back" href="blog.html">← Back to the blog</a>
   </section>
@@ -54,20 +52,5 @@
   </footer>
 
   <script src="script.js?v=9" defer></script>
-  <script>
-    document.getElementById("copyBtn").addEventListener("click", async () => {
-      const btn = document.getElementById("copyBtn");
-      const url = document.getElementById("feedUrl").value;
-      try {
-        await navigator.clipboard.writeText(url);
-      } catch (e) {
-        const i = document.getElementById("feedUrl");
-        i.select(); document.execCommand("copy");
-      }
-      const old = btn.textContent;
-      btn.textContent = "Copied ✓";
-      setTimeout(() => (btn.textContent = old), 1600);
-    });
-  </script>
 </body>
 </html>
