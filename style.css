@@ -61,7 +61,7 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
 }
 .eyebrow {
   text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.76rem;
-  color: var(--lav); font-weight: 600; margin-bottom: 16px;
+  color: #f1592b; font-weight: 600; margin-bottom: 16px;
 }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); line-height: 1.12; letter-spacing: -0.02em; }
 .accent {
