@@ -45,7 +45,7 @@ glareEls.forEach((el) => {
 
   function buildSource() {
     // colored "water" image the ripples will distort (site palette)
-    ctx.fillStyle = "#eef1f4";
+    ctx.fillStyle = "#ede8d0";
     ctx.fillRect(0, 0, W, H);
     const blobs = [
       ["rgba(21,113,107,0.60)", 0.18, 0.22],
@@ -56,7 +56,7 @@ glareEls.forEach((el) => {
     for (const [c, gx, gy] of blobs) {
       const g = ctx.createRadialGradient(gx * W, gy * H, 0, gx * W, gy * H, Math.max(W, H) * 0.55);
       g.addColorStop(0, c);
-      g.addColorStop(1, "rgba(238,241,244,0)");
+      g.addColorStop(1, "rgba(237,232,208,0)");
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     }
