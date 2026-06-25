@@ -7,7 +7,7 @@
     <atom:link href="https://muttaquee.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 25 Jun 2026 16:23:37 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 17:29:19 GMT</lastBuildDate>
     <item>
       <title>Welcome — why I'm writing weekly</title>
       <link>https://muttaquee.github.io/post.html#welcome</link>
@@ -15,14 +15,6 @@
       <pubDate>Thu, 25 Jun 2026 09:00:00 GMT</pubDate>
       <category>Intro</category><category>Research</category>
       <description>Kicking off a weekly note on building AI-driven MetaHumans, what I'm reading, and what's working (and breaking) in immersive brand research.</description>
-    </item>
-    <item>
-      <title>A Quyick test</title>
-      <link>https://muttaquee.github.io/post.html#my-first-post-test</link>
-      <guid isPermaLink="false">my-first-post-test</guid>
-      <pubDate>Thu, 25 Jun 2026 09:00:00 GMT</pubDate>
-      <category>test</category>
-      <description>testing is nice</description>
     </item>
   </channel>
 </rss>
