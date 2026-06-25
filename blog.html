@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="stylesheet" href="style.css?v=15" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -56,8 +56,9 @@
     <p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p>
   </footer>
 
+  <script src="assets/marked.min.js"></script>
   <script src="script.js?v=9" defer></script>
-  <script defer>
+  <script>
     (async function renderBlogList() {
       const el = document.getElementById("blog-list");
       try {
@@ -70,19 +71,59 @@
           const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
           const tags = (p.tags || []).map((t) => `<span class="blog-tag">${t}</span>`).join("");
           return `
-            <li class="blog-card">
-              <a href="post.html#${encodeURIComponent(p.slug)}">
+            <li class="blog-card" data-slug="${encodeURIComponent(p.slug)}">
+              <div class="blog-card-pad">
                 <div class="blog-card-meta"><time>${date}</time>${tags}</div>
                 <h2 class="blog-card-title">${p.title}</h2>
                 <p class="blog-card-excerpt">${p.excerpt || ""}</p>
-                <span class="blog-readmore">Read →</span>
-              </a>
+                <button class="blog-readmore" type="button" aria-expanded="false">Read →</button>
+                <div class="blog-expand-inner"><div class="blog-expand-content post-body" data-loaded="0"></div></div>
+              </div>
             </li>`;
         }).join("");
       } catch (e) {
         el.innerHTML = '<li class="muted">Could not load posts.</li>';
       }
     })();
+
+    // expand-to-read: clicking "Read" drops the glass card open with the full post
+    document.getElementById("blog-list").addEventListener("click", async (e) => {
+      const btn = e.target.closest(".blog-readmore");
+      if (!btn) return;
+      const card = btn.closest(".blog-card");
+      const inner = card.querySelector(".blog-expand-inner");
+      const content = card.querySelector(".blog-expand-content");
+
+      if (!card.classList.contains("open")) {
+        if (content.dataset.loaded === "0") {
+          btn.textContent = "Loading…";
+          try {
+            const slug = decodeURIComponent(card.dataset.slug);
+            const md = await (await fetch("posts/" + slug + ".md?cb=" + Date.now())).text();
+            content.innerHTML = marked.parse(md);
+            content.dataset.loaded = "1";
+          } catch (err) {
+            content.innerHTML = '<p class="muted">Could not load this post.</p>';
+          }
+        }
+        card.classList.add("open");
+        btn.textContent = "Close ↑";
+        btn.setAttribute("aria-expanded", "true");
+        // animate to the measured full height, then release to auto so it can reflow
+        inner.style.maxHeight = inner.scrollHeight + "px";
+        inner.addEventListener("transitionend", function done() {
+          if (card.classList.contains("open")) inner.style.maxHeight = "none";
+          inner.removeEventListener("transitionend", done);
+        });
+      } else {
+        // set an explicit height first so the collapse can animate from it
+        inner.style.maxHeight = inner.scrollHeight + "px";
+        requestAnimationFrame(() => { inner.style.maxHeight = "0px"; });
+        card.classList.remove("open");
+        btn.textContent = "Read →";
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
   </script>
 </body>
 </html>
