@@ -9,6 +9,7 @@ tags:
 excerpt: Moving beyond static ads to explore how intelligent, AI-driven
   MetaHumans are completely redefining how we experience and interact with
   brands in virtual worlds.
+cover: /assets/uploads/crazy.webp
 ---
 Welcome to my very first blog post! If you have explored my portfolio, you will know that my research lives at the intersection of Artificial Intelligence, Virtual Reality (VR), and Human-Computer Interaction (HCI). Specifically, I am focused on a question that will define the next decade of digital experiences: **How can we build AI-driven MetaHumans to transform immersive brand engagement?**
 
