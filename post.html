@@ -67,7 +67,7 @@
         const md = (meta && meta.body) || "";
         const cover = meta && meta.cover ? `<img class="post-cover" src="${meta.cover}" alt="" />` : "";
         const video = meta && meta.video ? `<video class="post-video" src="${meta.video}" controls playsinline></video>` : "";
-        const link = location.origin + "/post.html?slug=" + slug;
+        const link = location.origin + "/p/" + slug + ".html";
         const u = encodeURIComponent(link), t = encodeURIComponent((meta && meta.title) || "");
         const share = `<div class="post-share">
           <span class="post-share-label">Share</span>
