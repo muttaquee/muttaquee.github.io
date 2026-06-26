@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=32" />
+  <link rel="stylesheet" href="style.css?v=33" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -84,18 +84,19 @@
       s.async = true;
       el.appendChild(s);
     }
-    function shareRow(slug, title) {
+    function shareButtons(slug, title) {
       const link = location.origin + "/p/" + slug + ".html";
       const u = encodeURIComponent(link);
       const t = encodeURIComponent(title);
-      return `<div class="post-share">
-        <span class="post-share-label">Share</span>
+      return `<span class="post-share-label">Share</span>
         <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=${u}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
         <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${u}" target="_blank" rel="noopener" aria-label="Share on Facebook">f</a>
         <a class="share-btn" href="https://twitter.com/intent/tweet?url=${u}&text=${t}" target="_blank" rel="noopener" aria-label="Share on X">𝕏</a>
         <a class="share-btn" href="https://wa.me/?text=${t}%20${u}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">✆</a>
-        <button class="share-btn share-copy" type="button" data-url="${link}" aria-label="Copy link">⧉ Copy</button>
-      </div>`;
+        <button class="share-btn share-copy" type="button" data-url="${link}" aria-label="Copy link">⧉ Copy</button>`;
+    }
+    function shareRow(slug, title) {
+      return `<div class="post-share">${shareButtons(slug, title)}</div>`;
     }
     (async function renderBlogList() {
       const el = document.getElementById("blog-list");
@@ -115,7 +116,10 @@
                 <div class="blog-card-meta"><time>${date}</time>${tags}</div>
                 <h2 class="blog-card-title">${p.title}</h2>
                 <p class="blog-card-excerpt">${p.excerpt || ""}</p>
-                <button class="blog-readmore" type="button" aria-expanded="false">Read →</button>
+                <div class="blog-card-actions">
+                  <button class="blog-readmore" type="button" aria-expanded="false">Read →</button>
+                  <div class="card-share">${shareButtons(p.slug, p.title)}</div>
+                </div>
                 <div class="blog-expand-inner">
                   <div class="blog-expand-content post-body" data-loaded="0"></div>
                   <button class="blog-readmore blog-collapse" type="button">Collapse ↑</button>
@@ -141,7 +145,7 @@
       const btn = e.target.closest(".blog-readmore");
       if (!btn) return;
       const card = btn.closest(".blog-card");
-      const topBtn = card.querySelector(".blog-card-pad > .blog-readmore");
+      const topBtn = card.querySelector(".blog-card-actions .blog-readmore");
       const content = card.querySelector(".blog-expand-content");
 
       if (!card.classList.contains("open")) {
