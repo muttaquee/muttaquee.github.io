@@ -7,7 +7,7 @@
   <meta name="description" content="A weekly note by Muttaquee on AI-driven MetaHumans and immersive brand engagement." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=29" />
+  <link rel="stylesheet" href="style.css?v=30" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -66,7 +66,24 @@
         const md = (meta && meta.body) || "";
         const cover = meta && meta.cover ? `<img class="post-cover" src="${meta.cover}" alt="" />` : "";
         const video = meta && meta.video ? `<video class="post-video" src="${meta.video}" controls playsinline></video>` : "";
-        body.innerHTML = titleHtml + cover + video + marked.parse(md);
+        const link = location.origin + "/post.html#" + slug;
+        const u = encodeURIComponent(link), t = encodeURIComponent((meta && meta.title) || "");
+        const share = `<div class="post-share">
+          <span class="post-share-label">Share</span>
+          <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=${u}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
+          <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${u}" target="_blank" rel="noopener" aria-label="Share on Facebook">f</a>
+          <a class="share-btn" href="https://twitter.com/intent/tweet?url=${u}&text=${t}" target="_blank" rel="noopener" aria-label="Share on X">𝕏</a>
+          <a class="share-btn" href="https://wa.me/?text=${t}%20${u}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">✆</a>
+          <button class="share-btn share-copy" type="button" data-url="${link}" aria-label="Copy link">⧉ Copy</button>
+        </div>`;
+        body.innerHTML = titleHtml + cover + video + marked.parse(md) + share;
+        body.addEventListener("click", (e) => {
+          const c = e.target.closest(".share-copy");
+          if (!c) return;
+          navigator.clipboard?.writeText(c.dataset.url);
+          const old = c.textContent; c.textContent = "Copied ✓";
+          setTimeout(() => (c.textContent = old), 1500);
+        });
       } catch (e) {
         body.innerHTML = '<p class="muted">Could not load this post. <a href="blog.html">Back to blog</a>.</p>';
       }
