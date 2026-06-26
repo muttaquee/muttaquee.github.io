@@ -1,17 +1,19 @@
 # Config for Pages CMS (https://pagescms.org) — the web editor for writing posts.
 media:
-  input: assets/uploads
-  output: /assets/uploads
-  extensions:
-    - jpg
-    - jpeg
-    - png
-    - gif
-    - webp
-    - svg
-    - mp4
-    - webm
-    - mov
+  - name: uploads
+    label: Media
+    input: assets/uploads
+    output: /assets/uploads
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - gif
+      - webp
+      - svg
+      - mp4
+      - webm
+      - mov
 
 content:
   - name: posts
@@ -57,11 +59,17 @@ content:
       - name: cover
         label: Cover photo (optional — shown at the top of the post)
         type: image
+        options:
+          media: uploads
       - name: video
         label: Video (optional — upload an mp4/webm clip)
         type: file
+        options:
+          media: uploads
       - name: body
-        label: Post (use the image button in the toolbar to add photos inline)
+        label: Post (click the image icon in the toolbar to add photos inside the text)
         type: rich-text
         options:
-          media: assets/uploads
+          format: markdown
+          media: uploads
+          path: assets/uploads
