@@ -616,7 +616,7 @@ body::before {
 
 /* expand-to-read animation (glass drops open) */
 .blog-expand-inner { overflow: hidden; max-height: 0; transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-.blog-card.open .blog-expand-inner { max-height: 12000px; }   /* reveal full post (covers long posts) */
+.blog-card.open .blog-expand-inner { max-height: 24000px; }   /* reveal full post + comments */
 /* top "Read" hides once open; "Collapse" sits at the bottom after the post */
 .blog-card.open .blog-card-pad > .blog-readmore { display: none; }
 .blog-collapse { margin-top: 22px; }
@@ -668,6 +668,10 @@ body::before {
   background: rgba(255, 255, 255, 0.09); border: 1px solid var(--line); cursor: pointer; transition: 0.2s;
 }
 .share-btn:hover { background: var(--lav); color: #fff; border-color: var(--lav); transform: translateY(-2px); }
+
+/* comments (Giscus) */
+.post-comments { margin-top: 30px; padding-top: 8px; }
+.post-comments-title { font-size: 1.15rem; margin-bottom: 14px; }
 .post-body hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
 
 /* Download CV button = solid orange */
