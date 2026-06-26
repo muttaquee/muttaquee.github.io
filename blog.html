@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=31" />
+  <link rel="stylesheet" href="style.css?v=32" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -85,7 +85,7 @@
       el.appendChild(s);
     }
     function shareRow(slug, title) {
-      const link = location.origin + "/post.html#" + slug;
+      const link = location.origin + "/post.html?slug=" + slug;
       const u = encodeURIComponent(link);
       const t = encodeURIComponent(title);
       return `<div class="post-share">

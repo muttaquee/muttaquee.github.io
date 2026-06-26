@@ -7,7 +7,7 @@
   <meta name="description" content="A weekly note by Muttaquee on AI-driven MetaHumans and immersive brand engagement." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=31" />
+  <link rel="stylesheet" href="style.css?v=32" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -44,7 +44,8 @@
     (async function renderPost() {
       const body = document.getElementById("post-body");
       const metaEl = document.getElementById("post-meta");
-      const slug = decodeURIComponent(location.hash.slice(1));
+      // query param survives the GitHub OAuth redirect (hash does not); fall back to hash for old links
+      const slug = new URLSearchParams(location.search).get("slug") || decodeURIComponent(location.hash.slice(1));
       if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
         body.innerHTML = '<p class="muted">Post not found. <a href="blog.html">Back to blog</a>.</p>';
         return;
@@ -66,7 +67,7 @@
         const md = (meta && meta.body) || "";
         const cover = meta && meta.cover ? `<img class="post-cover" src="${meta.cover}" alt="" />` : "";
         const video = meta && meta.video ? `<video class="post-video" src="${meta.video}" controls playsinline></video>` : "";
-        const link = location.origin + "/post.html#" + slug;
+        const link = location.origin + "/post.html?slug=" + slug;
         const u = encodeURIComponent(link), t = encodeURIComponent((meta && meta.title) || "");
         const share = `<div class="post-share">
           <span class="post-share-label">Share</span>

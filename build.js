@@ -97,7 +97,7 @@ fs.writeFileSync(path.join(POSTS_DIR, "index.json"), JSON.stringify(posts, null,
 // --- feed.xml ---
 const items = posts
   .map((p) => {
-    const url = `${SITE}/post.html#${encodeURIComponent(p.slug)}`;
+    const url = `${SITE}/post.html?slug=${encodeURIComponent(p.slug)}`;
     const pub = new Date(p.date + "T09:00:00Z").toUTCString();
     return `    <item>
       <title>${esc(p.title)}</title>
@@ -129,7 +129,7 @@ ${items}
 );
 
 // --- sitemap.xml ---
-const urls = [`${SITE}/`, `${SITE}/blog.html`, ...posts.map((p) => `${SITE}/post.html#${encodeURIComponent(p.slug)}`)];
+const urls = [`${SITE}/`, `${SITE}/blog.html`, ...posts.map((p) => `${SITE}/post.html?slug=${encodeURIComponent(p.slug)}`)];
 fs.writeFileSync(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>
