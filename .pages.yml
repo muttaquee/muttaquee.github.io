@@ -2,6 +2,16 @@
 media:
   input: assets/uploads
   output: /assets/uploads
+  extensions:
+    - jpg
+    - jpeg
+    - png
+    - gif
+    - webp
+    - svg
+    - mp4
+    - webm
+    - mov
 
 content:
   - name: posts
@@ -44,6 +54,14 @@ content:
       - name: excerpt
         label: Excerpt (one-line teaser on the blog list)
         type: text
+      - name: cover
+        label: Cover photo (optional — shown at the top of the post)
+        type: image
+      - name: video
+        label: Video (optional — upload an mp4/webm clip)
+        type: file
       - name: body
-        label: Post
+        label: Post (use the image button in the toolbar to add photos inline)
         type: rich-text
+        options:
+          media: assets/uploads

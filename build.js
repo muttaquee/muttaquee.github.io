@@ -84,6 +84,8 @@ const posts = files
       date: (data.date || "").slice(0, 10),
       tags: Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [],
       excerpt: data.excerpt || firstParagraph(body),
+      cover: data.cover || "",
+      video: data.video || "",
       body: body.trim(),   // embedded so the blog needs no .md fetch (Jekyll 404s raw .md)
     };
   })

@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=28" />
+  <link rel="stylesheet" href="style.css?v=29" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -103,9 +103,13 @@
         if (content.dataset.loaded === "0") {
           const slug = decodeURIComponent(card.dataset.slug);
           const post = POSTS.find((p) => p.slug === slug);
-          content.innerHTML = post && post.body
-            ? marked.parse(post.body)
-            : '<p class="muted">Could not load this post.</p>';
+          if (post) {
+            const cover = post.cover ? `<img class="post-cover" src="${post.cover}" alt="" />` : "";
+            const video = post.video ? `<video class="post-video" src="${post.video}" controls playsinline></video>` : "";
+            content.innerHTML = cover + video + marked.parse(post.body || "");
+          } else {
+            content.innerHTML = '<p class="muted">Could not load this post.</p>';
+          }
           content.dataset.loaded = "1";
         }
         card.classList.add("open");   // top "Read" hides; full body + bottom "Collapse" reveal
