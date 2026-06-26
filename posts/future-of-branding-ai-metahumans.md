@@ -34,6 +34,8 @@ Unlike the rigid, pre-scripted chatbots of the past, true AI MetaHumans combine 
 3. **Immersive Interaction (HCI):** Optimising how users naturally interact with these virtual beings so the experience feels deeply human, rather than technical.
 
 > **The Goal:** To move from passive consumption to active, emotional collaboration between human consumers and digital brand ambassadors.
+>
+> ![](</assets/uploads/ChatGPT Image Jun 11, 2026, 02_09_52 AM.png>)
 
 ### Why This Changes the Game
 
@@ -47,4 +49,6 @@ It turns a transaction into an interactive story. This level of immersion doesn�
 
 This is just the beginning of my PhD journey, and I am incredibly excited to share the milestones, experimental breakthroughs, and technical hurdles along the way. In upcoming posts, I will be diving deeper into the specific HCI methodologies I am using and exploring the psychology behind virtual trust.
 
-*Thank you for joining me on this journey. What are your thoughts on interacting with digital humans in the future? Let’s connect on LinkedIn or reach out via email—I’d love to hear your perspectives!*
+*Thank you for joining me on this journey. What are your thoughts on interacting with digital humans in the future? Let’s connect on LinkedIn or reach out via email—I’d love to hear your perspectives!*  
+
+
