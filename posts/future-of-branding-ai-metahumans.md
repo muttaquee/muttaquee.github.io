@@ -9,7 +9,7 @@ tags:
 excerpt: Moving beyond static ads to explore how intelligent, AI-driven
   MetaHumans are completely redefining how we experience and interact with
   brands in virtual worlds.
-cover: /assets/uploads/crazy.webp
+cover: /assets/uploads/crazy.jpg
 ---
 Welcome to my very first blog post! If you have explored my portfolio, you will know that my research lives at the intersection of Artificial Intelligence, Virtual Reality (VR), and Human-Computer Interaction (HCI). Specifically, I am focused on a question that will define the next decade of digital experiences: **How can we build AI-driven MetaHumans to transform immersive brand engagement?**
 
@@ -34,14 +34,14 @@ Unlike the rigid, pre-scripted chatbots of the past, true AI MetaHumans combine 
 3. **Immersive Interaction (HCI):** Optimising how users naturally interact with these virtual beings so the experience feels deeply human, rather than technical.
 
 > **The Goal:** To move from passive consumption to active, emotional collaboration between human consumers and digital brand ambassadors.
->
-> ![](</assets/uploads/ChatGPT Image Jun 11, 2026, 02_09_52 AM.png>)
 
 ### Why This Changes the Game
 
 When an AI MetaHuman can welcome you into a virtual flagship store, understand your unique style preferences, answer complex questions, and exhibit genuine empathy, the relationship with a brand shifts completely.
 
 It turns a transaction into an interactive story. This level of immersion doesn’t just increase brand engagement; it fundamentally redefines consumer loyalty and buying decisions in virtual ecosystems.
+
+![](</assets/uploads/ChatGPT Image Jun 11, 2026, 02_09_52 AM.png>)
 
 ---
 
@@ -50,5 +50,4 @@ It turns a transaction into an interactive story. This level of immersion doesn�
 This is just the beginning of my PhD journey, and I am incredibly excited to share the milestones, experimental breakthroughs, and technical hurdles along the way. In upcoming posts, I will be diving deeper into the specific HCI methodologies I am using and exploring the psychology behind virtual trust.
 
 *Thank you for joining me on this journey. What are your thoughts on interacting with digital humans in the future? Let’s connect on LinkedIn or reach out via email—I’d love to hear your perspectives!*  
-
 
