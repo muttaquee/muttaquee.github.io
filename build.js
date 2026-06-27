@@ -117,7 +117,7 @@ function genPostPage(p) {
   <meta name="twitter:description" content="${esc(p.excerpt)}" />
   <meta name="twitter:image" content="${esc(ogImg)}" />
   <link rel="stylesheet" href="../fonts.css?v=9" />
-  <link rel="stylesheet" href="../style.css?v=32" />
+  <link rel="stylesheet" href="../style.css?v=34" />
 </head>
 <body>
   <canvas class="ripple-canvas" aria-hidden="true"></canvas>
@@ -127,6 +127,7 @@ function genPostPage(p) {
       <a href="../index.html#about">About</a>
       <a href="../index.html#research">Research</a>
       <a href="../index.html#publications">Publications</a>
+      <a href="../cv.html">CV</a>
       <a href="../blog.html" class="active">Blog</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
