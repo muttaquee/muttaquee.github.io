@@ -6,6 +6,95 @@ const LINKS = {
   orcid:    "https://orcid.org/0009-0007-3708-7727",
 };
 
+function doiHref(doi) {
+  return doi ? "https://doi.org/" + doi : "";
+}
+
+function renderAuthors(publication) {
+  const fragment = document.createDocumentFragment();
+  publication.authors.forEach((author, index) => {
+    if (index > 0) {
+      const finalSeparator = author.toLowerCase() === "et al." ? ", " : ", & ";
+      fragment.appendChild(document.createTextNode(index === publication.authors.length - 1 ? finalSeparator : ", "));
+    }
+    const el = author === publication.myAuthorName ? document.createElement("strong") : document.createTextNode(author);
+    if (el.nodeType === Node.ELEMENT_NODE) el.textContent = author;
+    fragment.appendChild(el);
+  });
+  return fragment;
+}
+
+function renderPublications() {
+  const publications = Array.isArray(window.PUBLICATIONS) ? window.PUBLICATIONS : [];
+  const homeList = document.getElementById("publication-list");
+  const cvList = document.getElementById("cv-publication-list");
+
+  if (homeList) {
+    homeList.replaceChildren();
+    publications.filter((publication) => publication.selected).forEach((publication) => {
+      const li = document.createElement("li");
+      li.className = "pub";
+
+      const year = document.createElement("div");
+      year.className = "pub-year";
+      year.textContent = publication.year;
+
+      const body = document.createElement("div");
+      body.className = "pub-body";
+
+      const title = document.createElement("p");
+      title.className = "pub-title";
+      title.textContent = publication.title;
+
+      const meta = document.createElement("p");
+      meta.className = "pub-meta";
+      meta.textContent = [publication.type, publication.venue, publication.year].filter(Boolean).join(" · ");
+
+      const links = document.createElement("div");
+      links.className = "pub-links";
+      if (publication.doi) {
+        const doi = document.createElement("a");
+        doi.href = doiHref(publication.doi);
+        doi.target = "_blank";
+        doi.rel = "noopener";
+        doi.textContent = "DOI";
+        links.appendChild(doi);
+      }
+
+      body.append(title, meta, links);
+      li.append(year, body);
+      homeList.appendChild(li);
+    });
+  }
+
+  if (cvList) {
+    cvList.replaceChildren();
+    publications.filter((publication) => publication.peerReviewed).forEach((publication) => {
+      const li = document.createElement("li");
+      li.appendChild(renderAuthors(publication));
+      li.appendChild(document.createTextNode(` (${publication.year}). ${publication.title}. `));
+
+      const venue = document.createElement("em");
+      venue.textContent = publication.cvVenue || publication.venue;
+      li.appendChild(venue);
+
+      if (publication.details) li.appendChild(document.createTextNode(`, ${publication.details}`));
+      if (publication.doi) {
+        li.appendChild(document.createTextNode(" "));
+        const doi = document.createElement("a");
+        doi.href = doiHref(publication.doi);
+        doi.target = "_blank";
+        doi.rel = "noopener";
+        doi.textContent = `doi.org/${publication.doi}`;
+        li.appendChild(doi);
+      }
+      cvList.appendChild(li);
+    });
+  }
+}
+
+renderPublications();
+
 // Wire up every element with data-link to the matching URL
 document.querySelectorAll("[data-link]").forEach((el) => {
   const key = el.getAttribute("data-link");
