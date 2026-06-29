@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Happens When AI MetaHumans Start Thinking in Real Time? — Muttaquee</title>
+  <meta name="description" content="Inside the Intelligence Layer of Virtual Humans in Immersive Environments" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Muttaquee" />
+  <meta property="og:title" content="What Happens When AI MetaHumans Start Thinking in Real Time?" />
+  <meta property="og:description" content="Inside the Intelligence Layer of Virtual Humans in Immersive Environments" />
+  <meta property="og:url" content="https://muttaquee.github.io/p/real-time-intelligence-ai-metahumans-vr.html" />
+  <meta property="og:image" content="https://muttaquee.github.io/assets/uploads/ChatGPT Image Jun 29, 2026, 02_46_12 PM.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Happens When AI MetaHumans Start Thinking in Real Time?" />
+  <meta name="twitter:description" content="Inside the Intelligence Layer of Virtual Humans in Immersive Environments" />
+  <meta name="twitter:image" content="https://muttaquee.github.io/assets/uploads/ChatGPT Image Jun 29, 2026, 02_46_12 PM.png" />
+  <link rel="stylesheet" href="../fonts.css?v=9" />
+  <link rel="stylesheet" href="../style.css?v=34" />
+</head>
+<body>
+  <canvas class="ripple-canvas" aria-hidden="true"></canvas>
+  <header class="nav">
+    <a href="../index.html" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../cv.html?v=2">CV</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+  <article class="section post">
+    <a href="../blog.html" class="post-back">← All posts</a>
+    <div class="post-meta" id="post-meta"></div>
+    <div class="post-body" id="post-body"><p class="muted">Loading…</p></div>
+  </article>
+  <footer class="footer"><p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p></footer>
+  <script src="../assets/marked.min.js"></script>
+  <script src="../script.js?v=14" defer></script>
+  <script>
+    (async function () {
+      const slug = "real-time-intelligence-ai-metahumans-vr";
+      const body = document.getElementById("post-body");
+      const metaEl = document.getElementById("post-meta");
+      try {
+        const idx = await (await fetch("../posts/index.json?cb=" + Date.now())).json();
+        const meta = idx.find((x) => x.slug === slug);
+        let titleHtml = "";
+        if (meta) {
+          const d = new Date(meta.date + "T00:00:00");
+          const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+          const tags = (meta.tags || []).map((t) => '<span class="blog-tag">' + t + '</span>').join("");
+          metaEl.innerHTML = '<time>' + date + '</time>' + tags;
+          titleHtml = "<h1>" + meta.title + "</h1>";
+        }
+        const md = (meta && meta.body) || "";
+        const cover = meta && meta.cover ? '<img class="post-cover" src="..' + meta.cover + '" alt="" />' : "";
+        const video = meta && meta.video ? '<video class="post-video" src="..' + meta.video + '" controls playsinline></video>' : "";
+        const link = location.origin + "/p/" + slug + ".html";
+        const u = encodeURIComponent(link), t = encodeURIComponent((meta && meta.title) || "");
+        const share = '<div class="post-share"><span class="post-share-label">Share</span>' +
+          '<a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=' + u + '" target="_blank" rel="noopener">in</a>' +
+          '<a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=' + u + '" target="_blank" rel="noopener">f</a>' +
+          '<a class="share-btn" href="https://twitter.com/intent/tweet?url=' + u + '&text=' + t + '" target="_blank" rel="noopener">𝕏</a>' +
+          '<a class="share-btn" href="https://wa.me/?text=' + t + '%20' + u + '" target="_blank" rel="noopener">✆</a>' +
+          '<button class="share-btn share-copy" type="button" data-url="' + link + '">⧉ Copy</button></div>';
+        body.innerHTML = titleHtml + cover + video + marked.parse(md) + share +
+          '<div class="post-comments"><h3 class="post-comments-title">💬 Comments &amp; reactions</h3></div>';
+        body.addEventListener("click", (e) => {
+          const c = e.target.closest(".share-copy"); if (!c) return;
+          navigator.clipboard && navigator.clipboard.writeText(c.dataset.url);
+          const o = c.textContent; c.textContent = "Copied ✓"; setTimeout(() => (c.textContent = o), 1500);
+        });
+        const g = document.createElement("script");
+        const at = { src: "https://giscus.app/client.js", "data-repo": "muttaquee/muttaquee.github.io", "data-repo-id": "R_kgDOTDXe2A", "data-category": "Announcements", "data-category-id": "DIC_kwDOTDXe2M4C_6Is", "data-mapping": "specific", "data-term": slug, "data-strict": "1", "data-reactions-enabled": "1", "data-emit-metadata": "0", "data-input-position": "bottom", "data-theme": "light", "data-lang": "en", crossorigin: "anonymous" };
+        Object.entries(at).forEach(([k, v]) => g.setAttribute(k, v)); g.async = true;
+        document.querySelector(".post-comments").appendChild(g);
+      } catch (e) {
+        body.innerHTML = '<p class="muted">Could not load this post. <a href="../blog.html">Back to blog</a>.</p>';
+      }
+    })();
+  </script>
+</body>
+</html>
