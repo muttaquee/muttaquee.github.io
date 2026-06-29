@@ -66,7 +66,7 @@ In this sense, real-time intelligence is not just a technical requirement, but a
 
 ## My Current Research Direction
 
-In my PhD research, I am currently developing VR-based AI MetaHuman prototypes using Unity, focusing on real-time interaction systems that combine conversational AI with immersive design principles.
+In my PhD research, I am currently developing VR-based AI MetaHuman prototypes using Unreal Engine and  Unity 3D, focusing on real-time interaction systems that combine conversational AI with immersive design principles.
 
 > **The Prototypes:** These prototypes are designed to explore how users respond when interacting with intelligent digital humans in brand-focused virtual environments. The focus is not only on visual realism, but also on how intelligence, behaviour, and interaction design come together to shape user experience.
 
