@@ -160,7 +160,7 @@ window.PUBLICATIONS = [
           ${byYear[y].map((p) => `
             <li class="pub-item">
               <span class="pub-marker">◎</span>
-              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.status ? ` <span class="pub-status">(${p.status})</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
+              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.status ? ` <span class="pub-badge">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
             </li>`).join("")}
         </ul>
       </div>`).join("");
