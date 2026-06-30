@@ -730,3 +730,35 @@ body::before {
   .cv-h { border-color: #ccc; }
   a { color: #000 !important; }
 }
+
+/* =========================================================
+   PUBLICATIONS — year-grouped glossy boxes
+   ========================================================= */
+.pub-groups { display: flex; flex-direction: column; gap: 22px; }
+.pub-year-group {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-radius: 20px; overflow: hidden;
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.5),
+    inset 0 0 0 2px rgba(40, 70, 85, 0.07),
+    0 8px 24px rgba(24, 34, 46, 0.1);
+}
+.pub-year-bar {
+  background: linear-gradient(110deg, var(--lav), var(--mint));
+  color: #fff; font-family: "Fraunces", Georgia, serif; font-weight: 700;
+  font-size: 1.3rem; letter-spacing: -0.01em; padding: 12px 26px;
+}
+.pub-year-list { list-style: none; padding: 16px 26px 20px; display: flex; flex-direction: column; gap: 15px; }
+.pub-item { display: flex; gap: 10px; line-height: 1.55; color: #3a4150; font-size: 0.97rem; }
+.pub-marker { color: var(--lav); flex-shrink: 0; }
+.pub-text em { color: var(--text); font-style: italic; }
+.pub-text strong { color: var(--text); }
+.pub-status { color: var(--lav); font-weight: 700; font-style: normal; }
+.pub-doi {
+  display: inline-block; color: var(--lav); font-weight: 600; font-size: 0.76rem;
+  border: 1px solid var(--line); padding: 1px 9px; border-radius: 999px; white-space: nowrap; margin-left: 2px;
+}
+.pub-doi:hover { background: var(--lav-soft); border-color: var(--lav); }

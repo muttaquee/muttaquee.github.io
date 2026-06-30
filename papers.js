@@ -67,3 +67,43 @@ window.PUBLICATIONS = [
     selected: true,
   },
 ];
+
+// ---- Render: homepage = year-grouped glossy boxes; CV = peer-reviewed citation list ----
+(function renderPublications() {
+  const pubs = window.PUBLICATIONS || [];
+  const doiUrl = (d) => "https://doi.org/" + d;
+  const authors = (p, bold) =>
+    p.authors.map((a) => (bold && a === p.myAuthorName ? "<strong>" + a + "</strong>" : a)).join(", ");
+
+  // group by year, newest first
+  const byYear = {};
+  pubs.forEach((p) => { (byYear[p.year] = byYear[p.year] || []).push(p); });
+  const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+
+  // homepage
+  const home = document.getElementById("publication-list");
+  if (home) {
+    home.innerHTML = years.map((y) => `
+      <div class="pub-year-group">
+        <div class="pub-year-bar">${y}</div>
+        <ul class="pub-year-list">
+          ${byYear[y].map((p) => `
+            <li class="pub-item">
+              <span class="pub-marker">◎</span>
+              <span class="pub-text">${authors(p, false)} <em>“${p.title}”</em> <strong>${p.venue}</strong>${p.status ? `, <span class="pub-status">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
+            </li>`).join("")}
+        </ul>
+      </div>`).join("");
+  }
+
+  // CV (peer-reviewed only)
+  const cv = document.getElementById("cv-publication-list");
+  if (cv) {
+    const reviewed = pubs.filter((p) => p.peerReviewed);
+    cv.innerHTML = reviewed.map((p) => {
+      const link = p.doi ? ` <a href="${doiUrl(p.doi)}" target="_blank" rel="noopener">doi.org/${p.doi}</a>` : "";
+      const det = p.details ? `, ${p.details}` : ".";
+      return `<li>${authors(p, true)} (${p.year}). ${p.title}. <em>${p.cvVenue}</em>${det}${link}</li>`;
+    }).join("");
+  }
+})();
