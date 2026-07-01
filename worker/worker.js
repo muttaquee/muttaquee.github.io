@@ -70,7 +70,13 @@ function json(obj, status, cors) {
   });
 }
 
-const MODEL = "gemini-2.0-flash"; // free tier, no credit card
+// tried in order; first one with available free-tier quota wins
+const MODELS = [
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-2.0-flash",
+];
 
 export default {
   async fetch(request, env) {
@@ -95,37 +101,53 @@ export default {
 
     if (!contents.length) return json({ error: "No messages" }, 400, cors);
 
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/" +
-      MODEL +
-      ":generateContent?key=" +
-      env.GEMINI_API_KEY;
+    const reqBody = JSON.stringify({
+      system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+      contents,
+      generationConfig: { maxOutputTokens: 600, temperature: 0.6 },
+    });
 
-    let r;
-    try {
-      r = await fetch(url, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents,
-          generationConfig: { maxOutputTokens: 600, temperature: 0.6 },
-        }),
-      });
-    } catch (e) {
-      return json({ error: "Upstream request failed" }, 502, cors);
+    let lastStatus = 0;
+    let lastDetail = "";
+    for (const model of MODELS) {
+      const url =
+        "https://generativelanguage.googleapis.com/v1beta/models/" +
+        model +
+        ":generateContent?key=" +
+        env.GEMINI_API_KEY;
+
+      let r;
+      try {
+        r = await fetch(url, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: reqBody,
+        });
+      } catch (e) {
+        lastStatus = 502;
+        lastDetail = "fetch failed";
+        continue;
+      }
+
+      if (r.ok) {
+        const data = await r.json();
+        const reply = (((data.candidates || [])[0] || {}).content?.parts || [])
+          .map((p) => p.text || "")
+          .join("")
+          .trim();
+        return json(
+          { reply: reply || "Sorry, I couldn't generate a reply. Try emailing muttaquee97@gmail.com." },
+          200,
+          cors
+        );
+      }
+
+      lastStatus = r.status;
+      lastDetail = (await r.text().catch(() => "")).slice(0, 400);
+      // 429 = quota on this model → try the next model; other errors → stop
+      if (r.status !== 429) break;
     }
 
-    if (!r.ok) {
-      const detail = await r.text().catch(() => "");
-      return json({ error: "Upstream error", status: r.status, detail: detail.slice(0, 300) }, 502, cors);
-    }
-
-    const data = await r.json();
-    const reply = (((data.candidates || [])[0] || {}).content?.parts || [])
-      .map((p) => p.text || "")
-      .join("")
-      .trim();
-    return json({ reply: reply || "Sorry, I couldn't generate a reply. Try emailing muttaquee97@gmail.com." }, 200, cors);
+    return json({ error: "Upstream error", status: lastStatus, detail: lastDetail }, 502, cors);
   },
 };

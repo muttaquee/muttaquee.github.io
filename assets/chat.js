@@ -1,6 +1,6 @@
 // "Ask about me" AI chat widget. Talks to the Cloudflare Worker (which holds the API key).
 // ---- 1) After deploying the Worker, paste its URL here: ----
-const CHAT_ENDPOINT = "https://REPLACE-WITH-YOUR-WORKER.workers.dev";
+const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
 // -----------------------------------------------------------
 
 (function () {
