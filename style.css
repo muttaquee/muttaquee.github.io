@@ -125,6 +125,15 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .node:hover text { transform: scale(1.18); }
+
+/* social-logo nodes: icon + circle scale together on hover */
+.node-icon { pointer-events: none; }
+.node-scale {
+  transform-box: fill-box; transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.node:hover .node-scale { transform: scale(1.16); }
+
 /* glassy sphere shine + teal glow on hover */
 .node:hover circle {
   transform: scale(1.18);
@@ -132,6 +141,7 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   stroke: rgba(255, 255, 255, 0.9);
   filter: drop-shadow(0 16px 26px rgba(24, 34, 46, 0.28));
 }
+.node:hover .node-scale circle { transform: none; }
 
 .node-center { animation: floatY 6.5s ease-in-out infinite; }
 .node-center circle { stroke: rgba(255, 255, 255, 0.85); stroke-width: 3; animation: pulse 3.5s ease-in-out infinite; }

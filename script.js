@@ -4,6 +4,7 @@ const LINKS = {
   scholar:  "https://scholar.google.com/citations?user=GzBXtuAAAAAJ&hl=en",
   linkedin: "https://www.linkedin.com/in/muttaquee/",
   orcid:    "https://orcid.org/0009-0007-3708-7727",
+  github:   "https://github.com/muttaquee",
 };
 
 

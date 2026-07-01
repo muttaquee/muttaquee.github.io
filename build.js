@@ -117,7 +117,7 @@ function genPostPage(p) {
   <meta name="twitter:description" content="${esc(p.excerpt)}" />
   <meta name="twitter:image" content="${esc(ogImg)}" />
   <link rel="stylesheet" href="../fonts.css?v=9" />
-  <link rel="stylesheet" href="../style.css?v=41" />
+  <link rel="stylesheet" href="../style.css?v=42" />
 </head>
 <body>
   <canvas class="ripple-canvas" aria-hidden="true"></canvas>
@@ -139,7 +139,7 @@ function genPostPage(p) {
   </article>
   <footer class="footer"><p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p></footer>
   <script src="../assets/marked.min.js"></script>
-  <script src="../script.js?v=18" defer></script>
+  <script src="../script.js?v=19" defer></script>
   <script>
     (async function () {
       const slug = ${JSON.stringify(p.slug)};
