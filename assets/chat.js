@@ -78,12 +78,31 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
     return b;
   }
 
-  function open() { panel.hidden = false; btn.classList.add("open"); greet(); setTimeout(() => input.focus(), 50); }
-  function close() { panel.hidden = true; btn.classList.remove("open"); }
+  const FAB_OPEN = '<span class="chat-fab-icon">💬</span><span class="chat-fab-label">Ask about me</span>';
+  const FAB_CLOSE = '<span class="chat-fab-icon">✕</span><span class="chat-fab-label">Close</span>';
+
+  function open() {
+    panel.hidden = false;
+    btn.classList.add("open");
+    btn.innerHTML = FAB_CLOSE;
+    greet();
+    setTimeout(() => input.focus(), 50);
+  }
+  function close() {
+    panel.hidden = true;
+    btn.classList.remove("open");
+    btn.innerHTML = FAB_OPEN;
+  }
 
   btn.addEventListener("click", () => (panel.hidden ? open() : close()));
   panel.querySelector(".chat-close").addEventListener("click", close);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
+  // tap outside the panel (and not the button) closes it
+  document.addEventListener("click", (e) => {
+    if (panel.hidden) return;
+    if (panel.contains(e.target) || btn.contains(e.target)) return;
+    close();
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
