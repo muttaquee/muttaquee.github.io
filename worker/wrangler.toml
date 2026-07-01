@@ -1,0 +1,6 @@
+name = "muttaquee-chat"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# The Anthropic API key is NOT stored here. Set it as a secret:
+#   npx wrangler secret put ANTHROPIC_API_KEY
