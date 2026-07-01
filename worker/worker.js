@@ -1,6 +1,6 @@
 // Cloudflare Worker — "Ask about Muttaquee" AI proxy.
-// Holds the Anthropic API key (as a secret) so it never touches the public site.
-// Deploy: see DEPLOY.md in this folder.
+// Uses Google Gemini (free tier, no credit card). Holds the Gemini API key as a
+// secret so it never touches the public site. Deploy: see DEPLOY.md in this folder.
 
 const ALLOWED_ORIGINS = [
   "https://muttaquee.github.io",
@@ -70,6 +70,8 @@ function json(obj, status, cors) {
   });
 }
 
+const MODEL = "gemini-2.0-flash"; // free tier, no credit card
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
@@ -82,31 +84,32 @@ export default {
     try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400, cors); }
 
     const raw = Array.isArray(body.messages) ? body.messages : [];
-    // keep last 12 turns, clamp each message to 2000 chars
-    const messages = raw
+    // keep last 12 turns, clamp each message to 2000 chars; Gemini roles: user / model
+    const contents = raw
       .slice(-12)
       .map((m) => ({
-        role: m.role === "assistant" ? "assistant" : "user",
-        content: String(m.content || "").slice(0, 2000),
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: String(m.content || "").slice(0, 2000) }],
       }))
-      .filter((m) => m.content.trim());
+      .filter((m) => m.parts[0].text.trim());
 
-    if (!messages.length) return json({ error: "No messages" }, 400, cors);
+    if (!contents.length) return json({ error: "No messages" }, 400, cors);
+
+    const url =
+      "https://generativelanguage.googleapis.com/v1beta/models/" +
+      MODEL +
+      ":generateContent?key=" +
+      env.GEMINI_API_KEY;
 
     let r;
     try {
-      r = await fetch("https://api.anthropic.com/v1/messages", {
+      r = await fetch(url, {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "x-api-key": env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          model: "claude-haiku-4-5-20251001",
-          max_tokens: 600,
-          system: SYSTEM_PROMPT,
-          messages,
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents,
+          generationConfig: { maxOutputTokens: 600, temperature: 0.6 },
         }),
       });
     } catch (e) {
@@ -119,7 +122,10 @@ export default {
     }
 
     const data = await r.json();
-    const reply = (data.content || []).map((c) => c.text || "").join("").trim();
+    const reply = (((data.candidates || [])[0] || {}).content?.parts || [])
+      .map((p) => p.text || "")
+      .join("")
+      .trim();
     return json({ reply: reply || "Sorry, I couldn't generate a reply. Try emailing muttaquee97@gmail.com." }, 200, cors);
   },
 };
