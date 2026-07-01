@@ -812,7 +812,9 @@ body::before {
 
 .chat-panel {
   position: fixed; bottom: 84px; right: 22px; z-index: 60;
-  width: min(380px, calc(100vw - 32px)); height: min(560px, calc(100vh - 130px));
+  /* scales with the screen: ~26vw wide / ~62vh tall, clamped for tiny and huge displays */
+  width: min(clamp(290px, 26vw, 400px), calc(100vw - 32px));
+  height: min(clamp(340px, 62vh, 600px), calc(100vh - 120px));
   display: flex; flex-direction: column; overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 22px;
   background: rgba(251, 245, 234, 0.82); backdrop-filter: blur(24px) saturate(180%);
@@ -863,4 +865,13 @@ body::before {
 @media (max-width: 520px) {
   .chat-fab-label { display: none; }
   .chat-fab { padding: 12px; }
+}
+/* short laptop screens: tighten the chat so it doesn't feel cramped */
+@media (max-height: 760px) {
+  .chat-head { padding: 10px 12px; }
+  .chat-log { padding: 12px; gap: 8px; }
+  .chat-bubble { font-size: 0.88rem; padding: 8px 12px; }
+  .chat-chip { font-size: 0.76rem; padding: 5px 9px; }
+  .chat-form { padding: 9px; }
+  .chat-input { padding: 8px 12px; }
 }

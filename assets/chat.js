@@ -93,8 +93,10 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   }
 
   btn.addEventListener("click", () => (panel.hidden ? open(true) : close()));
-  panel.querySelector(".chat-close").addEventListener("click", close);
-  panel.querySelector(".chat-min").addEventListener("click", close);
+  // delegation: any click landing on (or inside) minimise/close hides the panel
+  panel.addEventListener("click", (e) => {
+    if (e.target.closest(".chat-min") || e.target.closest(".chat-close")) close();
+  });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
 
   // auto-open on page load (shows greeting + suggested questions); no focus so mobile keyboard stays down
