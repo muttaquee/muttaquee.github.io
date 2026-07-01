@@ -12,10 +12,11 @@ const LINKS = {
 document.querySelectorAll("[data-link]").forEach((el) => {
   const key = el.getAttribute("data-link");
   if (LINKS[key]) {
-    el.href = LINKS[key];
+    // setAttribute works for both HTML and SVG <a> (SVGAElement.href is read-only)
+    el.setAttribute("href", LINKS[key]);
     if (key !== "email") {
-      el.target = "_blank";
-      el.rel = "noopener";
+      el.setAttribute("target", "_blank");
+      el.setAttribute("rel", "noopener");
     }
   }
 });
