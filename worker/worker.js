@@ -86,33 +86,38 @@ const MODELS = [
   "gemini-2.0-flash",
 ];
 
-// ---- Tech news: merge RSS feeds, top 5 newest, edge-cached 30 min ----
+// ---- Tech news: Google News aggregates outlets worldwide; top 5 newest, edge-cached 30 min ----
 const NEWS_FEEDS = [
-  { source: "TechCrunch", url: "https://techcrunch.com/feed/" },
-  { source: "BBC Tech", url: "https://feeds.bbci.co.uk/news/technology/rss.xml" },
+  { source: "", url: "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-GB&gl=GB&ceid=GB:en" },
 ];
 
 function stripCdata(s) {
   return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&#8217;|&rsquo;/g, "'").replace(/&#8216;|&lsquo;/g, "'").replace(/&#8220;|&ldquo;/g, '"').replace(/&#8221;|&rdquo;/g, '"').replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").trim();
 }
 
-function parseRss(xml, source) {
+function parseRss(xml, fallbackSource) {
   const items = [];
   const blocks = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
-  for (const b of blocks.slice(0, 10)) {
-    const title = (b.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
+  for (const b of blocks.slice(0, 15)) {
+    let title = (b.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
     const link = (b.match(/<link>([\s\S]*?)<\/link>/) || [])[1];
     const pub = (b.match(/<pubDate>([\s\S]*?)<\/pubDate>/) || [])[1];
+    // Google News embeds the real outlet per story
+    const src = (b.match(/<source[^>]*>([\s\S]*?)<\/source>/) || [])[1];
     if (!title || !link) continue;
+    title = stripCdata(title);
+    const source = src ? stripCdata(src) : fallbackSource;
+    // Google News titles end with " - Outlet"; drop the duplicate
+    if (source && title.endsWith(" - " + source)) title = title.slice(0, -(" - " + source).length);
     const t = Date.parse(pub || "") || 0;
-    items.push({ title: stripCdata(title), link: stripCdata(link), source, time: t });
+    items.push({ title, link: stripCdata(link), source, time: t });
   }
   return items;
 }
 
 async function handleNews(cors) {
   const cache = caches.default;
-  const cacheKey = new Request("https://muttaquee-news.internal/top5-v1");
+  const cacheKey = new Request("https://muttaquee-news.internal/top5-v2");
   const hit = await cache.match(cacheKey);
   if (hit) {
     const body = await hit.text();
