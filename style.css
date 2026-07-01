@@ -48,8 +48,7 @@ h1, h2, h3, .brand { font-family: "Fraunces", Georgia, serif; font-weight: 600; 
   box-shadow: 0 8px 30px rgba(24, 34, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 .brand, .nav-links { position: relative; z-index: 3; }
-.brand { font-size: clamp(0.78rem, 2.7vw, 1.25rem); font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; display: flex; align-items: center; }
-.brand-logo { height: clamp(20px, 5vw, 30px); width: auto; display: block; }
+.brand { font-size: clamp(0.78rem, 2.7vw, 1.25rem); font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
 .dot { color: var(--lav); }
 .nav-links { display: flex; gap: clamp(0px, 0.9vw, 26px); font-size: clamp(0.56rem, 2.05vw, 0.95rem); font-weight: 500; }
 .nav-links a { color: var(--muted); transition: color 0.2s; white-space: nowrap; }

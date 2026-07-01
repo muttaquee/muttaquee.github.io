@@ -122,7 +122,7 @@ function genPostPage(p) {
 <body>
   <canvas class="ripple-canvas" aria-hidden="true"></canvas>
   <header class="nav">
-    <a href="../index.html" class="brand"><img class="brand-logo" src="../assets/logo.svg?v=1" alt="Muttaquee" /></a>
+    <a href="../index.html" class="brand">Muttaquee<span class="dot">.</span></a>
     <nav class="nav-links">
       <a href="../index.html#about">About</a>
       <a href="../index.html#research">Research</a>
