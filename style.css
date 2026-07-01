@@ -265,7 +265,7 @@ body::before {
               backdrop-filter 0.4s ease;
 }
 /* mouse-tracking glare — a soft light follows the cursor (iOS 26 style) */
-.btn::before, .card::before, .socials a::before, .tag-list li::before, .nav::before, .pub-links a::before {
+.btn::before, .card::before, .socials a::before, .tag-list li::before, .nav::before, .pub-links a::before, .pub-year-group::before {
   content: "";
   position: absolute; inset: 0; border-radius: inherit;
   background:
@@ -279,10 +279,10 @@ body::before {
 }
 .btn:hover::before, .card:hover::before,
 .socials a:hover::before, .tag-list li:hover::before, .nav:hover::before,
-.pub-links a:hover::before { opacity: 1; }
+.pub-links a:hover::before, .pub-year-group:hover::before { opacity: 1; }
 
 /* specular light streak that sweeps across on hover */
-.btn::after, .card::after, .socials a::after, .nav::after, .pub-links a::after {
+.btn::after, .card::after, .socials a::after, .nav::after, .pub-links a::after, .pub-year-group::after {
   content: "";
   position: absolute; top: -20%; left: -75%;
   width: 50%; height: 140%;
@@ -291,7 +291,7 @@ body::before {
   transition: left 0.65s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none; z-index: 2;
 }
-.btn:hover::after, .card:hover::after, .socials a:hover::after, .nav:hover::after, .pub-links a:hover::after { left: 130%; }
+.btn:hover::after, .card:hover::after, .socials a:hover::after, .nav:hover::after, .pub-links a:hover::after, .pub-year-group:hover::after { left: 130%; }
 
 /* stronger frost + lift on hover = liquid feel */
 .btn:hover, .socials a:hover, .tag-list li:hover, .pub-links a:hover {
@@ -736,14 +736,16 @@ body::before {
    ========================================================= */
 .pub-groups { display: flex; flex-direction: column; gap: 22px; }
 .pub-year-group {
-  background: rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
   border-radius: 22px; overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 8px 32px rgba(24, 34, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   transition: transform 0.25s, box-shadow 0.25s;
 }
+.pub-year-bar, .pub-year-list { position: relative; z-index: 3; }
 .pub-year-group:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 44px rgba(24, 34, 46, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.7);
