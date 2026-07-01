@@ -88,8 +88,10 @@ const MODELS = [
 
 // ---- Tech news: Google News aggregates outlets worldwide; top 5 newest, edge-cached 30 min ----
 const NEWS_FEEDS = [
-  // direct topic URL (the /headlines/ one 302-redirects); Google wants a browser-ish UA
+  // global aggregators, tried in order until we have 5 stories
+  { source: "", url: "https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGRqTVhZU0JXVnVMVWRDR2dKSFFpZ0FQAQ?hl=en-US&gl=US&ceid=US:en" },
   { source: "", url: "https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGRqTVhZU0JXVnVMVWRDR2dKSFFpZ0FQAQ?hl=en-GB&gl=GB&ceid=GB:en" },
+  { source: "Bing News", url: "https://www.bing.com/news/search?q=technology&format=rss" },
 ];
 
 function stripCdata(s) {
@@ -103,8 +105,8 @@ function parseRss(xml, fallbackSource) {
     let title = (b.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
     const link = (b.match(/<link>([\s\S]*?)<\/link>/) || [])[1];
     const pub = (b.match(/<pubDate>([\s\S]*?)<\/pubDate>/) || [])[1];
-    // Google News embeds the real outlet per story
-    const src = (b.match(/<source[^>]*>([\s\S]*?)<\/source>/) || [])[1];
+    // Google News: <source>Outlet</source>; Bing: <News:Source>Outlet</News:Source>
+    const src = (b.match(/<(?:News:)?source[^>]*>([\s\S]*?)<\/(?:News:)?source>/i) || [])[1];
     if (!title || !link) continue;
     title = stripCdata(title);
     const source = src ? stripCdata(src) : fallbackSource;
@@ -116,29 +118,47 @@ function parseRss(xml, fallbackSource) {
   return items;
 }
 
-async function handleNews(cors) {
+async function handleNews(cors, debug) {
   const cache = caches.default;
-  const cacheKey = new Request("https://muttaquee-news.internal/top5-v3");
-  const hit = await cache.match(cacheKey);
-  if (hit) {
-    const body = await hit.text();
-    return new Response(body, { status: 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=900", ...cors } });
+  const cacheKey = new Request("https://muttaquee-news.internal/top5-v4");
+  if (!debug) {
+    const hit = await cache.match(cacheKey);
+    if (hit) {
+      const body = await hit.text();
+      return new Response(body, { status: 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=900", ...cors } });
+    }
   }
 
+  const diag = [];
   const results = await Promise.allSettled(
     NEWS_FEEDS.map(async (f) => {
-      const r = await fetch(f.url, { redirect: "follow", headers: { "user-agent": "Mozilla/5.0 (compatible; portfolio-news)" } });
-      if (!r.ok) return [];
-      return parseRss(await r.text(), f.source);
+      try {
+        const r = await fetch(f.url, { redirect: "follow", headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" } });
+        const text = await r.text();
+        const parsed = r.ok ? parseRss(text, f.source) : [];
+        diag.push({ url: f.url.slice(0, 60), status: r.status, finalUrl: (r.url || "").slice(0, 80), bytes: text.length, parsed: parsed.length });
+        return parsed;
+      } catch (e) {
+        diag.push({ url: f.url.slice(0, 60), error: String(e).slice(0, 120) });
+        return [];
+      }
     })
   );
   let items = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
+  // dedupe near-identical headlines across aggregators
+  const seen = new Set();
+  items = items.filter((it) => {
+    const k = it.title.toLowerCase().slice(0, 60);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
   items.sort((a, b) => b.time - a.time);
   items = items.slice(0, 5);
 
-  const payload = JSON.stringify({ updated: Date.now(), items });
+  const payload = JSON.stringify(debug ? { updated: Date.now(), diag, items } : { updated: Date.now(), items });
   const resp = new Response(payload, { status: 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=1800", ...cors } });
-  await cache.put(cacheKey, resp.clone());
+  if (!debug && items.length) await cache.put(cacheKey, resp.clone());
   return resp;
 }
 
@@ -148,7 +168,9 @@ export default {
     const cors = corsHeaders(origin);
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
-    if (request.method === "GET" && new URL(request.url).pathname === "/news") return handleNews(cors);
+    if (request.method === "GET" && new URL(request.url).pathname === "/news") {
+      return handleNews(cors, new URL(request.url).searchParams.has("debug"));
+    }
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors);
 
     let body;
