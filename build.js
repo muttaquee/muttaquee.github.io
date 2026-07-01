@@ -126,7 +126,7 @@ function genPostPage(p) {
     <nav class="nav-links">
       <a href="../index.html#about">About</a>
       <a href="../index.html#research">Research</a>
-      <a href="../index.html#publications">Publications</a>
+      <a href="../publications.html">Publications</a>
       <a href="../cv.html?v=2">CV</a>
       <a href="../blog.html" class="active">Blog</a>
       <a href="../index.html#contact">Contact</a>

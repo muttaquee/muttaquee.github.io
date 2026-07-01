@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications — Muttaquee</title>
+  <meta name="description" content="Peer-reviewed and under-review publications by Md Golam Muttaquee Talukder — AI, VR/XR and HCI research." />
+  <link rel="stylesheet" href="fonts.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=42" />
+</head>
+<body>
+  <!-- water ripple background (canvas simulation) -->
+  <canvas class="ripple-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="index.html" class="brand">Muttaquee<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="publications.html" class="active">Publications</a>
+      <a href="cv.html?v=2">CV</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- PUBLICATIONS -->
+  <section class="section" style="padding-top: clamp(90px, 14vh, 150px);">
+    <span class="kicker">Publications</span>
+    <h1 class="section-title">Publications</h1>
+    <p class="lead">Peer-reviewed journal and conference work, plus current under-review submissions.</p>
+    <div class="pub-groups" id="publication-list"><p class="muted">Loading publications…</p></div>
+    <p class="muted">Full record on <a href="https://orcid.org/0009-0007-3708-7727" target="_blank" rel="noopener">ORCID</a>.</p>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muttaquee</p>
+  </footer>
+
+  <script src="papers.js?v=6" defer></script>
+  <script src="script.js?v=20" defer></script>
+</body>
+</html>
