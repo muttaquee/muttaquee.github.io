@@ -24,11 +24,14 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   panel.hidden = true;
   panel.innerHTML = `
     <div class="chat-head">
-      <div>
+      <div class="chat-head-title">
         <strong>Ask about Muttaquee</strong>
         <span class="chat-sub">AI assistant · answers about my work &amp; background</span>
       </div>
-      <button class="chat-close" type="button" aria-label="Close">✕</button>
+      <div class="chat-head-btns">
+        <button class="chat-min" type="button" aria-label="Minimise" title="Minimise">–</button>
+        <button class="chat-close" type="button" aria-label="Close" title="Close">✕</button>
+      </div>
     </div>
     <div class="chat-log" aria-live="polite"></div>
     <form class="chat-form">
@@ -78,31 +81,24 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
     return b;
   }
 
-  const FAB_OPEN = '<span class="chat-fab-icon">💬</span><span class="chat-fab-label">Ask about me</span>';
-  const FAB_CLOSE = '<span class="chat-fab-icon">✕</span><span class="chat-fab-label">Close</span>';
-
-  function open() {
+  function open(focusInput) {
     panel.hidden = false;
     btn.classList.add("open");
-    btn.innerHTML = FAB_CLOSE;
     greet();
-    setTimeout(() => input.focus(), 50);
+    if (focusInput) setTimeout(() => input.focus(), 50);
   }
   function close() {
     panel.hidden = true;
     btn.classList.remove("open");
-    btn.innerHTML = FAB_OPEN;
   }
 
-  btn.addEventListener("click", () => (panel.hidden ? open() : close()));
+  btn.addEventListener("click", () => (panel.hidden ? open(true) : close()));
   panel.querySelector(".chat-close").addEventListener("click", close);
+  panel.querySelector(".chat-min").addEventListener("click", close);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
-  // tap outside the panel (and not the button) closes it
-  document.addEventListener("click", (e) => {
-    if (panel.hidden) return;
-    if (panel.contains(e.target) || btn.contains(e.target)) return;
-    close();
-  });
+
+  // auto-open on page load (shows greeting + suggested questions); no focus so mobile keyboard stays down
+  open(false);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
