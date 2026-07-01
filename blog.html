@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=47" />
+  <link rel="stylesheet" href="style.css?v=48" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -47,9 +47,18 @@
   </section>
 
   <section class="section blog-list-wrap">
-    <ul id="blog-list" class="blog-list">
-      <li class="blog-loading muted">Loading posts…</li>
-    </ul>
+    <div class="blog-grid">
+      <ul id="blog-list" class="blog-list">
+        <li class="blog-loading muted">Loading posts…</li>
+      </ul>
+      <aside class="news-side" aria-label="Top technology news">
+        <div class="news-box">
+          <h2 class="news-title">📰 Tech today</h2>
+          <p class="news-sub" id="news-updated">Top 5 stories · auto-updated</p>
+          <ol id="news-list" class="news-list"><li class="muted">Loading news…</li></ol>
+        </div>
+      </aside>
+    </div>
   </section>
 
   <footer class="footer">
@@ -172,6 +181,34 @@
         card.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });
+
+    // ---- Top 5 tech news (served by the Cloudflare Worker, edge-cached 30 min) ----
+    (async function renderNews() {
+      const el = document.getElementById("news-list");
+      const sub = document.getElementById("news-updated");
+      try {
+        const res = await fetch("https://muttaquee-chat.pnanto313.workers.dev/news?cb=" + Math.floor(Date.now() / 900000));
+        const data = await res.json();
+        if (!data.items || !data.items.length) throw new Error("empty");
+        el.innerHTML = data.items.map((n) => {
+          const ago = (() => {
+            const m = Math.max(1, Math.round((Date.now() - n.time) / 60000));
+            if (m < 60) return m + "m ago";
+            const h = Math.round(m / 60);
+            if (h < 24) return h + "h ago";
+            return Math.round(h / 24) + "d ago";
+          })();
+          return `<li class="news-item">
+            <a href="${n.link}" target="_blank" rel="noopener">${n.title}</a>
+            <span class="news-meta">${n.source} · ${ago}</span>
+          </li>`;
+        }).join("");
+        const d = new Date(data.updated);
+        sub.textContent = "Top 5 stories · updated " + d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+      } catch (e) {
+        el.innerHTML = '<li class="muted">News unavailable right now.</li>';
+      }
+    })();
   </script>
 </body>
 </html>

@@ -50,6 +50,14 @@ Currently under review (2026):
 - "Ethical and Privacy Issues of AI-Driven Metahuman Agents in Virtual Reality" — AI and Ethics.
 - "Role of Artificial Intelligence in Reshaping Workplaces: Applications, Challenges, and Future Prospects" — Discover Informatics.
 
+=== JOURNAL RANKINGS (verified mid-2026; refreshed manually — quartiles update yearly) ===
+- Future Internet (MDPI) — his diabetes-prediction paper: **Q1 by CiteScore/Scopus** (Computer Networks and Communications); Q2 by JCR/Scimago. Impact Factor 4.6 (2025).
+- Electronics (MDPI) — his cardiovascular-health paper: **Q1 by CiteScore/Scopus 2024** (Signal Processing; Electrical & Electronic Engineering; Computer Networks and Communications; Control & Systems Engineering; Hardware & Architecture); Q2 by JCR. CiteScore 5.3.
+- International Journal of Human-Computer Studies (Elsevier): Q1 — he has TWO papers currently under review there.
+- Metaverse, AI and Ethics, Discover Informatics, Journal of Small Business & Entrepreneurship: newer venues without established quartiles (or not yet ranked).
+- ACM IMX is a peer-reviewed ACM conference (proceedings), not quartile-ranked.
+So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus two manuscripts under review at another Q1 journal (IJHCS). If asked for detail, note that by JCR quartiles those two published journals are Q2 — be transparent about the ranking system if pressed, but lead with the CiteScore Q1 standing.
+
 === CONTACT ===
 Email: muttaquee97@gmail.com. LinkedIn: linkedin.com/in/muttaquee. Google Scholar and ORCID (0009-0007-3708-7727) linked on the site. For roles, collaborations, or PhD/research enquiries, email is best.`;
 
@@ -78,12 +86,63 @@ const MODELS = [
   "gemini-2.0-flash",
 ];
 
+// ---- Tech news: merge RSS feeds, top 5 newest, edge-cached 30 min ----
+const NEWS_FEEDS = [
+  { source: "TechCrunch", url: "https://techcrunch.com/feed/" },
+  { source: "BBC Tech", url: "https://feeds.bbci.co.uk/news/technology/rss.xml" },
+];
+
+function stripCdata(s) {
+  return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&#8217;|&rsquo;/g, "'").replace(/&#8216;|&lsquo;/g, "'").replace(/&#8220;|&ldquo;/g, '"').replace(/&#8221;|&rdquo;/g, '"').replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").trim();
+}
+
+function parseRss(xml, source) {
+  const items = [];
+  const blocks = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
+  for (const b of blocks.slice(0, 10)) {
+    const title = (b.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
+    const link = (b.match(/<link>([\s\S]*?)<\/link>/) || [])[1];
+    const pub = (b.match(/<pubDate>([\s\S]*?)<\/pubDate>/) || [])[1];
+    if (!title || !link) continue;
+    const t = Date.parse(pub || "") || 0;
+    items.push({ title: stripCdata(title), link: stripCdata(link), source, time: t });
+  }
+  return items;
+}
+
+async function handleNews(cors) {
+  const cache = caches.default;
+  const cacheKey = new Request("https://muttaquee-news.internal/top5-v1");
+  const hit = await cache.match(cacheKey);
+  if (hit) {
+    const body = await hit.text();
+    return new Response(body, { status: 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=900", ...cors } });
+  }
+
+  const results = await Promise.allSettled(
+    NEWS_FEEDS.map(async (f) => {
+      const r = await fetch(f.url, { headers: { "user-agent": "muttaquee-portfolio-news/1.0" } });
+      if (!r.ok) return [];
+      return parseRss(await r.text(), f.source);
+    })
+  );
+  let items = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
+  items.sort((a, b) => b.time - a.time);
+  items = items.slice(0, 5);
+
+  const payload = JSON.stringify({ updated: Date.now(), items });
+  const resp = new Response(payload, { status: 200, headers: { "content-type": "application/json", "cache-control": "public, max-age=1800", ...cors } });
+  await cache.put(cacheKey, resp.clone());
+  return resp;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const cors = corsHeaders(origin);
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
+    if (request.method === "GET" && new URL(request.url).pathname === "/news") return handleNews(cors);
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors);
 
     let body;

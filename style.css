@@ -876,3 +876,32 @@ body::before {
   .chat-form { padding: 9px; }
   .chat-input { padding: 8px 12px; }
 }
+
+/* ============ Tech news sidebar (blog page) ============ */
+.blog-grid { display: flex; flex-direction: column; gap: 26px; }
+.news-box {
+  position: relative;
+  background: rgba(21, 113, 107, 0.12);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-radius: 22px; padding: 20px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(24, 34, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.news-title { font-family: "Fraunces", Georgia, serif; font-size: 1.15rem; color: #0d4f4a; margin-bottom: 2px; }
+.news-sub { color: var(--muted); font-size: 0.76rem; margin-bottom: 14px; }
+.news-list { list-style: none; display: flex; flex-direction: column; gap: 13px; counter-reset: news; }
+.news-item { position: relative; padding-left: 26px; line-height: 1.4; counter-increment: news; }
+.news-item::before {
+  content: counter(news); position: absolute; left: 0; top: 1px;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--lav); color: #fff;
+  font-size: 0.68rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.news-item a { color: var(--text); font-size: 0.9rem; font-weight: 600; }
+.news-item a:hover { color: var(--lav); }
+.news-meta { display: block; color: var(--muted); font-size: 0.74rem; margin-top: 2px; }
+
+@media (min-width: 900px) {
+  .blog-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
+  .news-side { position: sticky; top: 100px; }
+}
