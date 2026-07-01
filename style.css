@@ -771,10 +771,13 @@ body::before {
 .pub-text strong { color: var(--text); }
 .pub-status { color: var(--lav); font-weight: 700; font-style: normal; }
 .pub-doi {
-  display: inline-block; color: var(--lav); font-weight: 600; font-size: 0.76rem;
-  border: 1px solid var(--line); padding: 1px 9px; border-radius: 999px; white-space: nowrap; margin-left: 2px;
+  display: inline-block; color: #fff; font-weight: 700; font-size: 0.74rem;
+  letter-spacing: 0.03em; background: var(--lav); border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 6px rgba(21, 113, 107, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  padding: 2px 11px; border-radius: 999px; white-space: nowrap; margin-left: 4px;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-.pub-doi:hover { background: var(--lav-soft); border-color: var(--lav); }
+.pub-doi:hover { background: #0d4f4a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(21, 113, 107, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
 
 /* under-review / status badge on publications */
 .pub-badge {
