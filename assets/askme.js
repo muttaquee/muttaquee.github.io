@@ -29,8 +29,10 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
         <span class="chat-sub">AI assistant · answers about my work &amp; background</span>
       </div>
       <div class="chat-head-btns">
-        <button class="chat-min" type="button" aria-label="Minimise" title="Minimise">–</button>
-        <button class="chat-close" type="button" aria-label="Close" title="Close">✕</button>
+        <button class="chat-min" type="button" aria-label="Minimise" title="Minimise"
+          onclick="var p=this.closest('.chat-panel');p.hidden=true;var f=document.querySelector('.chat-fab');if(f)f.classList.remove('open');">–</button>
+        <button class="chat-close" type="button" aria-label="Close" title="Close"
+          onclick="var p=this.closest('.chat-panel');p.hidden=true;var f=document.querySelector('.chat-fab');if(f)f.classList.remove('open');">✕</button>
       </div>
     </div>
     <div class="chat-log" aria-live="polite"></div>
