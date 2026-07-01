@@ -88,7 +88,8 @@ const MODELS = [
 
 // ---- Tech news: Google News aggregates outlets worldwide; top 5 newest, edge-cached 30 min ----
 const NEWS_FEEDS = [
-  { source: "", url: "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-GB&gl=GB&ceid=GB:en" },
+  // direct topic URL (the /headlines/ one 302-redirects); Google wants a browser-ish UA
+  { source: "", url: "https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGRqTVhZU0JXVnVMVWRDR2dKSFFpZ0FQAQ?hl=en-GB&gl=GB&ceid=GB:en" },
 ];
 
 function stripCdata(s) {
@@ -117,7 +118,7 @@ function parseRss(xml, fallbackSource) {
 
 async function handleNews(cors) {
   const cache = caches.default;
-  const cacheKey = new Request("https://muttaquee-news.internal/top5-v2");
+  const cacheKey = new Request("https://muttaquee-news.internal/top5-v3");
   const hit = await cache.match(cacheKey);
   if (hit) {
     const body = await hit.text();
@@ -126,7 +127,7 @@ async function handleNews(cors) {
 
   const results = await Promise.allSettled(
     NEWS_FEEDS.map(async (f) => {
-      const r = await fetch(f.url, { headers: { "user-agent": "muttaquee-portfolio-news/1.0" } });
+      const r = await fetch(f.url, { redirect: "follow", headers: { "user-agent": "Mozilla/5.0 (compatible; portfolio-news)" } });
       if (!r.ok) return [];
       return parseRss(await r.text(), f.source);
     })
