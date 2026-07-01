@@ -1,0 +1,30 @@
+<svg viewBox="0 0 116 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Muttaquee">
+  <!-- orange banner, top edge slanting up to the right -->
+  <path d="M6 30 L110 14 V62 H6 Z" fill="#F5822B"/>
+
+  <!-- paint drips hanging from the top edge -->
+  <g fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round">
+    <path d="M30 26 C30 33 29 37 30 41"/>
+    <path d="M49 23 C49 31 50 35 49 40"/>
+    <path d="M71 20 C71 27 72 30 71 35"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="30" cy="41.5" r="1.7"/>
+    <circle cx="49" cy="40.5" r="1.7"/>
+    <circle cx="71" cy="35.5" r="1.7"/>
+  </g>
+
+  <!-- white lowercase m -->
+  <g fill="#ffffff">
+    <!-- tall left stem -->
+    <rect x="40" y="30" width="9" height="28" rx="4.5"/>
+    <!-- little speech-bubble tail on the middle leg -->
+    <path d="M58 54 L58 66 L66 55 Z"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- first hump + middle leg -->
+    <path d="M44.5 44 Q44.5 34 53.5 34 Q62.5 34 62.5 44 L62.5 58"/>
+    <!-- second hump + right leg -->
+    <path d="M62.5 44 Q62.5 34 71.5 34 Q80.5 34 80.5 44 L80.5 58"/>
+  </g>
+</svg>
