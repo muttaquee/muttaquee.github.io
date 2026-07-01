@@ -137,7 +137,7 @@ function genPostPage(p) {
     <div class="post-meta" id="post-meta"></div>
     <div class="post-body" id="post-body"><p class="muted">Loading…</p></div>
   </article>
-  <footer class="footer"><p>© <span id="year"></span> Muttaquee · AI-Driven MetaHumans for Immersive Brand Engagement</p></footer>
+  <footer class="footer"><p>© <span id="year"></span> Muttaquee</p></footer>
   <script src="../assets/marked.min.js"></script>
   <script src="../script.js?v=20" defer></script>
   <script>
