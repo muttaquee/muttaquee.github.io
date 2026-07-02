@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=48" />
+  <link rel="stylesheet" href="style.css?v=49" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -51,7 +51,12 @@
       <ul id="blog-list" class="blog-list">
         <li class="blog-loading muted">Loading posts…</li>
       </ul>
-      <aside class="news-side" aria-label="Top technology news">
+      <aside class="news-side" aria-label="Conferences and technology news">
+        <div class="news-box">
+          <h2 class="news-title">🎓 Upcoming conferences</h2>
+          <p class="news-sub">Next 5 in VR · XR · HCI</p>
+          <ol id="conf-list" class="news-list"><li class="muted">Loading…</li></ol>
+        </div>
         <div class="news-box">
           <h2 class="news-title">📰 Tech today</h2>
           <p class="news-sub" id="news-updated">Top 5 stories · auto-updated</p>
@@ -66,6 +71,7 @@
   </footer>
 
   <script src="assets/marked.min.js"></script>
+  <script src="assets/confs.js?v=1"></script>
   <script src="script.js?v=20" defer></script>
   <script>
     let POSTS = [];
@@ -181,6 +187,26 @@
         card.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     });
+
+    // ---- Next 5 conferences (data in assets/confs.js; past events drop off automatically) ----
+    (function renderConfs() {
+      const el = document.getElementById("conf-list");
+      const confs = (window.CONFERENCES || [])
+        .filter((c) => new Date(c.end + "T23:59:59") >= new Date())
+        .sort((a, b) => (a.start < b.start ? -1 : 1))
+        .slice(0, 5);
+      if (!confs.length) { el.innerHTML = '<li class="muted">No upcoming events listed.</li>'; return; }
+      const fmt = (iso) => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      el.innerHTML = confs.map((c) => {
+        const days = Math.ceil((new Date(c.start + "T00:00:00") - new Date()) / 86400000);
+        const when = days <= 0 ? "happening now" : "in " + days + " days";
+        return `<li class="news-item">
+          <a href="${c.url}" target="_blank" rel="noopener" title="${c.full}">${c.name}</a>
+          <span class="news-meta">${fmt(c.start)}${c.estimated ? " (est.)" : ""} · ${c.location}</span>
+          <span class="conf-when">${when}</span>
+        </li>`;
+      }).join("");
+    })();
 
     // ---- Top 5 tech news (served by the Cloudflare Worker, edge-cached 30 min) ----
     (async function renderNews() {

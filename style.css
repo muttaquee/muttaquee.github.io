@@ -905,3 +905,11 @@ body::before {
   .blog-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
   .news-side { position: sticky; top: 100px; }
 }
+
+/* conferences box shares the news-box styling; stack the two boxes */
+.news-side { display: flex; flex-direction: column; gap: 20px; }
+.conf-when {
+  display: inline-block; margin-top: 3px; font-size: 0.7rem; font-weight: 700;
+  color: #0d4f4a; background: rgba(21, 113, 107, 0.14); border: 1px solid rgba(21, 113, 107, 0.3);
+  padding: 1px 8px; border-radius: 999px;
+}

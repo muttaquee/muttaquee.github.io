@@ -132,16 +132,19 @@ async function handleNews(cors, debug) {
   const diag = [];
   const results = await Promise.allSettled(
     NEWS_FEEDS.map(async (f) => {
-      try {
-        const r = await fetch(f.url, { redirect: "follow", headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" } });
-        const text = await r.text();
-        const parsed = r.ok ? parseRss(text, f.source) : [];
-        diag.push({ url: f.url.slice(0, 60), status: r.status, finalUrl: (r.url || "").slice(0, 80), bytes: text.length, parsed: parsed.length });
-        return parsed;
-      } catch (e) {
-        diag.push({ url: f.url.slice(0, 60), error: String(e).slice(0, 120) });
-        return [];
+      // Google intermittently bot-blocks datacenter requests — retry a couple of times
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const r = await fetch(f.url, { redirect: "follow", headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" } });
+          const text = await r.text();
+          const parsed = r.ok ? parseRss(text, f.source) : [];
+          diag.push({ url: f.url.slice(0, 60), attempt, status: r.status, bytes: text.length, parsed: parsed.length });
+          if (parsed.length) return parsed;
+        } catch (e) {
+          diag.push({ url: f.url.slice(0, 60), attempt, error: String(e).slice(0, 120) });
+        }
       }
+      return [];
     })
   );
   let items = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
