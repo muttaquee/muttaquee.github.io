@@ -881,7 +881,7 @@ body::before {
 .blog-grid { display: flex; flex-direction: column; gap: 26px; }
 .news-box {
   position: relative;
-  background: rgba(21, 113, 107, 0.12);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   border-radius: 22px; padding: 20px 22px;
@@ -933,7 +933,7 @@ body::before {
 .blog-card-title:hover { color: var(--lav); }
 
 /* distinct tints: conferences = bronze, tech news = slate blue */
-.news-side .news-box:first-child { background: rgba(176, 106, 53, 0.12); }
+.news-side .news-box:first-child { background: rgba(255, 255, 255, 0.06); }
 .news-side .news-box:first-child .news-title { color: #7a4a22; }
 .news-side .news-box:first-child .news-item::before { background: var(--peach); }
 .news-side .news-box:first-child .conf-when { color: #7a4a22; background: rgba(176, 106, 53, 0.14); border-color: rgba(176, 106, 53, 0.32); }
@@ -941,7 +941,7 @@ body::before {
 .news-side .news-box:first-child .box-reload:hover { background: rgba(176, 106, 53, 0.24); }
 .news-side .news-box:first-child .news-item a:hover { color: var(--peach); }
 
-.news-side .news-box:last-child { background: rgba(58, 98, 133, 0.12); }
+.news-side .news-box:last-child { background: rgba(255, 255, 255, 0.06); }
 .news-side .news-box:last-child .news-title { color: #2c4a66; }
 .news-side .news-box:last-child .news-item::before { background: var(--mint); }
 .news-side .news-box:last-child .box-reload { color: #2c4a66; background: rgba(58, 98, 133, 0.12); border-color: rgba(58, 98, 133, 0.3); }
