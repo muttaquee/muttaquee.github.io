@@ -927,3 +927,7 @@ body::before {
 
 /* read counter on blog cards */
 .blog-views { color: var(--muted); font-size: 0.78rem; margin-left: auto; white-space: nowrap; }
+
+/* blog title is clickable (same as Read) */
+.blog-card-title { cursor: pointer; transition: color 0.2s; }
+.blog-card-title:hover { color: var(--lav); }

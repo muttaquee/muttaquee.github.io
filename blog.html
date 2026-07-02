@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=51" />
+  <link rel="stylesheet" href="style.css?v=52" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -194,8 +194,13 @@
         setTimeout(() => (copyBtn.textContent = old), 1500);
         return;
       }
-      const btn = e.target.closest(".blog-readmore");
-      if (!btn) return;
+      let btn = e.target.closest(".blog-readmore");
+      if (!btn) {
+        // clicking the title toggles the post too
+        const title = e.target.closest(".blog-card-title");
+        if (!title) return;
+        btn = title.closest(".blog-card").querySelector(".blog-card-actions .blog-readmore");
+      }
       const card = btn.closest(".blog-card");
       const topBtn = card.querySelector(".blog-card-actions .blog-readmore");
       const content = card.querySelector(".blog-expand-content");
