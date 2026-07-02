@@ -57,7 +57,7 @@
             <h2 class="news-title">🎓 Upcoming conferences</h2>
             <button class="box-reload" id="conf-reload" type="button" title="Reload conferences" aria-label="Reload conferences">↻</button>
           </div>
-          <p class="news-sub" id="conf-sub">VR · XR · HCI · through next July</p>
+          <p class="news-sub" id="conf-sub">Open calls you can still submit to · VR · XR · HCI</p>
           <ol id="conf-list" class="news-list"><li class="muted">Loading…</li></ol>
         </div>
         <div class="news-box">
@@ -221,7 +221,7 @@
         const res = await fetch(CONF_DB + (fresh ? "?cb=" + Date.now() : ""));
         confs = parseConfYaml(await res.text());
         dbOk = confs.length > 0;
-        sub.textContent = "Open calls · VR · XR · HCI · through July " + (new Date().getMonth() >= 6 ? new Date().getFullYear() + 1 : new Date().getFullYear());
+        sub.textContent = "Open calls you can still submit to · VR · XR · HCI";
       } catch (e) {
         sub.textContent = "VR · XR · HCI · offline list";
       }
@@ -249,11 +249,9 @@
           if (!seenBase.has(keyOf(c.name))) confs.push(c);
         });
       }
-      // horizon = end of NEXT July (e.g. visiting in July 2026 shows everything through July 2027)
-      const hy = now.getMonth() >= 6 ? now.getFullYear() + 1 : now.getFullYear();
-      const horizon = new Date(hy, 6, 31, 23, 59, 59);
+      // deadline-driven: any conference you can still submit to is shown, whatever year it happens
       const upcoming = confs
-        .filter((c) => new Date((c.end || c.start) + "T23:59:59") >= now && new Date(c.start + "T00:00:00") <= horizon)
+        .filter((c) => new Date((c.end || c.start) + "T23:59:59") >= now)
         .sort((a, b) => (a.start < b.start ? -1 : 1))
         .slice(0, 12);
       if (!upcoming.length) { el.innerHTML = '<li class="muted">No upcoming events found.</li>'; return; }
