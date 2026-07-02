@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=49" />
+  <link rel="stylesheet" href="style.css?v=50" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -53,12 +53,18 @@
       </ul>
       <aside class="news-side" aria-label="Conferences and technology news">
         <div class="news-box">
-          <h2 class="news-title">🎓 Upcoming conferences</h2>
-          <p class="news-sub">Next 5 in VR · XR · HCI</p>
+          <div class="box-head">
+            <h2 class="news-title">🎓 Upcoming conferences</h2>
+            <button class="box-reload" id="conf-reload" type="button" title="Reload conferences" aria-label="Reload conferences">↻</button>
+          </div>
+          <p class="news-sub" id="conf-sub">Next 5 within 12 months · VR · XR · HCI</p>
           <ol id="conf-list" class="news-list"><li class="muted">Loading…</li></ol>
         </div>
         <div class="news-box">
-          <h2 class="news-title">📰 Tech today</h2>
+          <div class="box-head">
+            <h2 class="news-title">📰 Tech today</h2>
+            <button class="box-reload" id="news-reload" type="button" title="Reload news" aria-label="Reload news">↻</button>
+          </div>
           <p class="news-sub" id="news-updated">Top 5 stories · auto-updated</p>
           <ol id="news-list" class="news-list"><li class="muted">Loading news…</li></ol>
         </div>
@@ -188,32 +194,79 @@
       }
     });
 
-    // ---- Next 5 conferences (data in assets/confs.js; past events drop off automatically) ----
-    (function renderConfs() {
+    // ---- Next 5 conferences within 12 months ----
+    // Live source: community-maintained HCI conference database (hci-deadlines.github.io);
+    // merged with the curated list in assets/confs.js, which is also the offline fallback.
+    const CONF_DB = "https://raw.githubusercontent.com/hci-deadlines/hci-deadlines.github.io/gh-pages/_data/conferences.yml";
+    function padIso(s) {
+      const m = (s || "").match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+      return m ? m[1] + "-" + m[2].padStart(2, "0") + "-" + m[3].padStart(2, "0") : "";
+    }
+    function parseConfYaml(text) {
+      return text.split(/\n- /).map((block) => {
+        const g = (k) => (block.match(new RegExp("(?:^|\\n)\\s*" + k + ":\\s*'?\"?([^'\"\\n]+)")) || [])[1];
+        const title = g("title"), year = g("year"), start = padIso(g("start")), end = padIso(g("end"));
+        if (!title || !start) return null;
+        return { name: (title + " " + (year || "")).trim(), full: title, start, end: end || start,
+                 location: g("place") || "", url: g("link") || "#" };
+      }).filter(Boolean);
+    }
+    async function loadConfs(fresh) {
       const el = document.getElementById("conf-list");
-      const confs = (window.CONFERENCES || [])
-        .filter((c) => new Date(c.end + "T23:59:59") >= new Date())
+      const sub = document.getElementById("conf-sub");
+      el.innerHTML = '<li class="muted">Loading…</li>';
+      let confs = [];
+      try {
+        const res = await fetch(CONF_DB + (fresh ? "?cb=" + Date.now() : ""));
+        confs = parseConfYaml(await res.text());
+        sub.textContent = "Next 5 within 12 months · live database";
+      } catch (e) {
+        sub.textContent = "Next 5 within 12 months · offline list";
+      }
+      // keep only conferences relevant to VR / XR / MetaHumans / core HCI venues
+      const RELEVANT = /virtual reality|augmented|mixed reality|\bxr\b|\bvr\b|ismar|vrst|\bimx\b|\bchi\b|uist|siggraph|\bsui\b|aixvr|metaverse|avatar|\biva\b|interactive media|3d user/i;
+      confs = confs.filter((c) => RELEVANT.test(c.name + " " + (c.full || "")));
+      // normalised key: drop (Round N), IEEE/ACM prefixes, punctuation
+      const keyOf = (n) => n.replace(/\s*\(.*?\)\s*/g, " ").toLowerCase().replace(/\b(ieee|acm)\b/g, "").replace(/[^a-z0-9]/g, "");
+      // collapse submission-round + org-prefix duplicates
+      const seenBase = new Set();
+      confs = confs.filter((c) => {
+        const base = keyOf(c.name);
+        if (seenBase.has(base)) return false;
+        seenBase.add(base);
+        return true;
+      });
+      // merge curated entries (same dedupe key)
+      (window.CONFERENCES || []).forEach((c) => {
+        if (!seenBase.has(keyOf(c.name))) confs.push(c);
+      });
+      const now = new Date();
+      const horizon = new Date(now.getTime() + 365 * 86400000);
+      const upcoming = confs
+        .filter((c) => new Date((c.end || c.start) + "T23:59:59") >= now && new Date(c.start + "T00:00:00") <= horizon)
         .sort((a, b) => (a.start < b.start ? -1 : 1))
         .slice(0, 5);
-      if (!confs.length) { el.innerHTML = '<li class="muted">No upcoming events listed.</li>'; return; }
+      if (!upcoming.length) { el.innerHTML = '<li class="muted">No upcoming events found.</li>'; return; }
       const fmt = (iso) => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-      el.innerHTML = confs.map((c) => {
-        const days = Math.ceil((new Date(c.start + "T00:00:00") - new Date()) / 86400000);
+      el.innerHTML = upcoming.map((c) => {
+        const days = Math.ceil((new Date(c.start + "T00:00:00") - now) / 86400000);
         const when = days <= 0 ? "happening now" : "in " + days + " days";
         return `<li class="news-item">
-          <a href="${c.url}" target="_blank" rel="noopener" title="${c.full}">${c.name}</a>
+          <a href="${c.url}" target="_blank" rel="noopener" title="${c.full || ""}">${c.name}</a>
           <span class="news-meta">${fmt(c.start)}${c.estimated ? " (est.)" : ""} · ${c.location}</span>
           <span class="conf-when">${when}</span>
         </li>`;
       }).join("");
-    })();
+    }
 
     // ---- Top 5 tech news (served by the Cloudflare Worker, edge-cached 30 min) ----
-    (async function renderNews() {
+    async function loadNews(fresh) {
       const el = document.getElementById("news-list");
       const sub = document.getElementById("news-updated");
+      el.innerHTML = '<li class="muted">Loading news…</li>';
       try {
-        const res = await fetch("https://muttaquee-chat.pnanto313.workers.dev/news?cb=" + Math.floor(Date.now() / 900000));
+        const cb = fresh ? Date.now() : Math.floor(Date.now() / 900000);
+        const res = await fetch("https://muttaquee-chat.pnanto313.workers.dev/news?cb=" + cb);
         const data = await res.json();
         if (!data.items || !data.items.length) throw new Error("empty");
         el.innerHTML = data.items.map((n) => {
@@ -232,9 +285,22 @@
         const d = new Date(data.updated);
         sub.textContent = "Top 5 stories · updated " + d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
       } catch (e) {
-        el.innerHTML = '<li class="muted">News unavailable right now.</li>';
+        el.innerHTML = '<li class="muted">News unavailable right now. Try ↻ again.</li>';
       }
-    })();
+    }
+
+    function wireReload(btnId, fn) {
+      const b = document.getElementById(btnId);
+      b.addEventListener("click", async () => {
+        b.classList.add("spin");
+        await fn(true);
+        b.classList.remove("spin");
+      });
+    }
+    wireReload("conf-reload", loadConfs);
+    wireReload("news-reload", loadNews);
+    loadConfs(false);
+    loadNews(false);
   </script>
 </body>
 </html>
