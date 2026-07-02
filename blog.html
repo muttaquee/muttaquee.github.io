@@ -208,7 +208,7 @@
         const title = g("title"), year = g("year"), start = padIso(g("start")), end = padIso(g("end"));
         if (!title || !start) return null;
         return { name: (title + " " + (year || "")).trim(), full: title, start, end: end || start,
-                 location: g("place") || "", url: g("link") || "#" };
+                 deadline: padIso(g("deadline")), location: g("place") || "", url: g("link") || "#" };
       }).filter(Boolean);
     }
     async function loadConfs(fresh) {
@@ -216,19 +216,26 @@
       const sub = document.getElementById("conf-sub");
       el.innerHTML = '<li class="muted">Loading…</li>';
       let confs = [];
+      let dbOk = false;
       try {
         const res = await fetch(CONF_DB + (fresh ? "?cb=" + Date.now() : ""));
         confs = parseConfYaml(await res.text());
-        sub.textContent = "VR · XR · HCI through July " + (new Date().getMonth() >= 6 ? new Date().getFullYear() + 1 : new Date().getFullYear()) + " · live database";
+        dbOk = confs.length > 0;
+        sub.textContent = "Open calls · VR · XR · HCI · through July " + (new Date().getMonth() >= 6 ? new Date().getFullYear() + 1 : new Date().getFullYear());
       } catch (e) {
         sub.textContent = "VR · XR · HCI · offline list";
       }
       // keep only conferences relevant to VR / XR / immersive tech / MetaHumans
       const RELEVANT = /virtual reality|augmented|mixed reality|\bxr\b|\bvr\b|ismar|vrst|\bimx\b|\bchi\b|siggraph|\bsui\b|spatial user|aixvr|metaverse|avatar|\biva\b|interactive media|3d user/i;
       confs = confs.filter((c) => RELEVANT.test(c.name + " " + (c.full || "")));
+      const now = new Date();
+      // keep open calls + a 30-day grace window (poster/demo/late-breaking calls often open after the paper deadline)
+      const grace = new Date(now.getTime() - 30 * 86400000);
+      confs = confs.filter((c) => !c.deadline || new Date(c.deadline + "T23:59:59") >= grace);
       // normalised key: drop (Round N), IEEE/ACM prefixes, punctuation
       const keyOf = (n) => n.replace(/\s*\(.*?\)\s*/g, " ").toLowerCase().replace(/\b(ieee|acm)\b/g, "").replace(/[^a-z0-9]/g, "");
-      // collapse submission-round + org-prefix duplicates
+      // prefer the round with the soonest open deadline, then collapse duplicates
+      confs.sort((a, b) => (a.deadline || "9999") < (b.deadline || "9999") ? -1 : 1);
       const seenBase = new Set();
       confs = confs.filter((c) => {
         const base = keyOf(c.name);
@@ -236,11 +243,12 @@
         seenBase.add(base);
         return true;
       });
-      // merge curated entries (same dedupe key)
-      (window.CONFERENCES || []).forEach((c) => {
-        if (!seenBase.has(keyOf(c.name))) confs.push(c);
-      });
-      const now = new Date();
+      // curated list is the offline fallback only (it has no deadline info)
+      if (!dbOk) {
+        (window.CONFERENCES || []).forEach((c) => {
+          if (!seenBase.has(keyOf(c.name))) confs.push(c);
+        });
+      }
       // horizon = end of NEXT July (e.g. visiting in July 2026 shows everything through July 2027)
       const hy = now.getMonth() >= 6 ? now.getFullYear() + 1 : now.getFullYear();
       const horizon = new Date(hy, 6, 31, 23, 59, 59);
@@ -251,12 +259,20 @@
       if (!upcoming.length) { el.innerHTML = '<li class="muted">No upcoming events found.</li>'; return; }
       const fmt = (iso) => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
       el.innerHTML = upcoming.map((c) => {
-        const days = Math.ceil((new Date(c.start + "T00:00:00") - now) / 86400000);
-        const when = days <= 0 ? "happening now" : "in " + days + " days";
+        let chip;
+        if (c.deadline) {
+          const dd = Math.ceil((new Date(c.deadline + "T23:59:59") - now) / 86400000);
+          chip = dd >= 0
+            ? "submit by " + fmt(c.deadline) + " (" + dd + "d left)"
+            : "papers closed · late calls may be open";
+        } else {
+          const days = Math.ceil((new Date(c.start + "T00:00:00") - now) / 86400000);
+          chip = days <= 0 ? "happening now" : "in " + days + " days";
+        }
         return `<li class="news-item">
           <a href="${c.url}" target="_blank" rel="noopener" title="${c.full || ""}">${c.name}</a>
           <span class="news-meta">${fmt(c.start)}${c.estimated ? " (est.)" : ""} · ${c.location}</span>
-          <span class="conf-when">${when}</span>
+          <span class="conf-when">${chip}</span>
         </li>`;
       }).join("");
     }
