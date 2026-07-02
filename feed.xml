@@ -7,7 +7,15 @@
     <atom:link href="https://muttaquee.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Jul 2026 10:59:57 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2026 12:20:43 GMT</lastBuildDate>
+    <item>
+      <title>Would You Trust an AI MetaHuman to Show You Your Next Home?</title>
+      <link>https://muttaquee.github.io/p/ai-digital-humans-vr-property-viewings.html</link>
+      <guid isPermaLink="false">ai-digital-humans-vr-property-viewings</guid>
+      <pubDate>Thu, 02 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Human-Computer Interaction</category><category>Artificial Intelligence</category><category>Virtual Reality</category><category>VR for Real estate</category>
+      <description>Exploring how AI-driven digital humans could transform property viewing in Virtual Reality.</description>
+    </item>
     <item>
       <title>What Happens When AI MetaHumans Start Thinking in Real Time?</title>
       <link>https://muttaquee.github.io/p/real-time-intelligence-ai-metahumans-vr.html</link>
