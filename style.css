@@ -924,3 +924,6 @@ body::before {
 .box-reload:hover { background: rgba(21, 113, 107, 0.24); transform: rotate(45deg); }
 .box-reload.spin { animation: reloadSpin 0.8s linear infinite; }
 @keyframes reloadSpin { to { transform: rotate(360deg); } }
+
+/* read counter on blog cards */
+.blog-views { color: var(--muted); font-size: 0.78rem; margin-left: auto; white-space: nowrap; }

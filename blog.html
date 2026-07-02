@@ -16,7 +16,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="fonts.css?v=9" />
-  <link rel="stylesheet" href="style.css?v=50" />
+  <link rel="stylesheet" href="style.css?v=51" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -134,7 +134,7 @@
           return `
             <li class="blog-card" data-slug="${encodeURIComponent(p.slug)}">
               <div class="blog-card-pad">
-                <div class="blog-card-meta"><time>${date}</time>${tags}</div>
+                <div class="blog-card-meta"><time>${date}</time>${tags}<span class="blog-views" data-views="${encodeURIComponent(p.slug)}">👁 …</span></div>
                 <h2 class="blog-card-title">${p.title}</h2>
                 <p class="blog-card-excerpt">${p.excerpt || ""}</p>
                 <div class="blog-card-actions">
@@ -148,10 +148,41 @@
               </div>
             </li>`;
         }).join("");
+        loadViewCounts(posts.map((p) => p.slug));
       } catch (e) {
         el.innerHTML = '<li class="muted">Could not load posts.</li>';
       }
     })();
+
+    // ---- per-post read counters (stored in Cloudflare KV via the Worker) ----
+    const VIEWS_API = "https://muttaquee-chat.pnanto313.workers.dev/views";
+    async function loadViewCounts(slugs) {
+      try {
+        const res = await fetch(VIEWS_API + "?slugs=" + slugs.map(encodeURIComponent).join(","));
+        const counts = await res.json();
+        document.querySelectorAll(".blog-views").forEach((s) => {
+          const slug = decodeURIComponent(s.dataset.views);
+          if (counts[slug] !== undefined) s.textContent = "👁 " + counts[slug] + (counts[slug] === 1 ? " read" : " reads");
+          else s.textContent = "";
+        });
+      } catch (e) {
+        document.querySelectorAll(".blog-views").forEach((s) => (s.textContent = ""));
+      }
+    }
+    function countRead(slug) {
+      // one count per browser session per post
+      const k = "read:" + slug;
+      if (sessionStorage.getItem(k)) return;
+      sessionStorage.setItem(k, "1");
+      fetch(VIEWS_API, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ slug }),
+      }).then((r) => r.json()).then((d) => {
+        const s = document.querySelector('.blog-views[data-views="' + encodeURIComponent(slug) + '"]');
+        if (s && d.views !== undefined) s.textContent = "👁 " + d.views + (d.views === 1 ? " read" : " reads");
+      }).catch(() => {});
+    }
 
     // expand-to-read: clicking "Read" drops the glass card open with the full post
     document.getElementById("blog-list").addEventListener("click", (e) => {
@@ -187,6 +218,7 @@
         }
         card.classList.add("open");   // top "Read" hides; full body + bottom "Collapse" reveal
         topBtn.setAttribute("aria-expanded", "true");
+        countRead(decodeURIComponent(card.dataset.slug));
       } else {
         card.classList.remove("open");
         topBtn.setAttribute("aria-expanded", "false");

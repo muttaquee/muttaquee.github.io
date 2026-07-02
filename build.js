@@ -117,7 +117,7 @@ function genPostPage(p) {
   <meta name="twitter:description" content="${esc(p.excerpt)}" />
   <meta name="twitter:image" content="${esc(ogImg)}" />
   <link rel="stylesheet" href="../fonts.css?v=9" />
-  <link rel="stylesheet" href="../style.css?v=50" />
+  <link rel="stylesheet" href="../style.css?v=51" />
 </head>
 <body>
   <canvas class="ripple-canvas" aria-hidden="true"></canvas>
@@ -177,6 +177,13 @@ function genPostPage(p) {
         const at = { src: "https://giscus.app/client.js", "data-repo": "muttaquee/muttaquee.github.io", "data-repo-id": "R_kgDOTDXe2A", "data-category": "Announcements", "data-category-id": "DIC_kwDOTDXe2M4C_6Is", "data-mapping": "specific", "data-term": slug, "data-strict": "1", "data-reactions-enabled": "1", "data-emit-metadata": "0", "data-input-position": "bottom", "data-theme": "light", "data-lang": "en", crossorigin: "anonymous" };
         Object.entries(at).forEach(([k, v]) => g.setAttribute(k, v)); g.async = true;
         document.querySelector(".post-comments").appendChild(g);
+        if (!sessionStorage.getItem("read:" + slug)) {
+          sessionStorage.setItem("read:" + slug, "1");
+          fetch("https://muttaquee-chat.pnanto313.workers.dev/views", {
+            method: "POST", headers: { "content-type": "application/json" },
+            body: JSON.stringify({ slug: slug }),
+          }).catch(function () {});
+        }
       } catch (e) {
         body.innerHTML = '<p class="muted">Could not load this post. <a href="../blog.html">Back to blog</a>.</p>';
       }

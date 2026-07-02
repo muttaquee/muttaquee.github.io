@@ -165,13 +165,40 @@ async function handleNews(cors, debug) {
   return resp;
 }
 
+// ---- Per-post view counter (Cloudflare KV, binding: VIEWS) ----
+async function handleViews(request, env, cors) {
+  if (!env.VIEWS) return json({ error: "views storage not configured" }, 503, cors);
+  const url = new URL(request.url);
+  if (request.method === "GET") {
+    const slugs = (url.searchParams.get("slugs") || "").split(",").filter(Boolean).slice(0, 50);
+    const out = {};
+    await Promise.all(slugs.map(async (s) => {
+      out[s] = parseInt((await env.VIEWS.get("v:" + s)) || "0", 10);
+    }));
+    return json(out, 200, cors);
+  }
+  if (request.method === "POST") {
+    let b;
+    try { b = await request.json(); } catch { return json({ error: "bad json" }, 400, cors); }
+    const slug = String(b.slug || "").slice(0, 100).replace(/[^a-zA-Z0-9_-]/g, "");
+    if (!slug) return json({ error: "no slug" }, 400, cors);
+    const key = "v:" + slug;
+    const views = parseInt((await env.VIEWS.get(key)) || "0", 10) + 1;
+    await env.VIEWS.put(key, String(views));
+    return json({ slug, views }, 200, cors);
+  }
+  return json({ error: "method" }, 405, cors);
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const cors = corsHeaders(origin);
+    const path = new URL(request.url).pathname;
 
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
-    if (request.method === "GET" && new URL(request.url).pathname === "/news") {
+    if (path === "/views") return handleViews(request, env, cors);
+    if (request.method === "GET" && path === "/news") {
       return handleNews(cors, new URL(request.url).searchParams.has("debug"));
     }
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors);
