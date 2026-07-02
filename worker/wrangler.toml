@@ -4,3 +4,8 @@ compatibility_date = "2024-11-01"
 
 # The Gemini API key is NOT stored here. Set it as a secret:
 #   npx wrangler secret put GEMINI_API_KEY
+
+# per-post read counters
+[[kv_namespaces]]
+binding = "VIEWS"
+id = "099a41543adc4b0ea74ce257989b6b8d"
