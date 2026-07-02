@@ -57,7 +57,7 @@
             <h2 class="news-title">🎓 Upcoming conferences</h2>
             <button class="box-reload" id="conf-reload" type="button" title="Reload conferences" aria-label="Reload conferences">↻</button>
           </div>
-          <p class="news-sub" id="conf-sub">Next 5 within 12 months · VR · XR · HCI</p>
+          <p class="news-sub" id="conf-sub">VR · XR · HCI · through next July</p>
           <ol id="conf-list" class="news-list"><li class="muted">Loading…</li></ol>
         </div>
         <div class="news-box">
@@ -219,12 +219,12 @@
       try {
         const res = await fetch(CONF_DB + (fresh ? "?cb=" + Date.now() : ""));
         confs = parseConfYaml(await res.text());
-        sub.textContent = "Next 5 within 12 months · live database";
+        sub.textContent = "VR · XR · HCI through July " + (new Date().getMonth() >= 6 ? new Date().getFullYear() + 1 : new Date().getFullYear()) + " · live database";
       } catch (e) {
-        sub.textContent = "Next 5 within 12 months · offline list";
+        sub.textContent = "VR · XR · HCI · offline list";
       }
-      // keep only conferences relevant to VR / XR / MetaHumans / core HCI venues
-      const RELEVANT = /virtual reality|augmented|mixed reality|\bxr\b|\bvr\b|ismar|vrst|\bimx\b|\bchi\b|uist|siggraph|\bsui\b|aixvr|metaverse|avatar|\biva\b|interactive media|3d user/i;
+      // keep only conferences relevant to VR / XR / immersive tech / MetaHumans
+      const RELEVANT = /virtual reality|augmented|mixed reality|\bxr\b|\bvr\b|ismar|vrst|\bimx\b|\bchi\b|siggraph|\bsui\b|spatial user|aixvr|metaverse|avatar|\biva\b|interactive media|3d user/i;
       confs = confs.filter((c) => RELEVANT.test(c.name + " " + (c.full || "")));
       // normalised key: drop (Round N), IEEE/ACM prefixes, punctuation
       const keyOf = (n) => n.replace(/\s*\(.*?\)\s*/g, " ").toLowerCase().replace(/\b(ieee|acm)\b/g, "").replace(/[^a-z0-9]/g, "");
@@ -241,11 +241,13 @@
         if (!seenBase.has(keyOf(c.name))) confs.push(c);
       });
       const now = new Date();
-      const horizon = new Date(now.getTime() + 365 * 86400000);
+      // horizon = end of NEXT July (e.g. visiting in July 2026 shows everything through July 2027)
+      const hy = now.getMonth() >= 6 ? now.getFullYear() + 1 : now.getFullYear();
+      const horizon = new Date(hy, 6, 31, 23, 59, 59);
       const upcoming = confs
         .filter((c) => new Date((c.end || c.start) + "T23:59:59") >= now && new Date(c.start + "T00:00:00") <= horizon)
         .sort((a, b) => (a.start < b.start ? -1 : 1))
-        .slice(0, 5);
+        .slice(0, 12);
       if (!upcoming.length) { el.innerHTML = '<li class="muted">No upcoming events found.</li>'; return; }
       const fmt = (iso) => new Date(iso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
       el.innerHTML = upcoming.map((c) => {
