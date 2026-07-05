@@ -947,3 +947,7 @@ body::before {
 .news-side .news-box:last-child .box-reload { color: #2c4a66; background: rgba(58, 98, 133, 0.12); border-color: rgba(58, 98, 133, 0.3); }
 .news-side .news-box:last-child .box-reload:hover { background: rgba(58, 98, 133, 0.24); }
 .news-side .news-box:last-child .news-item a:hover { color: var(--mint); }
+
+/* sidebar boxes float on hover like blog cards */
+.news-box { transition: transform 0.25s, box-shadow 0.25s; }
+.news-box:hover { transform: translateY(-5px); box-shadow: 0 22px 46px rgba(24, 34, 46, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7); }
