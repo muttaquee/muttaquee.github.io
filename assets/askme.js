@@ -92,6 +92,8 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   function close() {
     panel.hidden = true;
     btn.classList.remove("open");
+    // remember the dismissal for this browser session — no auto-pop-up on other pages
+    try { sessionStorage.setItem("chatDismissed", "1"); } catch (e) {}
   }
 
   btn.addEventListener("click", () => (panel.hidden ? open(true) : close()));
@@ -101,8 +103,10 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
 
-  // auto-open on page load (shows greeting + suggested questions); no focus so mobile keyboard stays down
-  open(false);
+  // auto-open on page load (greeting + suggested questions) — but stay closed once dismissed this session
+  let dismissed = false;
+  try { dismissed = !!sessionStorage.getItem("chatDismissed"); } catch (e) {}
+  if (!dismissed) open(false);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
