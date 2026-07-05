@@ -9,7 +9,7 @@
   <!-- self-hosted fonts: no third-party round-trip, font-display:swap, latin subset only -->
   <link rel="stylesheet" href="fonts.css?v=9" />
   <link rel="preload" as="image" href="assets/profile.jpg?v=8" />
-  <link rel="stylesheet" href="style.css?v=55" />
+  <link rel="stylesheet" href="style.css?v=56" />
 </head>
 <body>
   <!-- water ripple background (canvas simulation) -->
@@ -157,6 +157,17 @@
   <section id="research" class="section">
     <span class="kicker">02 — Research</span>
     <h2 class="section-title">What I'm building</h2>
+
+    <!-- 3D model — rotates as you scroll (drag to spin too). Swap src with your own .glb anytime. -->
+    <div class="model-wrap">
+      <model-viewer id="research-model"
+        src="assets/models/astronaut.glb"
+        alt="3D virtual human model"
+        camera-controls disable-zoom interaction-prompt="none"
+        camera-orbit="0deg 78deg 105%" exposure="1.05" shadow-intensity="1" loading="lazy">
+      </model-viewer>
+      <p class="model-caption">↕ Scroll to spin · drag to explore</p>
+    </div>
     <div class="cards">
       <article class="card card-lav">
         <div class="card-emoji">🧑‍🎤</div>
@@ -190,5 +201,28 @@
 
   <script src="script.js?v=20" defer></script>
   <script src="assets/askme.js?v=2" defer></script>
+  <!-- 3D model viewer + scroll-driven rotation -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <script>
+    (function () {
+      const mv = document.getElementById("research-model");
+      if (!mv) return;
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          const r = mv.getBoundingClientRect();
+          // only spin while the model is near the viewport
+          if (r.bottom < -200 || r.top > innerHeight + 200) return;
+          const deg = (window.scrollY * 0.35) % 360;
+          mv.cameraOrbit = deg.toFixed(1) + "deg 78deg 105%";
+        });
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
