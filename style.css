@@ -734,9 +734,13 @@ body::before {
 
 /* print = clean CV / save as PDF */
 @media print {
-  .nav, .footer, .ripple-canvas, .cv-print { display: none !important; }
+  /* zero page margin removes the browser's date/URL header & footer; padding below restores content margins */
+  @page { margin: 0; }
+  .nav, .footer, .ripple-canvas, .cv-print,
+  .chat-fab, .chat-panel, .model-wrap { display: none !important; }
   body { padding-top: 0 !important; background: #fff !important; }
-  .cv { max-width: 100%; padding: 0 12px; }
+  .cv { max-width: 100%; padding: 14mm 16mm; }
+  .cv-entry { break-inside: avoid-page; }
   .cv-h { border-color: #ccc; }
   a { color: #000 !important; }
 }
