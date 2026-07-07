@@ -745,6 +745,24 @@ body::before {
   .cv-h { border-color: #ccc; break-after: avoid-page; break-inside: avoid-page; }
   .cv-section { margin-top: 0; }
   a { color: #000 !important; }
+
+  /* compact typography: fit the CV in 2–3 pages */
+  .cv { font-size: 10pt; line-height: 1.45; }
+  .cv-header { margin-bottom: 14px; }
+  .cv-header h1 { font-size: 19pt; }
+  .cv-role { font-size: 11pt; margin-top: 2px; }
+  .cv-contact { font-size: 9.5pt; margin-top: 6px; gap: 4px 14px; }
+  .cv-section { margin-bottom: 14px; }
+  .cv-h { font-size: 12pt; margin-bottom: 8px; padding-bottom: 4px; }
+  .cv-profile { font-size: 10pt; line-height: 1.5; }
+  .cv-entry { margin-bottom: 10px; }
+  .cv-entry-head h3 { font-size: 10.5pt; }
+  .cv-dates { font-size: 9pt; }
+  .cv-org { font-size: 9.5pt; margin: 1px 0 3px; }
+  .cv-desc, .cv-bullets li, .cv-pubs li, .cv-skills li { font-size: 10pt; line-height: 1.45; }
+  .cv-bullets { gap: 3px; margin-top: 3px; }
+  .cv-skills { gap: 4px; }
+  .cv-pubs { gap: 6px; }
 }
 
 /* =========================================================
