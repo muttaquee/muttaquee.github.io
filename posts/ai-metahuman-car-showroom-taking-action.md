@@ -13,7 +13,7 @@ A few weeks ago I wrote about placing an AI-driven MetaHuman inside a virtual pr
 
 Now I am building my second case study, and it moves the idea forward in a way I find genuinely exciting. This time the setting is a **car showroom**, and the MetaHuman is no longer just a guide that talks and follows. It can **take action on your command**.
 
-> **The Bigger Picture:** In my first study, the MetaHuman could converse and accompany you. In this one, it can *do things for you*. Say "open the car door for me," and the MetaHuman walks over and opens it. This is the step from a virtual human that talks to a virtual human that acts — from conversation to embodied assistance inside Virtual Reality.
+> **The Bigger Picture:** In my first study, the MetaHuman could converse and accompany you. In this one, it can *do things for you*. Say "open the car door for me," and the MetaHuman walks over and opens it. This is the step from a MetaHuman that only talks to one that also acts — from conversation to embodied assistance inside Virtual Reality, where a real person wearing a VR headset gives the command and the virtual human carries it out.
 
 ## From a guide to an assistant
 
