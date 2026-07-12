@@ -7,7 +7,7 @@ tags:
   - Virtual Reality
   - MetaHumans
 excerpt: My second case study takes the AI MetaHuman from a virtual guide that talks and follows to a virtual assistant that acts on your command inside a car showroom.
-cover: ""
+cover: /assets/uploads/metaa.jpeg
 ---
 A few weeks ago I wrote about putting an AI-driven MetaHuman inside a virtual property tour. It was a digital human that could hold a real conversation and follow you from room to room as you explored a home. That was my first case study, and it answered an early question I had: can a virtual human make an immersive experience feel less lonely and a little more human?
 
