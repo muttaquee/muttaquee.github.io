@@ -7,7 +7,15 @@
     <atom:link href="https://muttaquee.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Jul 2026 00:31:55 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 11:12:51 GMT</lastBuildDate>
+    <item>
+      <title>Open the Car Door for Me: Teaching an AI MetaHuman to Act, Not Just Talk</title>
+      <link>https://muttaquee.github.io/p/ai-metahuman-car-showroom-taking-action.html</link>
+      <guid isPermaLink="false">ai-metahuman-car-showroom-taking-action</guid>
+      <pubDate>Sun, 05 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Artificial Intelligence</category><category>Virtual Reality</category><category>MetaHumans</category>
+      <description>My second case study takes the AI MetaHuman from a virtual guide that talks and follows to a virtual assistant that acts on your command inside a car showroom.</description>
+    </item>
     <item>
       <title>Would You Trust an AI MetaHuman to Show You Your Next Home?</title>
       <link>https://muttaquee.github.io/p/ai-digital-humans-vr-property-viewings.html</link>
