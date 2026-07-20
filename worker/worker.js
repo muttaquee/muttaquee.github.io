@@ -43,6 +43,8 @@ Peer-reviewed / published:
 4. Kissi, S. A., Talukder, M. G. M., Iqbal, M. Z. (2025) "Data-Driven Predictive Modelling of Lifestyle Risk Factors for Cardiovascular Health." Electronics 14(14), 2906. DOI 10.3390/electronics14142906.
 Also: MSc dissertation (2023) "Identifying the Role of Digital Marketing in Changing Consumers' Buying Decision," University of South-Eastern Norway.
 
+IMPORTANT: the four papers above (plus the MSc dissertation) are PUBLISHED — never describe them as under review. ONLY the following six manuscripts are under review, at the venues stated. Never mix the two lists, and never repeat the same paper twice in one answer.
+
 Currently under review (2026):
 - "Beyond AI Adoption: A Systematic Literature Review and Integrative Framework of Value Creation in SMEs" — Journal of Small Business & Entrepreneurship.
 - "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — International Journal of Human-Computer Studies.
