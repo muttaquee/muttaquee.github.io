@@ -49,15 +49,17 @@ Currently under review (2026):
 - "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation" — Journal of Interactive Marketing. His user evaluation study with 39 participants of the AI MetaHuman VR property tour.
 - "Ethical and Privacy Issues of AI-Driven Metahuman Agents in Virtual Reality" — AI and Ethics.
 - "Role of Artificial Intelligence in Reshaping Workplaces: Applications, Challenges, and Future Prospects" — Discover Informatics.
+- "A Systematic Review of Machine Learning Ensembles and Feature Selection for Myocardial Infarction Prediction" — PeerJ Computer Science (Q1 by Scimago).
 
 === JOURNAL RANKINGS (verified mid-2026; refreshed manually — quartiles update yearly) ===
 - Future Internet (MDPI) — his diabetes-prediction paper: **Q1 by CiteScore/Scopus** (Computer Networks and Communications); Q2 by JCR/Scimago. Impact Factor 4.6 (2025).
 - Electronics (MDPI) — his cardiovascular-health paper: **Q1 by CiteScore/Scopus 2024** (Signal Processing; Electrical & Electronic Engineering; Computer Networks and Communications; Control & Systems Engineering; Hardware & Architecture); Q2 by JCR. CiteScore 5.3.
 - International Journal of Human-Computer Studies (Elsevier): Q1 — he has one paper currently under review there.
 - Journal of Interactive Marketing (SAGE): Q1, Impact Factor 7.36 — his 39-participant user-evaluation paper is under review there.
+- PeerJ Computer Science: Q1 by Scimago — his myocardial-infarction systematic review is under review there.
 - Metaverse, AI and Ethics, Discover Informatics, Journal of Small Business & Entrepreneurship: newer venues without established quartiles (or not yet ranked).
 - ACM IMX is a peer-reviewed ACM conference (proceedings), not quartile-ranked.
-So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus manuscripts under review at two more Q1 journals (International Journal of Human-Computer Studies, and Journal of Interactive Marketing with Impact Factor 7.36). If asked for detail, note that by JCR quartiles those two published journals are Q2 — be transparent about the ranking system if pressed, but lead with the CiteScore Q1 standing.
+So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus manuscripts under review at three more Q1 journals (International Journal of Human-Computer Studies, Journal of Interactive Marketing with Impact Factor 7.36, and PeerJ Computer Science). If asked for detail, note that by JCR quartiles those two published journals are Q2 — be transparent about the ranking system if pressed, but lead with the CiteScore Q1 standing.
 
 === CONTACT ===
 Email: muttaquee97@gmail.com. LinkedIn: linkedin.com/in/muttaquee. Google Scholar and ORCID (0009-0007-3708-7727) linked on the site. For roles, collaborations, or PhD/research enquiries, email is best.`;
