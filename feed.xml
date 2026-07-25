@@ -7,7 +7,15 @@
     <atom:link href="https://muttaquee.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Weekly notes on AI-driven MetaHumans, immersive brand engagement, VR and HCI research.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 20 Jul 2026 15:34:50 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2026 01:28:13 GMT</lastBuildDate>
+    <item>
+      <title>Does the AI MetaHuman Actually Change Anything? How I Plan to Find Out</title>
+      <link>https://muttaquee.github.io/p/does-ai-metahuman-change-anything.html</link>
+      <guid isPermaLink="false">does-ai-metahuman-change-anything</guid>
+      <pubDate>Tue, 21 Jul 2026 09:00:00 GMT</pubDate>
+      <category>Human-Computer Interaction</category><category>Artificial Intelligence</category><category>Virtual Reality</category><category>MetaHumans</category>
+      <description>A demo that makes people say wow has cleared a very low bar. Here is how I plan to test whether an embodied AI MetaHuman actually changes what people do inside VR.</description>
+    </item>
     <item>
       <title>Open the Car Door for Me: Teaching an AI MetaHuman to Act, Not Just Talk</title>
       <link>https://muttaquee.github.io/p/ai-metahuman-car-showroom-taking-action.html</link>
