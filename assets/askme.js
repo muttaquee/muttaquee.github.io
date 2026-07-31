@@ -29,6 +29,7 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
         <span class="chat-sub">AI assistant · answers about my work &amp; background</span>
       </div>
       <div class="chat-head-btns">
+        <button class="chat-speak" type="button" aria-label="Toggle spoken replies" title="Read answers aloud">🔈</button>
         <button class="chat-min" type="button" aria-label="Minimise" title="Minimise"
           onclick="var p=this.closest('.chat-panel');p.hidden=true;var f=document.querySelector('.chat-fab');if(f)f.classList.remove('open');">–</button>
         <button class="chat-close" type="button" aria-label="Close" title="Close"
@@ -37,8 +38,9 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
     </div>
     <div class="chat-log" aria-live="polite"></div>
     <form class="chat-form">
+      <button class="chat-mic" type="button" aria-label="Speak your question" title="Speak your question" hidden>🎤</button>
       <input class="chat-input" type="text" autocomplete="off"
-             placeholder="e.g. What is his PhD about?" maxlength="500" />
+             placeholder="Type, or tap the mic to speak" maxlength="500" />
       <button class="chat-send" type="submit" aria-label="Send">➤</button>
     </form>`;
 
@@ -49,6 +51,56 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   const form = panel.querySelector(".chat-form");
   const input = panel.querySelector(".chat-input");
   const sendBtn = panel.querySelector(".chat-send");
+  const micBtn = panel.querySelector(".chat-mic");
+  const speakBtn = panel.querySelector(".chat-speak");
+
+  // ---- Voice: text-to-speech (read answers aloud), toggleable + remembered ----
+  const tts = window.speechSynthesis;
+  let speakOn = false;
+  try { speakOn = localStorage.getItem("chatSpeak") === "1"; } catch (e) {}
+  function renderSpeak() { speakBtn.textContent = speakOn ? "🔊" : "🔈"; speakBtn.classList.toggle("on", speakOn); }
+  function speak(text) {
+    if (!speakOn || !tts) return;
+    tts.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 1.02; u.pitch = 1; u.lang = "en-GB";
+    tts.speak(u);
+  }
+  if (!tts) speakBtn.hidden = true;
+  renderSpeak();
+  speakBtn.addEventListener("click", () => {
+    speakOn = !speakOn;
+    try { localStorage.setItem("chatSpeak", speakOn ? "1" : "0"); } catch (e) {}
+    if (!speakOn && tts) tts.cancel();
+    renderSpeak();
+  });
+
+  // ---- Voice: speech-to-text (speak your question). Chrome / Edge / Safari only. ----
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recog = null, listening = false;
+  if (SR) {
+    micBtn.hidden = false;
+    recog = new SR();
+    recog.lang = "en-GB";
+    recog.interimResults = false;
+    recog.maxAlternatives = 1;
+    recog.addEventListener("result", (e) => {
+      const t = e.results[0][0].transcript;
+      input.value = t;
+    });
+    recog.addEventListener("end", () => {
+      listening = false;
+      micBtn.classList.remove("listening");
+      if (input.value.trim()) form.requestSubmit();
+    });
+    recog.addEventListener("error", () => { listening = false; micBtn.classList.remove("listening"); });
+    micBtn.addEventListener("click", () => {
+      if (listening) { recog.stop(); return; }
+      if (tts) tts.cancel();
+      input.value = "";
+      try { recog.start(); listening = true; micBtn.classList.add("listening"); } catch (e) {}
+    });
+  }
 
   const suggestions = [
     "What is his PhD research about?",
@@ -92,6 +144,7 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   function close() {
     panel.hidden = true;
     btn.classList.remove("open");
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
     // remember the dismissal for this browser session — no auto-pop-up on other pages
     try { sessionStorage.setItem("chatDismissed", "1"); } catch (e) {}
   }
@@ -134,6 +187,7 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
       if (data.reply) {
         addBubble("assistant", data.reply);
         history.push({ role: "assistant", content: data.reply });
+        speak(data.reply);
       } else {
         addBubble("assistant", "Sorry — something went wrong. You can email muttaquee97@gmail.com.");
       }

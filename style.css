@@ -991,3 +991,12 @@ body::before {
   background: transparent; --poster-color: transparent;
 }
 .model-caption { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+
+/* voice controls in chat widget */
+.chat-speak { flex-shrink: 0; background: rgba(0,0,0,0.05); border: none; color: var(--text); font-size: 1rem; line-height: 1; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 0; }
+.chat-speak:hover { background: rgba(0,0,0,0.12); }
+.chat-speak.on { background: rgba(21,113,107,0.18); }
+.chat-mic { flex-shrink: 0; width: 42px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; background: rgba(255,255,255,0.7); color: var(--lav); font-size: 1rem; transition: background 0.2s, transform 0.2s; }
+.chat-mic:hover { background: rgba(21,113,107,0.12); }
+.chat-mic.listening { background: #e5484d; color: #fff; border-color: #e5484d; animation: micPulse 1s ease-in-out infinite; }
+@keyframes micPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(229,72,77,0.5); } 50% { box-shadow: 0 0 0 6px rgba(229,72,77,0); } }
