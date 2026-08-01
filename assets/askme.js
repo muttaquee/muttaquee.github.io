@@ -59,11 +59,41 @@ const CHAT_ENDPOINT = "https://muttaquee-chat.pnanto313.workers.dev";
   let speakOn = false;
   try { speakOn = localStorage.getItem("chatSpeak") === "1"; } catch (e) {}
   function renderSpeak() { speakBtn.textContent = speakOn ? "🔊" : "🔈"; speakBtn.classList.toggle("on", speakOn); }
+
+  // pick the most natural English voice available (varies by browser/OS)
+  let chosenVoice = null;
+  function pickVoice() {
+    if (!tts) return;
+    const voices = tts.getVoices();
+    if (!voices.length) return;
+    const score = (v) => {
+      const n = (v.name + " " + (v.voiceURI || "")).toLowerCase();
+      let s = 0;
+      if (/en[-_]?gb/i.test(v.lang)) s += 5; else if (/^en/i.test(v.lang)) s += 3;
+      if (n.includes("natural")) s += 10;       // Microsoft Edge "Natural" voices (very human)
+      if (n.includes("google")) s += 8;          // Chrome network voices
+      if (/\b(aria|jenny|libby|sonia|maisie|emma|ava|samantha)\b/.test(n)) s += 6; // natural female names
+      if (n.includes("premium") || n.includes("enhanced") || n.includes("siri")) s += 6; // Apple
+      if (n.includes("female") || n.includes("woman")) s += 2;
+      if (/\b(hazel|susan|zira|catherine|linda|heera|samantha|karen|serena|moira|tessa)\b/.test(n)) s += 2; // known female
+      if (!v.localService) s += 4; // network voices are usually the natural ones
+      if (n.includes("microsoft") && !n.includes("natural") && v.localService) s -= 2; // old robotic MS SAPI
+      return s;
+    };
+    chosenVoice = voices.slice().sort((a, b) => score(b) - score(a))[0] || null;
+  }
+  if (tts) {
+    pickVoice();
+    tts.addEventListener && tts.addEventListener("voiceschanged", pickVoice);
+  }
+
   function speak(text) {
     if (!speakOn || !tts) return;
     tts.cancel();
+    if (!chosenVoice) pickVoice();
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.02; u.pitch = 1; u.lang = "en-GB";
+    if (chosenVoice) { u.voice = chosenVoice; u.lang = chosenVoice.lang; } else { u.lang = "en-GB"; }
+    u.rate = 1.0; u.pitch = 1.02;
     tts.speak(u);
   }
   if (!tts) speakBtn.hidden = true;
