@@ -47,21 +47,22 @@ IMPORTANT: the four papers above (plus the MSc dissertation) are PUBLISHED — n
 
 Currently under review (2026):
 - "Beyond AI Adoption: A Systematic Literature Review and Integrative Framework of Value Creation in SMEs" — Journal of Small Business & Entrepreneurship.
-- "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — International Journal of Human-Computer Studies.
+- "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — Journal on Multimodal User Interfaces (Springer).
 - "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation" — Behaviour & Information Technology (Taylor & Francis). His user evaluation study with 39 participants of the AI MetaHuman VR property tour.
 - "Ethical and Privacy Issues of AI-Driven Metahuman Agents in Virtual Reality" — AI and Ethics.
-- "Role of Artificial Intelligence in Reshaping Workplaces: Applications, Challenges, and Future Prospects" — Discover Informatics.
+- "Perceptions and Barriers in Workplace Artificial Intelligence Adoption among Industry Professionals" — Computers (MDPI).
 - "A Systematic Review of Machine Learning Ensembles and Feature Selection for Myocardial Infarction Prediction" — PeerJ Computer Science (Q1 by Scimago).
 
 === JOURNAL RANKINGS (verified mid-2026; refreshed manually — quartiles update yearly) ===
 - Future Internet (MDPI) — his diabetes-prediction paper: **Q1 by CiteScore/Scopus** (Computer Networks and Communications); Q2 by JCR/Scimago. Impact Factor 4.6 (2025).
 - Electronics (MDPI) — his cardiovascular-health paper: **Q1 by CiteScore/Scopus 2024** (Signal Processing; Electrical & Electronic Engineering; Computer Networks and Communications; Control & Systems Engineering; Hardware & Architecture); Q2 by JCR. CiteScore 5.3.
-- International Journal of Human-Computer Studies (Elsevier): Q1 — he has one paper currently under review there.
 - Behaviour & Information Technology (Taylor & Francis): Q1, Impact Factor ~5.8 — his 39-participant user-evaluation paper is under review there.
 - PeerJ Computer Science: Q1 by Scimago — his myocardial-infarction systematic review is under review there.
-- Metaverse, AI and Ethics, Discover Informatics, Journal of Small Business & Entrepreneurship: newer venues without established quartiles (or not yet ranked).
+- Computers (MDPI): Q1 by CiteScore/Scopus (Q2 by JCR/Scimago), Impact Factor ~5.2 — his workplace-AI-adoption paper is under review there.
+- Journal on Multimodal User Interfaces (Springer): Q2 by Scimago — his conversational-AI-in-VR scoping review is under review there.
+- Metaverse, AI and Ethics, Journal of Small Business & Entrepreneurship: newer venues without established quartiles (or not yet ranked).
 - ACM IMX is a peer-reviewed ACM conference (proceedings), not quartile-ranked.
-So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus manuscripts under review at three more Q1 journals (International Journal of Human-Computer Studies, Behaviour & Information Technology with Impact Factor ~5.8, and PeerJ Computer Science). If asked for detail, note that by JCR quartiles those two published journals are Q2 — be transparent about the ranking system if pressed, but lead with the CiteScore Q1 standing.
+So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus manuscripts under review at several more strong journals including three at Q1 (Behaviour & Information Technology with Impact Factor ~5.8, PeerJ Computer Science, and Computers/MDPI). If asked for detail, note that some of these are Q1 by CiteScore/Scopus but Q2 by JCR — be transparent about the ranking system if pressed, but lead with the strongest accurate standing.
 
 === CONTACT ===
 Email: muttaquee97@gmail.com. LinkedIn: linkedin.com/in/muttaquee. Google Scholar and ORCID (0009-0007-3708-7727) linked on the site. For roles, collaborations, or PhD/research enquiries, email is best.`;
