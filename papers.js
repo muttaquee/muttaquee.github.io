@@ -3,6 +3,19 @@
 window.PUBLICATIONS = [
   {
     year: "2026",
+    title: "Agentic AI in Global Health Consultation: Technological Foundations, Clinical Validation, Regulatory Frameworks, and Future Prospects",
+    authors: ["Iqbal, M. Z.", "Talukder, M. G. M."],
+    myAuthorName: "Talukder, M. G. M.",
+    type: "Journal Article",
+    venue: "Intelligent Hospital",
+    cvVenue: "Intelligent Hospital",
+    details: "100111.",
+    doi: "10.1016/j.inhs.2026.100111",
+    peerReviewed: true,
+    selected: true,
+  },
+  {
+    year: "2026",
     title: "AI-Driven MetaHuman for Immersive VR Property Tours: Design and Early Evaluation",
     authors: ["Talukder, M. G. M.", "Iqbal, M. Z.", "Akinade, O."],
     myAuthorName: "Talukder, M. G. M.",

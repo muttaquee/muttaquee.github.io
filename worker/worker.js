@@ -37,6 +37,7 @@ AI & ML: supervised classification, ensemble methods (Random Forest, XGBoost, Li
 
 === PUBLICATIONS ===
 Peer-reviewed / published:
+0. Iqbal, M. Z., Talukder, M. G. M. (2026) "Agentic AI in Global Health Consultation: Technological Foundations, Clinical Validation, Regulatory Frameworks, and Future Prospects." Intelligent Hospital (Elsevier). DOI 10.1016/j.inhs.2026.100111. A co-authored review of agentic AI for global health consultation.
 1. Talukder, M. G. M., Iqbal, M. Z., Akinade, O. (2026) "AI-Driven MetaHuman for Immersive VR Property Tours: Design and Early Evaluation." ACM IMX '26 (first-author conference paper). DOI 10.1145/3788851.3815040.
 2. Adeyemi, S., Iqbal, M. Z., Talukder, M. G. M. (2026) "Machine Learning-Based Diabetes Risk Prediction via DiaHealth Dataset with Explainable AI and Streamlit Deployment." Future Internet 18(6), 331. DOI 10.3390/fi18060331.
 3. Talukder, M. G. M., Akinade, O., Iqbal, M. Z. (2025) "Exploring the Nexus: A Systematic Literature Review on Meta-Influencers in Immersive Brand Engagement." Metaverse 6(4). DOI 10.54517/m8225.
