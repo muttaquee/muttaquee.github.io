@@ -49,7 +49,7 @@ IMPORTANT: the papers listed above (plus the MSc dissertation) are PUBLISHED —
 
 Currently under review:
 - "ENGAGE Approach: Using LLM-Driven, Environment-Acting Generative Virtual Sales Agents to Raise Brand Engagement in Immersive Showrooms" — IEEE VR 2027 (conference paper). His car-showroom case study on a MetaHuman that both converses and physically acts.
-- "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom" — VRST 2026 (poster).
+- "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom" — VRST 2026 (conference paper).
 - "Beyond AI Adoption: A Systematic Literature Review and Integrative Framework of Value Creation in SMEs" — Journal of Small Business & Entrepreneurship.
 - "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — Journal on Multimodal User Interfaces (Springer).
 - "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation" — Behaviour & Information Technology (Taylor & Francis). His user evaluation study with 39 participants of the AI MetaHuman VR property tour.

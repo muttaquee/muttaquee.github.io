@@ -142,9 +142,9 @@ window.PUBLICATIONS = [
     title: "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom",
     authors: [],
     myAuthorName: "Talukder, M. G. M.",
-    type: "Poster",
-    venue: "VRST 2026 (Poster)",
-    cvVenue: "ACM Symposium on Virtual Reality Software and Technology (VRST 2026), Poster",
+    type: "Conference Paper",
+    venue: "VRST 2026",
+    cvVenue: "ACM Symposium on Virtual Reality Software and Technology (VRST 2026)",
     details: "",
     doi: "",
     status: "Under Review",
@@ -214,7 +214,7 @@ window.PUBLICATIONS = [
           ${byYear[y].map((p) => `
             <li class="pub-item">
               <span class="pub-marker">◎</span>
-              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.status ? ` <span class="pub-badge">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
+              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.type === "Conference Paper" ? ` <span class="pub-type">Conference</span>` : ""}${p.status ? ` <span class="pub-badge">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
             </li>`).join("")}
         </ul>
       </div>`).join("");
