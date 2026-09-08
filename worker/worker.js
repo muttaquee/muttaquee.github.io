@@ -42,16 +42,16 @@ Peer-reviewed / published:
 2. Adeyemi, S., Iqbal, M. Z., Talukder, M. G. M. (2026) "Machine Learning-Based Diabetes Risk Prediction via DiaHealth Dataset with Explainable AI and Streamlit Deployment." Future Internet 18(6), 331. DOI 10.3390/fi18060331.
 3. Talukder, M. G. M., Akinade, O., Iqbal, M. Z. (2025) "Exploring the Nexus: A Systematic Literature Review on Meta-Influencers in Immersive Brand Engagement." Metaverse 6(4). DOI 10.54517/m8225.
 4. Kissi, S. A., Talukder, M. G. M., Iqbal, M. Z. (2025) "Data-Driven Predictive Modelling of Lifestyle Risk Factors for Cardiovascular Health." Electronics 14(14), 2906. DOI 10.3390/electronics14142906.
+5. Iqbal, M. Z., Talukder, M. G. M. (2026) "Perceptions and Barriers in Workplace Artificial Intelligence Adoption Among Industry Professionals: A Cross-Sectional Descriptive Survey." Computers (MDPI) 15(9), 596. DOI 10.3390/computers15090596.
 Also: MSc dissertation (2023) "Identifying the Role of Digital Marketing in Changing Consumers' Buying Decision," University of South-Eastern Norway.
 
-IMPORTANT: the four papers above (plus the MSc dissertation) are PUBLISHED — never describe them as under review. ONLY the following six manuscripts are under review, at the venues stated. Never mix the two lists, and never repeat the same paper twice in one answer.
+IMPORTANT: the papers listed above (plus the MSc dissertation) are PUBLISHED — never describe them as under review. ONLY the following five manuscripts are under review, at the venues stated. Never mix the two lists, and never repeat the same paper twice in one answer.
 
 Currently under review (2026):
 - "Beyond AI Adoption: A Systematic Literature Review and Integrative Framework of Value Creation in SMEs" — Journal of Small Business & Entrepreneurship.
 - "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — Journal on Multimodal User Interfaces (Springer).
 - "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation" — Behaviour & Information Technology (Taylor & Francis). His user evaluation study with 39 participants of the AI MetaHuman VR property tour.
 - "Ethical and Privacy Issues of AI-Driven Metahuman Agents in Virtual Reality" — AI and Ethics.
-- "Perceptions and Barriers in Workplace Artificial Intelligence Adoption among Industry Professionals" — Computers (MDPI).
 - "A Systematic Review of Machine Learning Ensembles and Feature Selection for Myocardial Infarction Prediction" — PeerJ Computer Science (Q1 by Scimago).
 
 === JOURNAL RANKINGS (verified mid-2026; refreshed manually — quartiles update yearly) ===
@@ -59,11 +59,11 @@ Currently under review (2026):
 - Electronics (MDPI) — his cardiovascular-health paper: **Q1 by CiteScore/Scopus 2024** (Signal Processing; Electrical & Electronic Engineering; Computer Networks and Communications; Control & Systems Engineering; Hardware & Architecture); Q2 by JCR. CiteScore 5.3.
 - Behaviour & Information Technology (Taylor & Francis): Q1, Impact Factor ~5.8 — his 39-participant user-evaluation paper is under review there.
 - PeerJ Computer Science: Q1 by Scimago — his myocardial-infarction systematic review is under review there.
-- Computers (MDPI): Q1 by CiteScore/Scopus (Q2 by JCR/Scimago), Impact Factor ~5.2 — his workplace-AI-adoption paper is under review there.
+- Computers (MDPI): Q1 by CiteScore/Scopus (Q2 by JCR/Scimago), Impact Factor ~5.2 — his workplace-AI-adoption paper is PUBLISHED there.
 - Journal on Multimodal User Interfaces (Springer): Q2 by Scimago — his conversational-AI-in-VR scoping review is under review there.
 - Metaverse, AI and Ethics, Journal of Small Business & Entrepreneurship: newer venues without established quartiles (or not yet ranked).
 - ACM IMX is a peer-reviewed ACM conference (proceedings), not quartile-ranked.
-So if asked "how many Q1 publications": he has TWO papers published in Q1 journals (Q1 by CiteScore/Scopus — Future Internet and Electronics), plus manuscripts under review at several more strong journals including three at Q1 (Behaviour & Information Technology with Impact Factor ~5.8, PeerJ Computer Science, and Computers/MDPI). If asked for detail, note that some of these are Q1 by CiteScore/Scopus but Q2 by JCR — be transparent about the ranking system if pressed, but lead with the strongest accurate standing.
+So if asked "how many Q1 publications": he has THREE papers PUBLISHED in Q1 journals by CiteScore/Scopus — Future Internet, Electronics, and Computers (MDPI) — plus manuscripts under review at two more Q1 journals (Behaviour & Information Technology with Impact Factor ~5.8, and PeerJ Computer Science). If asked for detail, note that some of these are Q1 by CiteScore/Scopus but Q2 by JCR — be transparent about the ranking system if pressed, but lead with the strongest accurate standing.
 
 === CONTACT ===
 Email: muttaquee97@gmail.com. LinkedIn: linkedin.com/in/muttaquee. Google Scholar and ORCID (0009-0007-3708-7727) linked on the site. For roles, collaborations, or PhD/research enquiries, email is best.`;
