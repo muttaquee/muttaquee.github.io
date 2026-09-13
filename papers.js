@@ -70,7 +70,7 @@ window.PUBLICATIONS = [
   },
   {
     year: "2026",
-    title: "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation",
+    title: "Presence to Engagement: How Interaction Quality Shapes User Response to AI-Driven Metahuman Agents in Immersive Virtual Reality",
     authors: [],
     myAuthorName: "Talukder, M. G. M.",
     type: "Journal Article",
