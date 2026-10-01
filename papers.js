@@ -140,14 +140,28 @@ window.PUBLICATIONS = [
   {
     year: "2026",
     title: "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom",
+    authors: ["Talukder, M. G. M.", "Iqbal, M. Z.", "Akinade, O."],
+    myAuthorName: "Talukder, M. G. M.",
+    type: "Poster",
+    venue: "VRST 2026",
+    cvVenue: "ACM Symposium on Virtual Reality Software and Technology (VRST 2026)",
+    details: "Poster. Accepted September 2026.",
+    doi: "",
+    status: "Accepted",
+    peerReviewed: false,
+    selected: true,
+  },
+  {
+    year: "2026",
+    title: "Two Billion Stories: Scaling Empathy for Conflict-Affected Populations Through Conversational AI and Embodied Immersion",
     authors: [],
     myAuthorName: "Talukder, M. G. M.",
     type: "Conference Paper",
     venue: "VRST 2026",
     cvVenue: "ACM Symposium on Virtual Reality Software and Technology (VRST 2026)",
-    details: "",
+    details: "Accepted September 2026.",
     doi: "",
-    status: "Under Review",
+    status: "Accepted",
     peerReviewed: false,
     selected: true,
   },
@@ -214,7 +228,7 @@ window.PUBLICATIONS = [
           ${byYear[y].map((p) => `
             <li class="pub-item">
               <span class="pub-marker">◎</span>
-              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.type === "Conference Paper" ? ` <span class="pub-type">Conference</span>` : ""}${p.status ? ` <span class="pub-badge">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
+              <span class="pub-text">${authors(p, false) ? authors(p, false) + " " : ""}<em>“${p.title}”</em> <strong>${p.venue}</strong>${p.type === "Conference Paper" ? ` <span class="pub-type">Conference</span>` : ""}${p.status ? ` <span class="pub-badge${p.status === "Accepted" ? " accepted" : ""}">${p.status}</span>` : ""}${p.doi ? ` <a class="pub-doi" href="${doiUrl(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}</span>
             </li>`).join("")}
         </ul>
       </div>`).join("");

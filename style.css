@@ -1005,3 +1005,5 @@ body::before {
 .chat-mic:hover { background: rgba(21,113,107,0.12); }
 .chat-mic.listening { background: #e5484d; color: #fff; border-color: #e5484d; animation: micPulse 1s ease-in-out infinite; }
 @keyframes micPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(229,72,77,0.5); } 50% { box-shadow: 0 0 0 6px rgba(229,72,77,0); } }
+
+.pub-badge.accepted { color: #0d6a3a; background: rgba(34, 160, 94, 0.16); border-color: rgba(34, 160, 94, 0.5); }

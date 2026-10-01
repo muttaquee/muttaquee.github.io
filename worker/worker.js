@@ -45,11 +45,14 @@ Peer-reviewed / published:
 5. Iqbal, M. Z., Talukder, M. G. M. (2026) "Perceptions and Barriers in Workplace Artificial Intelligence Adoption Among Industry Professionals: A Cross-Sectional Descriptive Survey." Computers (MDPI) 15(9), 596. DOI 10.3390/computers15090596.
 Also: MSc dissertation (2023) "Identifying the Role of Digital Marketing in Changing Consumers' Buying Decision," University of South-Eastern Norway.
 
-IMPORTANT: the papers listed above (plus the MSc dissertation) are PUBLISHED — never describe them as under review. ONLY the following manuscripts are under review, at the venues stated. Never mix the two lists, and never repeat the same paper twice in one answer.
+IMPORTANT: the papers listed above (plus the MSc dissertation) are PUBLISHED — never describe them as under review. The two below are ACCEPTED (peer-reviewed, to appear) — describe them as accepted, not under review. ONLY the manuscripts in the "Currently under review" list are under review. Never mix these lists, and never repeat the same paper twice in one answer.
+
+Accepted (to appear) at VRST 2026 (ACM Symposium on Virtual Reality Software and Technology):
+- "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom" — VRST 2026 (poster). Accepted Sep 2026.
+- "Two Billion Stories: Scaling Empathy for Conflict-Affected Populations Through Conversational AI and Embodied Immersion" — VRST 2026. Accepted Sep 2026.
 
 Currently under review:
 - "ENGAGE Approach: Using LLM-Driven, Environment-Acting Generative Virtual Sales Agents to Raise Brand Engagement in Immersive Showrooms" — IEEE VR 2027 (conference paper). His car-showroom case study on a MetaHuman that both converses and physically acts.
-- "The Door, Not the Dialogue: Physical Agency in an LLM-Driven Virtual Showroom" — VRST 2026 (conference paper).
 - "Beyond AI Adoption: A Systematic Literature Review and Integrative Framework of Value Creation in SMEs" — Journal of Small Business & Entrepreneurship.
 - "Evaluating Conversational AI Agents in Immersive Virtual Reality: A Scoping Review of Methods, Measures, and Open Challenges" — Journal on Multimodal User Interfaces (Springer).
 - "Driving Interactive Brand Engagement with AI-Powered Metahuman Influencers in Immersive Virtual Reality Property Tours: Evidence from a User Evaluation" — Behaviour & Information Technology (Taylor & Francis). His user evaluation study with 39 participants of the AI MetaHuman VR property tour.
